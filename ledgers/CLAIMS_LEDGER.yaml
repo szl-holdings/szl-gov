@@ -65,3 +65,10 @@ claims:
     evidence:
       - audit_data/probes/
     notes: "7/7 public Spaces RUNNING with HEAD SHA captured 2026-08-30. Stage is not deployed-revision evidence (B-06)."
+  - claim_id: C-012
+    claim: Design-partner outreach has begun to verified public program inboxes
+    truth_state: VERIFIED
+    evidence:
+      - outreach/targets.md
+      - outreach/README.md
+    notes: "4 personalized emails SENT 2026-08-30: AICamp (DP), VerifyWise + Modulos (standards co-emission), Alpha Governance (founding cohort). Replies tracked by daily inbox watch."
