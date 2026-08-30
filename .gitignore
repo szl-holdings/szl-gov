@@ -1,0 +1,5 @@
+# never ship the private signing key
+keys/*.pem
+!keys/*.pub.pem
+__pycache__/
+*.pyc

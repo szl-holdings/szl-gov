@@ -1,0 +1,223 @@
+ledger: DATASET_LICENSE_REGISTER
+rule: Every public dataset needs a declared license + training-data rights basis. UNKNOWN_PRIVATE requires owner declaration.
+summary:
+  total: 36
+  declared: 28
+  "unknown": 8
+datasets:
+  - dataset: SZLHOLDINGS/SZLHOLDINGS
+    license: apache-2.0
+    private: false
+    sha12: "32b932c95388"
+    provenance_status: DECLARED
+    note: ""
+  - dataset: SZLHOLDINGS/a11oy-verifiable-corpus
+    license: apache-2.0
+    private: false
+    sha12: "1eb8dbb71736"
+    provenance_status: DECLARED
+    note: ""
+  - dataset: SZLHOLDINGS/alloy-sovereign-eval-runs
+    license: apache-2.0
+    private: false
+    sha12: "6926b2d49aee"
+    provenance_status: DECLARED
+    note: ""
+  - dataset: SZLHOLDINGS/anatomy-alive-harness
+    license: UNKNOWN
+    private: true
+    sha12: ""
+    provenance_status: UNKNOWN_PRIVATE
+    note: private repo — card not machine-readable anonymously; owner must declare
+  - dataset: SZLHOLDINGS/canonical-formulas-v1
+    license: apache-2.0
+    private: false
+    sha12: "1395ee1aa26a"
+    provenance_status: DECLARED
+    note: ""
+  - dataset: SZLHOLDINGS/doctrine-v10-v11
+    license: apache-2.0
+    private: false
+    sha12: "4bafa5dededa"
+    provenance_status: DECLARED
+    note: ""
+  - dataset: SZLHOLDINGS/energy-attested-runs
+    license: apache-2.0
+    private: false
+    sha12: "674fdba8eea3"
+    provenance_status: DECLARED
+    note: ""
+  - dataset: SZLHOLDINGS/governed-agent-bench
+    license: apache-2.0
+    private: false
+    sha12: a182f0e68f15
+    provenance_status: DECLARED
+    note: ""
+  - dataset: SZLHOLDINGS/governed-receipts-bench
+    license: apache-2.0
+    private: false
+    sha12: "235ef348dce7"
+    provenance_status: DECLARED
+    note: ""
+  - dataset: SZLHOLDINGS/k-verify-benchmark-v1
+    license: cc-by-4.0
+    private: false
+    sha12: "82bf28814d0b"
+    provenance_status: DECLARED
+    note: ""
+  - dataset: SZLHOLDINGS/killinchu-osint-corpus
+    license: other
+    private: false
+    sha12: "49fa0129adf1"
+    provenance_status: DECLARED
+    note: ""
+  - dataset: SZLHOLDINGS/lean-proofs-v1
+    license: apache-2.0
+    private: false
+    sha12: "563beb5786a4"
+    provenance_status: DECLARED
+    note: ""
+  - dataset: SZLHOLDINGS/lean-theorem-tree
+    license: apache-2.0
+    private: false
+    sha12: b93a14cd411e
+    provenance_status: DECLARED
+    note: ""
+  - dataset: SZLHOLDINGS/legacy-archive
+    license: UNKNOWN
+    private: true
+    sha12: ""
+    provenance_status: UNKNOWN_PRIVATE
+    note: private repo — card not machine-readable anonymously; owner must declare
+  - dataset: SZLHOLDINGS/ouroboros-arxiv-preprint
+    license: apache-2.0
+    private: false
+    sha12: "13ee49f4bbb8"
+    provenance_status: DECLARED
+    note: ""
+  - dataset: SZLHOLDINGS/rag-corpus-v1
+    license: apache-2.0
+    private: false
+    sha12: "5287573c5f47"
+    provenance_status: DECLARED
+    note: ""
+  - dataset: SZLHOLDINGS/readiness-runs
+    license: apache-2.0
+    private: false
+    sha12: "3798719acbfc"
+    provenance_status: DECLARED
+    note: ""
+  - dataset: SZLHOLDINGS/receipted-unsloth
+    license: apache-2.0
+    private: false
+    sha12: a62226464cab
+    provenance_status: DECLARED
+    note: ""
+  - dataset: SZLHOLDINGS/szl-1-doctrine-sft
+    license: apache-2.0
+    private: false
+    sha12: b11a9d6abe33
+    provenance_status: DECLARED
+    note: ""
+  - dataset: SZLHOLDINGS/szl-artifacts
+    license: apache-2.0
+    private: false
+    sha12: feff62cecb94
+    provenance_status: DECLARED
+    note: ""
+  - dataset: SZLHOLDINGS/szl-evidence
+    license: UNKNOWN
+    private: true
+    sha12: ""
+    provenance_status: UNKNOWN_PRIVATE
+    note: private repo — card not machine-readable anonymously; owner must declare
+  - dataset: SZLHOLDINGS/szl-lake
+    license: cc-by-4.0
+    private: false
+    sha12: "81373ab5b1da"
+    provenance_status: DECLARED
+    note: ""
+  - dataset: SZLHOLDINGS/szl-org-infra
+    license: UNKNOWN
+    private: true
+    sha12: ""
+    provenance_status: UNKNOWN_PRIVATE
+    note: private repo — card not machine-readable anonymously; owner must declare
+  - dataset: SZLHOLDINGS/szl-quant-sft-v1
+    license: apache-2.0
+    private: false
+    sha12: dfe997e573bd
+    provenance_status: DECLARED
+    note: ""
+  - dataset: SZLHOLDINGS/szl-second-brain-inrepo
+    license: other
+    private: false
+    sha12: d44a595b6c2b
+    provenance_status: DECLARED
+    note: ""
+  - dataset: SZLHOLDINGS/szl-training-receipts
+    license: UNKNOWN
+    private: true
+    sha12: ""
+    provenance_status: UNKNOWN_PRIVATE
+    note: private repo — card not machine-readable anonymously; owner must declare
+  - dataset: SZLHOLDINGS/test-results
+    license: apache-2.0
+    private: false
+    sha12: b488e7f4b181
+    provenance_status: DECLARED
+    note: ""
+  - dataset: SZLHOLDINGS/thesis-corpus-v18
+    license: apache-2.0
+    private: false
+    sha12: "8254324026bf"
+    provenance_status: DECLARED
+    note: ""
+  - dataset: SZLHOLDINGS/thesis-formula-index
+    license: UNKNOWN
+    private: true
+    sha12: ""
+    provenance_status: UNKNOWN_PRIVATE
+    note: private repo — card not machine-readable anonymously; owner must declare
+  - dataset: SZLHOLDINGS/thesis-v18-formal-verification
+    license: apache-2.0
+    private: false
+    sha12: "50d804156d12"
+    provenance_status: DECLARED
+    note: ""
+  - dataset: SZLHOLDINGS/uds-bundles-v1
+    license: apache-2.0
+    private: false
+    sha12: "797eb62a3d55"
+    provenance_status: DECLARED
+    note: ""
+  - dataset: SZLHOLDINGS/uds-governance-receipts
+    license: apache-2.0
+    private: false
+    sha12: aa6b8ab824e4
+    provenance_status: DECLARED
+    note: ""
+  - dataset: SZLHOLDINGS/uds-spans-receipts
+    license: apache-2.0
+    private: false
+    sha12: "41f07ff6541a"
+    provenance_status: DECLARED
+    note: ""
+  - dataset: SZLHOLDINGS/vault-artifacts
+    license: UNKNOWN
+    private: true
+    sha12: ""
+    provenance_status: UNKNOWN_PRIVATE
+    note: private repo — card not machine-readable anonymously; owner must declare
+  - dataset: SZLHOLDINGS/why-we-lead
+    license: apache-2.0
+    private: false
+    sha12: d4831596a0e9
+    provenance_status: DECLARED
+    note: ""
+  - dataset: SZLHOLDINGS/yuyay-v3-axis-labels-v1
+    license: UNKNOWN
+    private: true
+    sha12: ""
+    provenance_status: UNKNOWN_PRIVATE
+    note: private repo — card not machine-readable anonymously; owner must declare

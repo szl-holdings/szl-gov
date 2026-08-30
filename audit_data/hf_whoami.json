@@ -1,0 +1,11 @@
+{
+ "tool": "hf_whoami",
+ "result": "# Hugging Face authentication\n\nAuthenticated as [@betterwithage](https://huggingface.co/betterwithage) (`betterwithage`).\n\n- **Account ID:** `69ec7d565e5561c3b16baba8`\n- **Account type:** `user`\n- **Pro account:** yes\n\n## Current credential\n\n- **Type:** OAuth access token\n- **Expires:** 2026-08-31T05:02:21.000Z\n\n### Granted OAuth scopes\n\n- `openid`\n- `profile`\n- `read-mcp`\n- `read-repos`\n- `jobs`\n- `contribute-repos`\n- `inference-api`\n\n## Organization memberships\n\n### [SZL Holdings](https://huggingface.co/SZLHOLDINGS)\n\n- **Organization name:** `SZLHOLDINGS`\n- **Organization ID:** `6a18de7657b5b7a615a55801`\n- **Role:** `admin`\n- **Plan:** `team`\n\n### [AlloyScape](https://huggingface.co/alloyscape)\n\n- **Organization name:** `alloyscape`\n- **Organization ID:** `6a7e70012ebef1af90159dad`",
+ "connector": "hugging_face",
+ "structure": "JSON string (794 chars)",
+ "structured_content_metadata": {
+  "type": "dict",
+  "serialized_length": 631,
+  "truncated": false
+ }
+}

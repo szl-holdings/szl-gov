@@ -1,0 +1,1084 @@
+{
+ "generated_by": "tools/tier_spaces.py",
+ "flagship_capacity": 5,
+ "billing_verified": false,
+ "tiers": [
+  {
+   "name": "a11oy-factory",
+   "path": "SZLHOLDINGS/a11oy-factory",
+   "tier": "LAB",
+   "sdk": "docker",
+   "private": true,
+   "runtime_stage": "UNKNOWN",
+   "source_sha": null,
+   "truth_state": "UNKNOWN",
+   "attested": false,
+   "tests_passed": [
+    "no stale metric on the card",
+    "declared truth state"
+   ],
+   "tests_failed": [
+    "current source revision attested",
+    "deployed revision attested",
+    "mobile smoke test passed",
+    "conversion event present",
+    "link to a real verifier or receipt artifact",
+    "buyer-legible CTA"
+   ],
+   "notes": "Private Docker lab. Candidate: archive with dated frozen banner or demote to static."
+  },
+  {
+   "name": "a11oy",
+   "path": "SZLHOLDINGS/a11oy",
+   "tier": "FLAGSHIP",
+   "sdk": "docker",
+   "private": false,
+   "runtime_stage": "RUNNING",
+   "source_sha": "9e7088bb",
+   "truth_state": "VERIFIED",
+   "attested": false,
+   "tests_passed": [
+    "current source revision attested",
+    "deployed revision attested",
+    "mobile smoke test passed",
+    "link to a real verifier or receipt artifact",
+    "no stale metric on the card",
+    "buyer-legible CTA",
+    "declared truth state"
+   ],
+   "tests_failed": [
+    "conversion event present"
+   ],
+   "notes": "Flagship gap(s): conversion event present"
+  },
+  {
+   "name": "killinchu",
+   "path": "SZLHOLDINGS/killinchu",
+   "tier": "FLAGSHIP",
+   "sdk": "docker",
+   "private": false,
+   "runtime_stage": "RUNNING",
+   "source_sha": "49d2011e",
+   "truth_state": "VERIFIED",
+   "attested": true,
+   "tests_passed": [
+    "current source revision attested",
+    "deployed revision attested",
+    "mobile smoke test passed",
+    "conversion event present",
+    "link to a real verifier or receipt artifact",
+    "no stale metric on the card",
+    "buyer-legible CTA",
+    "declared truth state"
+   ],
+   "tests_failed": [],
+   "notes": "Fully machine-attested."
+  },
+  {
+   "name": "szl-provctl-live",
+   "path": "SZLHOLDINGS/szl-provctl-live",
+   "tier": "LAB",
+   "sdk": "static",
+   "private": true,
+   "runtime_stage": "UNKNOWN",
+   "source_sha": null,
+   "truth_state": "UNKNOWN",
+   "attested": false,
+   "tests_passed": [
+    "no stale metric on the card",
+    "declared truth state"
+   ],
+   "tests_failed": [
+    "current source revision attested",
+    "deployed revision attested",
+    "mobile smoke test passed",
+    "conversion event present",
+    "link to a real verifier or receipt artifact",
+    "buyer-legible CTA"
+   ],
+   "notes": ""
+  },
+  {
+   "name": "receipt-chain-live",
+   "path": "SZLHOLDINGS/receipt-chain-live",
+   "tier": "LAB",
+   "sdk": "static",
+   "private": true,
+   "runtime_stage": "UNKNOWN",
+   "source_sha": null,
+   "truth_state": "UNKNOWN",
+   "attested": false,
+   "tests_passed": [
+    "no stale metric on the card",
+    "declared truth state"
+   ],
+   "tests_failed": [
+    "current source revision attested",
+    "deployed revision attested",
+    "mobile smoke test passed",
+    "conversion event present",
+    "link to a real verifier or receipt artifact",
+    "buyer-legible CTA"
+   ],
+   "notes": ""
+  },
+  {
+   "name": "governed-receipt-verifier",
+   "path": "SZLHOLDINGS/governed-receipt-verifier",
+   "tier": "FLAGSHIP",
+   "sdk": "static",
+   "private": false,
+   "runtime_stage": "RUNNING",
+   "source_sha": "aac8de8c",
+   "truth_state": "VERIFIED",
+   "attested": false,
+   "tests_passed": [
+    "current source revision attested",
+    "deployed revision attested",
+    "mobile smoke test passed",
+    "link to a real verifier or receipt artifact",
+    "no stale metric on the card",
+    "declared truth state"
+   ],
+   "tests_failed": [
+    "conversion event present",
+    "buyer-legible CTA"
+   ],
+   "notes": "Flagship gap(s): conversion event present, buyer-legible CTA"
+  },
+  {
+   "name": "energy-attest-holo",
+   "path": "SZLHOLDINGS/energy-attest-holo",
+   "tier": "LAB",
+   "sdk": "static",
+   "private": true,
+   "runtime_stage": "UNKNOWN",
+   "source_sha": null,
+   "truth_state": "UNKNOWN",
+   "attested": false,
+   "tests_passed": [
+    "no stale metric on the card",
+    "declared truth state"
+   ],
+   "tests_failed": [
+    "current source revision attested",
+    "deployed revision attested",
+    "mobile smoke test passed",
+    "conversion event present",
+    "link to a real verifier or receipt artifact",
+    "buyer-legible CTA"
+   ],
+   "notes": ""
+  },
+  {
+   "name": "szl-kernels-live",
+   "path": "SZLHOLDINGS/szl-kernels-live",
+   "tier": "LAB",
+   "sdk": "static",
+   "private": true,
+   "runtime_stage": "UNKNOWN",
+   "source_sha": null,
+   "truth_state": "UNKNOWN",
+   "attested": false,
+   "tests_passed": [
+    "no stale metric on the card",
+    "declared truth state"
+   ],
+   "tests_failed": [
+    "current source revision attested",
+    "deployed revision attested",
+    "mobile smoke test passed",
+    "conversion event present",
+    "link to a real verifier or receipt artifact",
+    "buyer-legible CTA"
+   ],
+   "notes": ""
+  },
+  {
+   "name": "szl-govsign-live",
+   "path": "SZLHOLDINGS/szl-govsign-live",
+   "tier": "LAB",
+   "sdk": "static",
+   "private": true,
+   "runtime_stage": "UNKNOWN",
+   "source_sha": null,
+   "truth_state": "UNKNOWN",
+   "attested": false,
+   "tests_passed": [
+    "no stale metric on the card",
+    "declared truth state"
+   ],
+   "tests_failed": [
+    "current source revision attested",
+    "deployed revision attested",
+    "mobile smoke test passed",
+    "conversion event present",
+    "link to a real verifier or receipt artifact",
+    "buyer-legible CTA"
+   ],
+   "notes": ""
+  },
+  {
+   "name": "szl-estate-live",
+   "path": "SZLHOLDINGS/szl-estate-live",
+   "tier": "LAB",
+   "sdk": "static",
+   "private": true,
+   "runtime_stage": "UNKNOWN",
+   "source_sha": null,
+   "truth_state": "UNKNOWN",
+   "attested": false,
+   "tests_passed": [
+    "no stale metric on the card",
+    "declared truth state"
+   ],
+   "tests_failed": [
+    "current source revision attested",
+    "deployed revision attested",
+    "mobile smoke test passed",
+    "conversion event present",
+    "link to a real verifier or receipt artifact",
+    "buyer-legible CTA"
+   ],
+   "notes": ""
+  },
+  {
+   "name": "szl-forge-lab",
+   "path": "SZLHOLDINGS/szl-forge-lab",
+   "tier": "LAB",
+   "sdk": "static",
+   "private": true,
+   "runtime_stage": "UNKNOWN",
+   "source_sha": null,
+   "truth_state": "UNKNOWN",
+   "attested": false,
+   "tests_passed": [
+    "no stale metric on the card",
+    "declared truth state"
+   ],
+   "tests_failed": [
+    "current source revision attested",
+    "deployed revision attested",
+    "mobile smoke test passed",
+    "conversion event present",
+    "link to a real verifier or receipt artifact",
+    "buyer-legible CTA"
+   ],
+   "notes": ""
+  },
+  {
+   "name": "szl-blocked-live",
+   "path": "SZLHOLDINGS/szl-blocked-live",
+   "tier": "LAB",
+   "sdk": "static",
+   "private": true,
+   "runtime_stage": "UNKNOWN",
+   "source_sha": null,
+   "truth_state": "UNKNOWN",
+   "attested": false,
+   "tests_passed": [
+    "no stale metric on the card",
+    "declared truth state"
+   ],
+   "tests_failed": [
+    "current source revision attested",
+    "deployed revision attested",
+    "mobile smoke test passed",
+    "conversion event present",
+    "link to a real verifier or receipt artifact",
+    "buyer-legible CTA"
+   ],
+   "notes": ""
+  },
+  {
+   "name": "guardrail-receipt",
+   "path": "SZLHOLDINGS/guardrail-receipt",
+   "tier": "LAB",
+   "sdk": "static",
+   "private": true,
+   "runtime_stage": "UNKNOWN",
+   "source_sha": null,
+   "truth_state": "UNKNOWN",
+   "attested": false,
+   "tests_passed": [
+    "no stale metric on the card",
+    "declared truth state"
+   ],
+   "tests_failed": [
+    "current source revision attested",
+    "deployed revision attested",
+    "mobile smoke test passed",
+    "conversion event present",
+    "link to a real verifier or receipt artifact",
+    "buyer-legible CTA"
+   ],
+   "notes": ""
+  },
+  {
+   "name": "lambda-gate-holo",
+   "path": "SZLHOLDINGS/lambda-gate-holo",
+   "tier": "LAB",
+   "sdk": "static",
+   "private": true,
+   "runtime_stage": "UNKNOWN",
+   "source_sha": null,
+   "truth_state": "UNKNOWN",
+   "attested": false,
+   "tests_passed": [
+    "no stale metric on the card",
+    "declared truth state"
+   ],
+   "tests_failed": [
+    "current source revision attested",
+    "deployed revision attested",
+    "mobile smoke test passed",
+    "conversion event present",
+    "link to a real verifier or receipt artifact",
+    "buyer-legible CTA"
+   ],
+   "notes": ""
+  },
+  {
+   "name": "governed-norm-holo",
+   "path": "SZLHOLDINGS/governed-norm-holo",
+   "tier": "LAB",
+   "sdk": "static",
+   "private": true,
+   "runtime_stage": "UNKNOWN",
+   "source_sha": null,
+   "truth_state": "UNKNOWN",
+   "attested": false,
+   "tests_passed": [
+    "no stale metric on the card",
+    "declared truth state"
+   ],
+   "tests_failed": [
+    "current source revision attested",
+    "deployed revision attested",
+    "mobile smoke test passed",
+    "conversion event present",
+    "link to a real verifier or receipt artifact",
+    "buyer-legible CTA"
+   ],
+   "notes": ""
+  },
+  {
+   "name": "energy-attested-runs",
+   "path": "SZLHOLDINGS/energy-attested-runs",
+   "tier": "LAB",
+   "sdk": "static",
+   "private": true,
+   "runtime_stage": "UNKNOWN",
+   "source_sha": null,
+   "truth_state": "UNKNOWN",
+   "attested": false,
+   "tests_passed": [
+    "no stale metric on the card",
+    "declared truth state"
+   ],
+   "tests_failed": [
+    "current source revision attested",
+    "deployed revision attested",
+    "mobile smoke test passed",
+    "conversion event present",
+    "link to a real verifier or receipt artifact",
+    "buyer-legible CTA"
+   ],
+   "notes": ""
+  },
+  {
+   "name": "ayllu",
+   "path": "SZLHOLDINGS/ayllu",
+   "tier": "LAB",
+   "sdk": "docker",
+   "private": true,
+   "runtime_stage": "UNKNOWN",
+   "source_sha": null,
+   "truth_state": "UNKNOWN",
+   "attested": false,
+   "tests_passed": [
+    "no stale metric on the card",
+    "declared truth state"
+   ],
+   "tests_failed": [
+    "current source revision attested",
+    "deployed revision attested",
+    "mobile smoke test passed",
+    "conversion event present",
+    "link to a real verifier or receipt artifact",
+    "buyer-legible CTA"
+   ],
+   "notes": "Private Docker lab. Candidate: archive with dated frozen banner or demote to static."
+  },
+  {
+   "name": "szl-atelier",
+   "path": "SZLHOLDINGS/szl-atelier",
+   "tier": "SUPPORTING",
+   "sdk": "static",
+   "private": false,
+   "runtime_stage": "RUNNING",
+   "source_sha": "28801d92",
+   "truth_state": "VERIFIED",
+   "attested": false,
+   "tests_passed": [
+    "current source revision attested",
+    "deployed revision attested",
+    "mobile smoke test passed",
+    "link to a real verifier or receipt artifact",
+    "no stale metric on the card",
+    "declared truth state"
+   ],
+   "tests_failed": [
+    "conversion event present",
+    "buyer-legible CTA"
+   ],
+   "notes": ""
+  },
+  {
+   "name": "nexus",
+   "path": "SZLHOLDINGS/nexus",
+   "tier": "LAB",
+   "sdk": "docker",
+   "private": true,
+   "runtime_stage": "UNKNOWN",
+   "source_sha": null,
+   "truth_state": "UNKNOWN",
+   "attested": false,
+   "tests_passed": [
+    "no stale metric on the card",
+    "declared truth state"
+   ],
+   "tests_failed": [
+    "current source revision attested",
+    "deployed revision attested",
+    "mobile smoke test passed",
+    "conversion event present",
+    "link to a real verifier or receipt artifact",
+    "buyer-legible CTA"
+   ],
+   "notes": "Private Docker lab. Candidate: archive with dated frozen banner or demote to static."
+  },
+  {
+   "name": "szl-khipu",
+   "path": "SZLHOLDINGS/szl-khipu",
+   "tier": "FLAGSHIP",
+   "sdk": "docker",
+   "private": false,
+   "runtime_stage": "RUNNING",
+   "source_sha": "e5ecf740",
+   "truth_state": "VERIFIED",
+   "attested": false,
+   "tests_passed": [
+    "current source revision attested",
+    "deployed revision attested",
+    "mobile smoke test passed",
+    "no stale metric on the card",
+    "declared truth state"
+   ],
+   "tests_failed": [
+    "conversion event present",
+    "link to a real verifier or receipt artifact",
+    "buyer-legible CTA"
+   ],
+   "notes": "Flagship gap(s): conversion event present, link to a real verifier or receipt artifact, buyer-legible CTA"
+  },
+  {
+   "name": "lyte-services",
+   "path": "SZLHOLDINGS/lyte-services",
+   "tier": "LAB",
+   "sdk": "docker",
+   "private": true,
+   "runtime_stage": "UNKNOWN",
+   "source_sha": null,
+   "truth_state": "UNKNOWN",
+   "attested": false,
+   "tests_passed": [
+    "no stale metric on the card",
+    "declared truth state"
+   ],
+   "tests_failed": [
+    "current source revision attested",
+    "deployed revision attested",
+    "mobile smoke test passed",
+    "conversion event present",
+    "link to a real verifier or receipt artifact",
+    "buyer-legible CTA"
+   ],
+   "notes": "Private Docker lab. Candidate: archive with dated frozen banner or demote to static."
+  },
+  {
+   "name": "szl-command-lab",
+   "path": "SZLHOLDINGS/szl-command-lab",
+   "tier": "LAB",
+   "sdk": "docker",
+   "private": true,
+   "runtime_stage": "UNKNOWN",
+   "source_sha": null,
+   "truth_state": "UNKNOWN",
+   "attested": false,
+   "tests_passed": [
+    "no stale metric on the card",
+    "declared truth state"
+   ],
+   "tests_failed": [
+    "current source revision attested",
+    "deployed revision attested",
+    "mobile smoke test passed",
+    "conversion event present",
+    "link to a real verifier or receipt artifact",
+    "buyer-legible CTA"
+   ],
+   "notes": "Private Docker lab. Candidate: archive with dated frozen banner or demote to static."
+  },
+  {
+   "name": "README",
+   "path": "SZLHOLDINGS/README",
+   "tier": "ORG_CARD",
+   "sdk": "static",
+   "private": false,
+   "runtime_stage": "RUNNING",
+   "source_sha": "d2379f04",
+   "truth_state": "VERIFIED",
+   "attested": true,
+   "tests_passed": [
+    "current source revision attested",
+    "deployed revision attested",
+    "mobile smoke test passed",
+    "conversion event present",
+    "link to a real verifier or receipt artifact",
+    "no stale metric on the card",
+    "buyer-legible CTA",
+    "declared truth state"
+   ],
+   "tests_failed": [],
+   "notes": "Org card is itself a Space (B-08). Needs receipt link + no stale metric."
+  },
+  {
+   "name": "cosmos",
+   "path": "SZLHOLDINGS/cosmos",
+   "tier": "LAB",
+   "sdk": "docker",
+   "private": true,
+   "runtime_stage": "UNKNOWN",
+   "source_sha": null,
+   "truth_state": "UNKNOWN",
+   "attested": false,
+   "tests_passed": [
+    "no stale metric on the card",
+    "declared truth state"
+   ],
+   "tests_failed": [
+    "current source revision attested",
+    "deployed revision attested",
+    "mobile smoke test passed",
+    "conversion event present",
+    "link to a real verifier or receipt artifact",
+    "buyer-legible CTA"
+   ],
+   "notes": "Private Docker lab. Candidate: archive with dated frozen banner or demote to static."
+  },
+  {
+   "name": "szl-real-estate",
+   "path": "SZLHOLDINGS/szl-real-estate",
+   "tier": "LAB",
+   "sdk": "docker",
+   "private": true,
+   "runtime_stage": "UNKNOWN",
+   "source_sha": null,
+   "truth_state": "UNKNOWN",
+   "attested": false,
+   "tests_passed": [
+    "no stale metric on the card",
+    "declared truth state"
+   ],
+   "tests_failed": [
+    "current source revision attested",
+    "deployed revision attested",
+    "mobile smoke test passed",
+    "conversion event present",
+    "link to a real verifier or receipt artifact",
+    "buyer-legible CTA"
+   ],
+   "notes": "Private Docker lab. Candidate: archive with dated frozen banner or demote to static."
+  },
+  {
+   "name": "khipu-lab",
+   "path": "SZLHOLDINGS/khipu-lab",
+   "tier": "LAB",
+   "sdk": "docker",
+   "private": true,
+   "runtime_stage": "UNKNOWN",
+   "source_sha": null,
+   "truth_state": "UNKNOWN",
+   "attested": false,
+   "tests_passed": [
+    "no stale metric on the card",
+    "declared truth state"
+   ],
+   "tests_failed": [
+    "current source revision attested",
+    "deployed revision attested",
+    "mobile smoke test passed",
+    "conversion event present",
+    "link to a real verifier or receipt artifact",
+    "buyer-legible CTA"
+   ],
+   "notes": "Private Docker lab. Candidate: archive with dated frozen banner or demote to static."
+  },
+  {
+   "name": "counsel",
+   "path": "SZLHOLDINGS/counsel",
+   "tier": "LAB",
+   "sdk": "docker",
+   "private": true,
+   "runtime_stage": "UNKNOWN",
+   "source_sha": null,
+   "truth_state": "UNKNOWN",
+   "attested": false,
+   "tests_passed": [
+    "no stale metric on the card",
+    "declared truth state"
+   ],
+   "tests_failed": [
+    "current source revision attested",
+    "deployed revision attested",
+    "mobile smoke test passed",
+    "conversion event present",
+    "link to a real verifier or receipt artifact",
+    "buyer-legible CTA"
+   ],
+   "notes": "Private Docker lab. Candidate: archive with dated frozen banner or demote to static."
+  },
+  {
+   "name": "immune-lattice",
+   "path": "SZLHOLDINGS/immune-lattice",
+   "tier": "LAB",
+   "sdk": "docker",
+   "private": true,
+   "runtime_stage": "UNKNOWN",
+   "source_sha": null,
+   "truth_state": "UNKNOWN",
+   "attested": false,
+   "tests_passed": [
+    "no stale metric on the card",
+    "declared truth state"
+   ],
+   "tests_failed": [
+    "current source revision attested",
+    "deployed revision attested",
+    "mobile smoke test passed",
+    "conversion event present",
+    "link to a real verifier or receipt artifact",
+    "buyer-legible CTA"
+   ],
+   "notes": "Private Docker lab. Candidate: archive with dated frozen banner or demote to static."
+  },
+  {
+   "name": "immune",
+   "path": "SZLHOLDINGS/immune",
+   "tier": "FLAGSHIP",
+   "sdk": "docker",
+   "private": false,
+   "runtime_stage": "RUNNING",
+   "source_sha": "c85d4900",
+   "truth_state": "VERIFIED",
+   "attested": true,
+   "tests_passed": [
+    "current source revision attested",
+    "deployed revision attested",
+    "mobile smoke test passed",
+    "conversion event present",
+    "link to a real verifier or receipt artifact",
+    "no stale metric on the card",
+    "buyer-legible CTA",
+    "declared truth state"
+   ],
+   "tests_failed": [],
+   "notes": "Fully machine-attested."
+  },
+  {
+   "name": "terra-assurance",
+   "path": "SZLHOLDINGS/terra-assurance",
+   "tier": "LAB",
+   "sdk": "docker",
+   "private": true,
+   "runtime_stage": "UNKNOWN",
+   "source_sha": null,
+   "truth_state": "UNKNOWN",
+   "attested": false,
+   "tests_passed": [
+    "no stale metric on the card",
+    "declared truth state"
+   ],
+   "tests_failed": [
+    "current source revision attested",
+    "deployed revision attested",
+    "mobile smoke test passed",
+    "conversion event present",
+    "link to a real verifier or receipt artifact",
+    "buyer-legible CTA"
+   ],
+   "notes": "Private Docker lab. Candidate: archive with dated frozen banner or demote to static."
+  },
+  {
+   "name": "anatomy",
+   "path": "SZLHOLDINGS/anatomy",
+   "tier": "LAB",
+   "sdk": "docker",
+   "private": true,
+   "runtime_stage": "UNKNOWN",
+   "source_sha": null,
+   "truth_state": "UNKNOWN",
+   "attested": false,
+   "tests_passed": [
+    "no stale metric on the card",
+    "declared truth state"
+   ],
+   "tests_failed": [
+    "current source revision attested",
+    "deployed revision attested",
+    "mobile smoke test passed",
+    "conversion event present",
+    "link to a real verifier or receipt artifact",
+    "buyer-legible CTA"
+   ],
+   "notes": "Private Docker lab. Candidate: archive with dated frozen banner or demote to static."
+  },
+  {
+   "name": "szl-experiments",
+   "path": "SZLHOLDINGS/szl-experiments",
+   "tier": "LAB",
+   "sdk": "docker",
+   "private": true,
+   "runtime_stage": "UNKNOWN",
+   "source_sha": null,
+   "truth_state": "UNKNOWN",
+   "attested": false,
+   "tests_passed": [
+    "no stale metric on the card",
+    "declared truth state"
+   ],
+   "tests_failed": [
+    "current source revision attested",
+    "deployed revision attested",
+    "mobile smoke test passed",
+    "conversion event present",
+    "link to a real verifier or receipt artifact",
+    "buyer-legible CTA"
+   ],
+   "notes": "Private Docker lab. Candidate: archive with dated frozen banner or demote to static."
+  },
+  {
+   "name": "szl-sovereign-os",
+   "path": "SZLHOLDINGS/szl-sovereign-os",
+   "tier": "LAB",
+   "sdk": "docker",
+   "private": true,
+   "runtime_stage": "UNKNOWN",
+   "source_sha": null,
+   "truth_state": "UNKNOWN",
+   "attested": false,
+   "tests_passed": [
+    "no stale metric on the card",
+    "declared truth state"
+   ],
+   "tests_failed": [
+    "current source revision attested",
+    "deployed revision attested",
+    "mobile smoke test passed",
+    "conversion event present",
+    "link to a real verifier or receipt artifact",
+    "buyer-legible CTA"
+   ],
+   "notes": "Private Docker lab. Candidate: archive with dated frozen banner or demote to static."
+  },
+  {
+   "name": "evidence-studio",
+   "path": "SZLHOLDINGS/evidence-studio",
+   "tier": "LAB",
+   "sdk": "docker",
+   "private": true,
+   "runtime_stage": "UNKNOWN",
+   "source_sha": null,
+   "truth_state": "UNKNOWN",
+   "attested": false,
+   "tests_passed": [
+    "no stale metric on the card",
+    "declared truth state"
+   ],
+   "tests_failed": [
+    "current source revision attested",
+    "deployed revision attested",
+    "mobile smoke test passed",
+    "conversion event present",
+    "link to a real verifier or receipt artifact",
+    "buyer-legible CTA"
+   ],
+   "notes": "Private Docker lab. Candidate: archive with dated frozen banner or demote to static."
+  },
+  {
+   "name": "second-brain",
+   "path": "SZLHOLDINGS/second-brain",
+   "tier": "LAB",
+   "sdk": "docker",
+   "private": true,
+   "runtime_stage": "UNKNOWN",
+   "source_sha": null,
+   "truth_state": "UNKNOWN",
+   "attested": false,
+   "tests_passed": [
+    "no stale metric on the card",
+    "declared truth state"
+   ],
+   "tests_failed": [
+    "current source revision attested",
+    "deployed revision attested",
+    "mobile smoke test passed",
+    "conversion event present",
+    "link to a real verifier or receipt artifact",
+    "buyer-legible CTA"
+   ],
+   "notes": "Private Docker lab. Candidate: archive with dated frozen banner or demote to static."
+  },
+  {
+   "name": "experiments",
+   "path": "SZLHOLDINGS/experiments",
+   "tier": "LAB",
+   "sdk": "docker",
+   "private": true,
+   "runtime_stage": "UNKNOWN",
+   "source_sha": null,
+   "truth_state": "UNKNOWN",
+   "attested": false,
+   "tests_passed": [
+    "no stale metric on the card",
+    "declared truth state"
+   ],
+   "tests_failed": [
+    "current source revision attested",
+    "deployed revision attested",
+    "mobile smoke test passed",
+    "conversion event present",
+    "link to a real verifier or receipt artifact",
+    "buyer-legible CTA"
+   ],
+   "notes": "Private Docker lab. Candidate: archive with dated frozen banner or demote to static."
+  },
+  {
+   "name": "szl-quant-live",
+   "path": "SZLHOLDINGS/szl-quant-live",
+   "tier": "LAB",
+   "sdk": "static",
+   "private": true,
+   "runtime_stage": "UNKNOWN",
+   "source_sha": null,
+   "truth_state": "UNKNOWN",
+   "attested": false,
+   "tests_passed": [
+    "no stale metric on the card",
+    "declared truth state"
+   ],
+   "tests_failed": [
+    "current source revision attested",
+    "deployed revision attested",
+    "mobile smoke test passed",
+    "conversion event present",
+    "link to a real verifier or receipt artifact",
+    "buyer-legible CTA"
+   ],
+   "notes": ""
+  },
+  {
+   "name": "yarqa",
+   "path": "SZLHOLDINGS/yarqa",
+   "tier": "LAB",
+   "sdk": "docker",
+   "private": true,
+   "runtime_stage": "UNKNOWN",
+   "source_sha": null,
+   "truth_state": "UNKNOWN",
+   "attested": false,
+   "tests_passed": [
+    "no stale metric on the card",
+    "declared truth state"
+   ],
+   "tests_failed": [
+    "current source revision attested",
+    "deployed revision attested",
+    "mobile smoke test passed",
+    "conversion event present",
+    "link to a real verifier or receipt artifact",
+    "buyer-legible CTA"
+   ],
+   "notes": "Private Docker lab. Candidate: archive with dated frozen banner or demote to static."
+  },
+  {
+   "name": "david-leads",
+   "path": "SZLHOLDINGS/david-leads",
+   "tier": "LAB",
+   "sdk": "docker",
+   "private": true,
+   "runtime_stage": "UNKNOWN",
+   "source_sha": null,
+   "truth_state": "UNKNOWN",
+   "attested": false,
+   "tests_passed": [
+    "no stale metric on the card",
+    "declared truth state"
+   ],
+   "tests_failed": [
+    "current source revision attested",
+    "deployed revision attested",
+    "mobile smoke test passed",
+    "conversion event present",
+    "link to a real verifier or receipt artifact",
+    "buyer-legible CTA"
+   ],
+   "notes": "Private Docker lab. Candidate: archive with dated frozen banner or demote to static."
+  },
+  {
+   "name": "szl-model-inference-lab",
+   "path": "SZLHOLDINGS/szl-model-inference-lab",
+   "tier": "LAB",
+   "sdk": "docker",
+   "private": true,
+   "runtime_stage": "UNKNOWN",
+   "source_sha": null,
+   "truth_state": "UNKNOWN",
+   "attested": false,
+   "tests_passed": [
+    "no stale metric on the card",
+    "declared truth state"
+   ],
+   "tests_failed": [
+    "current source revision attested",
+    "deployed revision attested",
+    "mobile smoke test passed",
+    "conversion event present",
+    "link to a real verifier or receipt artifact",
+    "buyer-legible CTA"
+   ],
+   "notes": "Private Docker lab. Candidate: archive with dated frozen banner or demote to static."
+  },
+  {
+   "name": "hatun-mcp",
+   "path": "SZLHOLDINGS/hatun-mcp",
+   "tier": "LAB",
+   "sdk": "docker",
+   "private": true,
+   "runtime_stage": "UNKNOWN",
+   "source_sha": null,
+   "truth_state": "UNKNOWN",
+   "attested": false,
+   "tests_passed": [
+    "no stale metric on the card",
+    "declared truth state"
+   ],
+   "tests_failed": [
+    "current source revision attested",
+    "deployed revision attested",
+    "mobile smoke test passed",
+    "conversion event present",
+    "link to a real verifier or receipt artifact",
+    "buyer-legible CTA"
+   ],
+   "notes": "Private Docker lab. Candidate: archive with dated frozen banner or demote to static."
+  },
+  {
+   "name": "llm-router-live",
+   "path": "SZLHOLDINGS/llm-router-live",
+   "tier": "LAB",
+   "sdk": "docker",
+   "private": true,
+   "runtime_stage": "UNKNOWN",
+   "source_sha": null,
+   "truth_state": "UNKNOWN",
+   "attested": false,
+   "tests_passed": [
+    "no stale metric on the card",
+    "declared truth state"
+   ],
+   "tests_failed": [
+    "current source revision attested",
+    "deployed revision attested",
+    "mobile smoke test passed",
+    "conversion event present",
+    "link to a real verifier or receipt artifact",
+    "buyer-legible CTA"
+   ],
+   "notes": "Private Docker lab. Candidate: archive with dated frozen banner or demote to static."
+  },
+  {
+   "name": "sda",
+   "path": "SZLHOLDINGS/sda",
+   "tier": "LAB",
+   "sdk": "docker",
+   "private": true,
+   "runtime_stage": "UNKNOWN",
+   "source_sha": null,
+   "truth_state": "UNKNOWN",
+   "attested": false,
+   "tests_passed": [
+    "no stale metric on the card",
+    "declared truth state"
+   ],
+   "tests_failed": [
+    "current source revision attested",
+    "deployed revision attested",
+    "mobile smoke test passed",
+    "conversion event present",
+    "link to a real verifier or receipt artifact",
+    "buyer-legible CTA"
+   ],
+   "notes": "Private Docker lab. Candidate: archive with dated frozen banner or demote to static."
+  },
+  {
+   "name": "governed-agent-bench",
+   "path": "SZLHOLDINGS/governed-agent-bench",
+   "tier": "LAB",
+   "sdk": "gradio",
+   "private": true,
+   "runtime_stage": "UNKNOWN",
+   "source_sha": null,
+   "truth_state": "UNKNOWN",
+   "attested": false,
+   "tests_passed": [
+    "no stale metric on the card",
+    "declared truth state"
+   ],
+   "tests_failed": [
+    "current source revision attested",
+    "deployed revision attested",
+    "mobile smoke test passed",
+    "conversion event present",
+    "link to a real verifier or receipt artifact",
+    "buyer-legible CTA"
+   ],
+   "notes": ""
+  },
+  {
+   "name": "holographic",
+   "path": "SZLHOLDINGS/holographic",
+   "tier": "LAB",
+   "sdk": "docker",
+   "private": true,
+   "runtime_stage": "UNKNOWN",
+   "source_sha": null,
+   "truth_state": "UNKNOWN",
+   "attested": false,
+   "tests_passed": [
+    "no stale metric on the card",
+    "declared truth state"
+   ],
+   "tests_failed": [
+    "current source revision attested",
+    "deployed revision attested",
+    "mobile smoke test passed",
+    "conversion event present",
+    "link to a real verifier or receipt artifact",
+    "buyer-legible CTA"
+   ],
+   "notes": "Private Docker lab. Candidate: archive with dated frozen banner or demote to static."
+  }
+ ]
+}

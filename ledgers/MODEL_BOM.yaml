@@ -1,0 +1,438 @@
+ledger: MODEL_BOM
+rule: Every model needs license + base_model + training-data basis before diligence. UNKNOWN blocks the raise.
+summary:
+  total: 43
+  license_declared: 43
+  base_declared: 13
+  third_party_bases: 12
+models:
+  - model: SZLHOLDINGS/A11OY-MINI
+    license: apache-2.0
+    base_model: UNKNOWN
+    base_model_license: UNKNOWN
+    third_party_base: false
+    library: llama.cpp
+    pipeline_tag: text-generation
+    sha12: b122bb9617d1
+    downloads: 27
+    provenance_status: LICENSE_ONLY
+  - model: SZLHOLDINGS/KHIPU-R2
+    license: apache-2.0
+    base_model: Qwen/Qwen2.5-1.5B-Instruct
+    base_model_license: apache-2.0
+    third_party_base: true
+    library: peft
+    pipeline_tag: text-generation
+    sha12: "449305ca4591"
+    downloads: 60
+    provenance_status: DECLARED
+  - model: SZLHOLDINGS/KILLINCHU-EYE
+    license: apache-2.0
+    base_model: UNKNOWN
+    base_model_license: UNKNOWN
+    third_party_base: false
+    library: other
+    pipeline_tag: UNKNOWN
+    sha12: d3dd392769b7
+    downloads: 0
+    provenance_status: LICENSE_ONLY
+  - model: SZLHOLDINGS/MiniEmbed-Nano
+    license: apache-2.0
+    base_model: UNKNOWN
+    base_model_license: UNKNOWN
+    third_party_base: false
+    library: numpy
+    pipeline_tag: UNKNOWN
+    sha12: "6fd949190bc1"
+    downloads: 0
+    provenance_status: LICENSE_ONLY
+  - model: SZLHOLDINGS/Moons-Nano
+    license: apache-2.0
+    base_model: UNKNOWN
+    base_model_license: UNKNOWN
+    third_party_base: false
+    library: numpy
+    pipeline_tag: UNKNOWN
+    sha12: e80c95f3801b
+    downloads: 0
+    provenance_status: LICENSE_ONLY
+  - model: SZLHOLDINGS/ReceiptAgent-Nano
+    license: apache-2.0
+    base_model: UNKNOWN
+    base_model_license: UNKNOWN
+    third_party_base: false
+    library: numpy
+    pipeline_tag: UNKNOWN
+    sha12: "1035caaa2302"
+    downloads: 0
+    provenance_status: LICENSE_ONLY
+  - model: SZLHOLDINGS/SZL-Forge-1.5B-ReceiptAgent
+    license: apache-2.0
+    base_model: Qwen/Qwen2.5-1.5B-Instruct
+    base_model_license: apache-2.0
+    third_party_base: true
+    library: transformers
+    pipeline_tag: text-generation
+    sha12: "7a27708d97a7"
+    downloads: 954
+    provenance_status: DECLARED
+  - model: SZLHOLDINGS/SZL-Khipu-1.5B
+    license: apache-2.0
+    base_model: Qwen/Qwen2.5-1.5B-Instruct
+    base_model_license: apache-2.0
+    third_party_base: true
+    library: transformers
+    pipeline_tag: text-generation
+    sha12: "37830323f21a"
+    downloads: 1102
+    provenance_status: DECLARED
+  - model: SZLHOLDINGS/SZL-Khipu-1.5B-GGUF
+    license: apache-2.0
+    base_model: SZLHOLDINGS/SZL-Khipu-1.5B
+    base_model_license: UNKNOWN
+    third_party_base: false
+    library: llama.cpp
+    pipeline_tag: text-generation
+    sha12: cf771c4c39ae
+    downloads: 611
+    provenance_status: DECLARED
+  - model: SZLHOLDINGS/SZL-Khipu-1.5B-abstain
+    license: apache-2.0
+    base_model: Qwen/Qwen2.5-1.5B-Instruct
+    base_model_license: apache-2.0
+    third_party_base: true
+    library: peft
+    pipeline_tag: text-generation
+    sha12: cf6afd99cc14
+    downloads: 0
+    provenance_status: DECLARED
+  - model: SZLHOLDINGS/SZLHOLDINGS
+    license: apache-2.0
+    base_model: UNKNOWN
+    base_model_license: UNKNOWN
+    third_party_base: false
+    library: UNKNOWN
+    pipeline_tag: UNKNOWN
+    sha12: "7a3881a594de"
+    downloads: 0
+    provenance_status: LICENSE_ONLY
+  - model: SZLHOLDINGS/TinyKhipu-Nano
+    license: apache-2.0
+    base_model: UNKNOWN
+    base_model_license: UNKNOWN
+    third_party_base: false
+    library: numpy
+    pipeline_tag: UNKNOWN
+    sha12: "5b6c7bdbb632"
+    downloads: 0
+    provenance_status: LICENSE_ONLY
+  - model: SZLHOLDINGS/WILLAY
+    license: apache-2.0
+    base_model: Qwen/Qwen2.5-0.5B-Instruct
+    base_model_license: apache-2.0
+    third_party_base: true
+    library: transformers
+    pipeline_tag: text-generation
+    sha12: eb3711d40839
+    downloads: 0
+    provenance_status: DECLARED
+  - model: SZLHOLDINGS/YARQA-ATTN
+    license: apache-2.0
+    base_model: UNKNOWN
+    base_model_license: UNKNOWN
+    third_party_base: false
+    library: kernels
+    pipeline_tag: UNKNOWN
+    sha12: "8b13ef28509c"
+    downloads: 0
+    provenance_status: LICENSE_ONLY
+  - model: SZLHOLDINGS/a11oy-v19-substrate
+    license: apache-2.0
+    base_model: UNKNOWN
+    base_model_license: UNKNOWN
+    third_party_base: false
+    library: UNKNOWN
+    pipeline_tag: UNKNOWN
+    sha12: "9f03f6ed3896"
+    downloads: 0
+    provenance_status: LICENSE_ONLY
+  - model: SZLHOLDINGS/brain-navigator-r2
+    license: apache-2.0
+    base_model: Qwen/Qwen3.5-0.8B
+    base_model_license: apache-2.0
+    third_party_base: true
+    library: peft
+    pipeline_tag: text-generation
+    sha12: "1a7fe17cbc5a"
+    downloads: 28
+    provenance_status: DECLARED
+  - model: SZLHOLDINGS/chakana
+    license: apache-2.0
+    base_model: UNKNOWN
+    base_model_license: UNKNOWN
+    third_party_base: false
+    library: other
+    pipeline_tag: UNKNOWN
+    sha12: "46e3b791026a"
+    downloads: 0
+    provenance_status: LICENSE_ONLY
+  - model: SZLHOLDINGS/chaski
+    license: apache-2.0
+    base_model: Qwen/Qwen3.5-0.8B
+    base_model_license: apache-2.0
+    third_party_base: true
+    library: transformers
+    pipeline_tag: text-generation
+    sha12: "8964fb999d5c"
+    downloads: 1943
+    provenance_status: DECLARED
+  - model: SZLHOLDINGS/chaski-5050
+    license: apache-2.0
+    base_model: Qwen/Qwen3.5-0.8B
+    base_model_license: apache-2.0
+    third_party_base: true
+    library: peft
+    pipeline_tag: text-generation
+    sha12: "17a9662b0f7b"
+    downloads: 52
+    provenance_status: DECLARED
+  - model: SZLHOLDINGS/chaski-r2
+    license: apache-2.0
+    base_model: Qwen/Qwen3.5-0.8B
+    base_model_license: apache-2.0
+    third_party_base: true
+    library: peft
+    pipeline_tag: text-generation
+    sha12: "1ef68d73f63b"
+    downloads: 70
+    provenance_status: DECLARED
+  - model: SZLHOLDINGS/governed-inference-meter
+    license: apache-2.0
+    base_model: UNKNOWN
+    base_model_license: UNKNOWN
+    third_party_base: false
+    library: kernels
+    pipeline_tag: UNKNOWN
+    sha12: "5649a8af9a1c"
+    downloads: 0
+    provenance_status: LICENSE_ONLY
+  - model: SZLHOLDINGS/khipu-r3
+    license: apache-2.0
+    base_model: Qwen/Qwen3.5-0.8B
+    base_model_license: apache-2.0
+    third_party_base: true
+    library: peft
+    pipeline_tag: text-generation
+    sha12: "59d96a970d4c"
+    downloads: 25
+    provenance_status: DECLARED
+  - model: SZLHOLDINGS/qantu
+    license: apache-2.0
+    base_model: UNKNOWN
+    base_model_license: UNKNOWN
+    third_party_base: false
+    library: other
+    pipeline_tag: UNKNOWN
+    sha12: "9dbe03d86ed8"
+    downloads: 0
+    provenance_status: LICENSE_ONLY
+  - model: SZLHOLDINGS/szl-block-kv
+    license: apache-2.0
+    base_model: UNKNOWN
+    base_model_license: UNKNOWN
+    third_party_base: false
+    library: kernels
+    pipeline_tag: UNKNOWN
+    sha12: "3a83d0c45f2d"
+    downloads: 46
+    provenance_status: LICENSE_ONLY
+  - model: SZLHOLDINGS/szl-blocked
+    license: apache-2.0
+    base_model: UNKNOWN
+    base_model_license: UNKNOWN
+    third_party_base: false
+    library: kernels
+    pipeline_tag: UNKNOWN
+    sha12: "0c70948fad41"
+    downloads: 0
+    provenance_status: LICENSE_ONLY
+  - model: SZLHOLDINGS/szl-formulas
+    license: apache-2.0
+    base_model: UNKNOWN
+    base_model_license: UNKNOWN
+    third_party_base: false
+    library: kernels
+    pipeline_tag: UNKNOWN
+    sha12: d9a10dd0b4c9
+    downloads: 0
+    provenance_status: LICENSE_ONLY
+  - model: SZLHOLDINGS/szl-governed-norm
+    license: apache-2.0
+    base_model: UNKNOWN
+    base_model_license: UNKNOWN
+    third_party_base: false
+    library: kernels
+    pipeline_tag: UNKNOWN
+    sha12: "3ba72385fa4c"
+    downloads: 222
+    provenance_status: LICENSE_ONLY
+  - model: SZLHOLDINGS/szl-govsign
+    license: apache-2.0
+    base_model: UNKNOWN
+    base_model_license: UNKNOWN
+    third_party_base: false
+    library: kernels
+    pipeline_tag: UNKNOWN
+    sha12: "84c99227f025"
+    downloads: 0
+    provenance_status: LICENSE_ONLY
+  - model: SZLHOLDINGS/szl-invariants
+    license: apache-2.0
+    base_model: UNKNOWN
+    base_model_license: UNKNOWN
+    third_party_base: false
+    library: kernels
+    pipeline_tag: UNKNOWN
+    sha12: "15f67356d78a"
+    downloads: 0
+    provenance_status: LICENSE_ONLY
+  - model: SZLHOLDINGS/szl-kernels
+    license: apache-2.0
+    base_model: UNKNOWN
+    base_model_license: UNKNOWN
+    third_party_base: false
+    library: kernels
+    pipeline_tag: feature-extraction
+    sha12: "919d428f528e"
+    downloads: 226
+    provenance_status: LICENSE_ONLY
+  - model: SZLHOLDINGS/szl-khipu
+    license: apache-2.0
+    base_model: UNKNOWN
+    base_model_license: UNKNOWN
+    third_party_base: false
+    library: numpy
+    pipeline_tag: UNKNOWN
+    sha12: "2c76977ecf43"
+    downloads: 0
+    provenance_status: LICENSE_ONLY
+  - model: SZLHOLDINGS/szl-khipu-kernels
+    license: apache-2.0
+    base_model: UNKNOWN
+    base_model_license: UNKNOWN
+    third_party_base: false
+    library: kernels
+    pipeline_tag: UNKNOWN
+    sha12: "5aef545c1ffe"
+    downloads: 0
+    provenance_status: LICENSE_ONLY
+  - model: SZLHOLDINGS/szl-lambda-gate
+    license: apache-2.0
+    base_model: UNKNOWN
+    base_model_license: UNKNOWN
+    third_party_base: false
+    library: kernels
+    pipeline_tag: UNKNOWN
+    sha12: "1725d5cb9835"
+    downloads: 113
+    provenance_status: LICENSE_ONLY
+  - model: SZLHOLDINGS/szl-maskmod
+    license: apache-2.0
+    base_model: UNKNOWN
+    base_model_license: UNKNOWN
+    third_party_base: false
+    library: kernels
+    pipeline_tag: UNKNOWN
+    sha12: "5037e05e185f"
+    downloads: 30
+    provenance_status: LICENSE_ONLY
+  - model: SZLHOLDINGS/szl-nemo
+    license: apache-2.0
+    base_model: UNKNOWN
+    base_model_license: UNKNOWN
+    third_party_base: false
+    library: sklearn
+    pipeline_tag: UNKNOWN
+    sha12: "0f089e28afeb"
+    downloads: 5
+    provenance_status: LICENSE_ONLY
+  - model: SZLHOLDINGS/szl-ouroboros
+    license: apache-2.0
+    base_model: UNKNOWN
+    base_model_license: UNKNOWN
+    third_party_base: false
+    library: kernels
+    pipeline_tag: UNKNOWN
+    sha12: "10b2de5a88c2"
+    downloads: 0
+    provenance_status: LICENSE_ONLY
+  - model: SZLHOLDINGS/szl-provctl
+    license: apache-2.0
+    base_model: UNKNOWN
+    base_model_license: UNKNOWN
+    third_party_base: false
+    library: kernels
+    pipeline_tag: UNKNOWN
+    sha12: cc134a618c36
+    downloads: 0
+    provenance_status: LICENSE_ONLY
+  - model: SZLHOLDINGS/szl-receipt-attn
+    license: apache-2.0
+    base_model: UNKNOWN
+    base_model_license: UNKNOWN
+    third_party_base: false
+    library: kernels
+    pipeline_tag: UNKNOWN
+    sha12: c7d4e985ca73
+    downloads: 23
+    provenance_status: LICENSE_ONLY
+  - model: SZLHOLDINGS/szl-receiptagent-qwen35-0.8b-v2
+    license: apache-2.0
+    base_model: Qwen/Qwen3.5-0.8B
+    base_model_license: apache-2.0
+    third_party_base: true
+    library: peft
+    pipeline_tag: text-generation
+    sha12: "9009f0619efa"
+    downloads: 73
+    provenance_status: DECLARED
+  - model: SZLHOLDINGS/szl-receiptagent-qwen35-0.8b-v3
+    license: apache-2.0
+    base_model: Qwen/Qwen3.5-0.8B
+    base_model_license: apache-2.0
+    third_party_base: true
+    library: peft
+    pipeline_tag: text-generation
+    sha12: e3dc1b672f0c
+    downloads: 42
+    provenance_status: DECLARED
+  - model: SZLHOLDINGS/szl-training-scripts
+    license: apache-2.0
+    base_model: UNKNOWN
+    base_model_license: UNKNOWN
+    third_party_base: false
+    library: other
+    pipeline_tag: UNKNOWN
+    sha12: "10b315eb9805"
+    downloads: 0
+    provenance_status: LICENSE_ONLY
+  - model: SZLHOLDINGS/tinku
+    license: apache-2.0
+    base_model: UNKNOWN
+    base_model_license: UNKNOWN
+    third_party_base: false
+    library: other
+    pipeline_tag: UNKNOWN
+    sha12: "07ea318ed1f9"
+    downloads: 0
+    provenance_status: LICENSE_ONLY
+  - model: SZLHOLDINGS/waman
+    license: apache-2.0
+    base_model: UNKNOWN
+    base_model_license: UNKNOWN
+    third_party_base: false
+    library: other
+    pipeline_tag: UNKNOWN
+    sha12: "3f57b4baeb34"
+    downloads: 0
+    provenance_status: LICENSE_ONLY

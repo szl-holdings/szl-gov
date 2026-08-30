@@ -1,0 +1,67 @@
+# ARTICLE_12_CONFORMANCE.yaml — machine-readable logging conformance profile
+# for EU AI Act Article 12 (record-keeping for high-risk AI systems).
+#
+# This is a conformance PROFILE, not a compliance claim. Applicability of the
+# Regulation to a given deployment is determined per customer, per use case.
+# We publish the mapping so auditors can check our receipts against the text.
+profile: szl.dev/GovernedAction/v1
+profile_version: "1.0.0"
+generated_by: szl-gov
+generated_at: "2026-08-30"
+retention_minimum_days: 180
+canonical_lexicon_gate: tools/lexicon_gate.py
+
+obligations:
+  - article_ref: "Art.12(1)"
+    requirement: "Automatic recording of events over the lifetime of the system"
+    implementation: "GovernedAction predicate; every admitted action emits one receipt"
+    evidence_field: "predicate.action + predicate.timestamp"
+    receipt_check: "receipt present for action_id"
+    validator: "check_receipt_exists"
+
+  - article_ref: "Art.12(2)(a)"
+    requirement: "Record the period of each use (start/end date-time)"
+    implementation: "timestamp + observation window on wedge workflow"
+    evidence_field: "predicate.timestamp, predicate.observation_window"
+    receipt_check: "both fields non-empty"
+    validator: "check_temporal_bounds"
+
+  - article_ref: "Art.12(2)(b)"
+    requirement: "Reference database against which input data was checked"
+    implementation: "policy + authority snapshot hash at decision time"
+    evidence_field: "predicate.policy_ref, predicate.authority_snapshot_sha256"
+    receipt_check: "hashes present"
+    validator: "check_reference_integrity"
+
+  - article_ref: "Art.12(2)(c)"
+    requirement: "Input data for which the search led to a match"
+    implementation: "decision inputs bound into the signed payload"
+    evidence_field: "predicate.inputs_digest"
+    receipt_check: "digest present and matches recomputation"
+    validator: "check_inputs_digest"
+
+  - article_ref: "Art.12(3)(d)"
+    requirement: "Identification of natural persons involved in verification"
+    implementation: "human principal on the receipt; is_service_account pinned False"
+    evidence_field: "predicate.actor, predicate.is_service_account"
+    receipt_check: "is_service_account == false AND actor is a natural person"
+    validator: "check_human_principal"
+    note: "Structurally unviolatable: GovernedAction raises on is_service_account=True"
+
+  - article_ref: "Art.12(4)"
+    requirement: "Logs protected against tampering and unauthorised access"
+    implementation: "DSSE/Ed25519 signature + in-toto envelope; offline verify"
+    evidence_field: "signatures[0].sig, keyid"
+    receipt_check: "dsse_verify(statement, pubkey) succeeds"
+    validator: "check_signature"
+
+invariants:
+  - "missing required evidence => completeness INCOMPLETE, never PASS"
+  - "signature proves integrity + origin, not truth of claims"
+  - "no VERIFIED public claim survives with INCOMPLETE evidence"
+  - "tampered payload fails offline verification (byte-flip test in test_receipt.py)"
+
+non_claims:
+  - "This profile does not assert EU AI Act compliance"
+  - "Art.12 applies to high-risk systems only; applicability is per-deployment"
+  - "180 days is the statutory floor; customers may configure longer"

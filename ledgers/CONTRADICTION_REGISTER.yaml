@@ -1,0 +1,49 @@
+contradictions:
+  - id: B-01
+    severity: BLOCKER
+    statement: Marketed Space count (26) diverges from measured estate (45)
+    resolution: Adopt measured count; tier the estate; cap flagships at 5
+  - id: B-02
+    severity: BLOCKER
+    statement: Docker Spaces on free cpu-basic require PRO (July 2026); public Docker flagships must be billing-verified
+    resolution: Org is on TEAM plan; confirm billing binding and keep 4 public Docker Spaces green
+  - id: B-03
+    severity: MEDIUM
+    statement: HF backlink parser needs literal model IDs in Space files; 10/43 models backlinked
+    resolution: "Patches staged in patches/ for immune, governed-receipt-verifier, README. Apply with a write-scoped HF token or manually in the Hub UI. 30 of 45 Spaces still need models: lines."
+  - id: B-04
+    severity: BLOCKER
+    statement: "No pricing published => GM/NRR/CAC/burn multiple are uncomputable"
+    resolution: "Ship a price page this week; hypotheses allowed, absence is not"
+  - id: B-05
+    severity: BLOCKER
+    statement: "Solo founder. Series A graduation 12.9% vs 23.7% (2 founders) / 29.3% (3)"
+    resolution: Recruit one named co-owner; write them into the deck
+  - id: B-06
+    severity: HIGH
+    statement: RUNNING stage is treated as evidence of deployed revision
+    resolution: stage is never evidence; require attested deployed revision per flagship
+  - id: B-07
+    severity: HIGH
+    statement: "50GB Space disk is not persistent; evidence spooled there is not durable"
+    resolution: Move evidence spool to persistent storage or signed remote sink
+  - id: B-08
+    severity: MEDIUM
+    statement: Org card is itself a Space and can drift unnoticed
+    resolution: Inventory README as tier ORG_CARD with the same gates
+  - id: B-09
+    severity: BLOCKER
+    statement: The receipt-cannot-lie claim has never been adversarially attacked
+    resolution: "Run Daybreak Blue S2.6: enumerate every path to PASS on tampered bundle"
+  - id: B-10
+    severity: BLOCKER
+    statement: Replit-era credentials ($20k+ build history) never rotated
+    resolution: "Rotate all credentials; hardware keys on Daybreak accounts before Sept 1, 2026"
+  - id: B-11
+    severity: HIGH
+    statement: Redaction before signing could remove exculpatory evidence undetected
+    resolution: Salted hash redaction_commitments in receipt context
+  - id: B-12
+    severity: HIGH
+    statement: Receipt backdating is possible without trusted timestamp
+    resolution: "rfc3161_token + ntp_synced:true required in receipt context"

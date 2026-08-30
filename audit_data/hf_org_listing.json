@@ -1,0 +1,1142 @@
+{
+ "spaces": [
+  {
+   "path": "SZLHOLDINGS/a11oy-factory",
+   "uri": "hf://spaces/SZLHOLDINGS/a11oy-factory",
+   "private": true,
+   "repo": "space",
+   "likes": "0",
+   "sdk": "docker",
+   "updated": "2026-08-30T21:17:42.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/a11oy",
+   "uri": "hf://spaces/SZLHOLDINGS/a11oy",
+   "private": false,
+   "repo": "space",
+   "likes": "0",
+   "sdk": "docker",
+   "updated": "2026-08-30T16:27:45.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/killinchu",
+   "uri": "hf://spaces/SZLHOLDINGS/killinchu",
+   "private": false,
+   "repo": "space",
+   "likes": "2",
+   "sdk": "docker",
+   "updated": "2026-08-30T16:25:02.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/szl-provctl-live",
+   "uri": "hf://spaces/SZLHOLDINGS/szl-provctl-live",
+   "private": true,
+   "repo": "space",
+   "likes": "0",
+   "sdk": "static",
+   "updated": "2026-08-30T15:22:25.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/receipt-chain-live",
+   "uri": "hf://spaces/SZLHOLDINGS/receipt-chain-live",
+   "private": true,
+   "repo": "space",
+   "likes": "0",
+   "sdk": "static",
+   "updated": "2026-08-30T15:22:24.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/governed-receipt-verifier",
+   "uri": "hf://spaces/SZLHOLDINGS/governed-receipt-verifier",
+   "private": false,
+   "repo": "space",
+   "likes": "0",
+   "sdk": "static",
+   "updated": "2026-08-30T15:22:23.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/energy-attest-holo",
+   "uri": "hf://spaces/SZLHOLDINGS/energy-attest-holo",
+   "private": true,
+   "repo": "space",
+   "likes": "0",
+   "sdk": "static",
+   "updated": "2026-08-30T15:22:22.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/szl-kernels-live",
+   "uri": "hf://spaces/SZLHOLDINGS/szl-kernels-live",
+   "private": true,
+   "repo": "space",
+   "likes": "0",
+   "sdk": "static",
+   "updated": "2026-08-30T15:21:26.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/szl-govsign-live",
+   "uri": "hf://spaces/SZLHOLDINGS/szl-govsign-live",
+   "private": true,
+   "repo": "space",
+   "likes": "0",
+   "sdk": "static",
+   "updated": "2026-08-30T15:21:25.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/szl-estate-live",
+   "uri": "hf://spaces/SZLHOLDINGS/szl-estate-live",
+   "private": true,
+   "repo": "space",
+   "likes": "0",
+   "sdk": "static",
+   "updated": "2026-08-30T15:21:24.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/szl-forge-lab",
+   "uri": "hf://spaces/SZLHOLDINGS/szl-forge-lab",
+   "private": true,
+   "repo": "space",
+   "likes": "0",
+   "sdk": "static",
+   "updated": "2026-08-30T15:21:24.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/szl-blocked-live",
+   "uri": "hf://spaces/SZLHOLDINGS/szl-blocked-live",
+   "private": true,
+   "repo": "space",
+   "likes": "0",
+   "sdk": "static",
+   "updated": "2026-08-30T15:21:22.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/guardrail-receipt",
+   "uri": "hf://spaces/SZLHOLDINGS/guardrail-receipt",
+   "private": true,
+   "repo": "space",
+   "likes": "0",
+   "sdk": "static",
+   "updated": "2026-08-30T15:21:21.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/lambda-gate-holo",
+   "uri": "hf://spaces/SZLHOLDINGS/lambda-gate-holo",
+   "private": true,
+   "repo": "space",
+   "likes": "0",
+   "sdk": "static",
+   "updated": "2026-08-30T15:21:21.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/governed-norm-holo",
+   "uri": "hf://spaces/SZLHOLDINGS/governed-norm-holo",
+   "private": true,
+   "repo": "space",
+   "likes": "0",
+   "sdk": "static",
+   "updated": "2026-08-30T15:21:19.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/energy-attested-runs",
+   "uri": "hf://spaces/SZLHOLDINGS/energy-attested-runs",
+   "private": true,
+   "repo": "space",
+   "likes": "0",
+   "sdk": "static",
+   "updated": "2026-08-30T15:21:18.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/ayllu",
+   "uri": "hf://spaces/SZLHOLDINGS/ayllu",
+   "private": true,
+   "repo": "space",
+   "likes": "0",
+   "sdk": "docker",
+   "updated": "2026-08-29T19:16:54.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/szl-atelier",
+   "uri": "hf://spaces/SZLHOLDINGS/szl-atelier",
+   "private": false,
+   "repo": "space",
+   "likes": "0",
+   "sdk": "static",
+   "updated": "2026-08-29T18:58:01.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/nexus",
+   "uri": "hf://spaces/SZLHOLDINGS/nexus",
+   "private": true,
+   "repo": "space",
+   "likes": "0",
+   "sdk": "docker",
+   "updated": "2026-08-29T18:21:24.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/szl-khipu",
+   "uri": "hf://spaces/SZLHOLDINGS/szl-khipu",
+   "private": false,
+   "repo": "space",
+   "likes": "0",
+   "sdk": "docker",
+   "updated": "2026-08-29T18:07:48.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/lyte-services",
+   "uri": "hf://spaces/SZLHOLDINGS/lyte-services",
+   "private": true,
+   "repo": "space",
+   "likes": "0",
+   "sdk": "docker",
+   "updated": "2026-08-29T18:07:45.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/szl-command-lab",
+   "uri": "hf://spaces/SZLHOLDINGS/szl-command-lab",
+   "private": true,
+   "repo": "space",
+   "likes": "0",
+   "sdk": "docker",
+   "updated": "2026-08-29T18:07:39.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/README",
+   "uri": "hf://spaces/SZLHOLDINGS/README",
+   "private": false,
+   "repo": "space",
+   "likes": "0",
+   "sdk": "static",
+   "updated": "2026-08-29T17:54:21.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/cosmos",
+   "uri": "hf://spaces/SZLHOLDINGS/cosmos",
+   "private": true,
+   "repo": "space",
+   "likes": "0",
+   "sdk": "docker",
+   "updated": "2026-08-29T17:05:30.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/szl-real-estate",
+   "uri": "hf://spaces/SZLHOLDINGS/szl-real-estate",
+   "private": true,
+   "repo": "space",
+   "likes": "0",
+   "sdk": "docker",
+   "updated": "2026-08-29T17:05:28.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/khipu-lab",
+   "uri": "hf://spaces/SZLHOLDINGS/khipu-lab",
+   "private": true,
+   "repo": "space",
+   "likes": "0",
+   "sdk": "docker",
+   "updated": "2026-08-29T17:05:26.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/counsel",
+   "uri": "hf://spaces/SZLHOLDINGS/counsel",
+   "private": true,
+   "repo": "space",
+   "likes": "0",
+   "sdk": "docker",
+   "updated": "2026-08-29T17:05:21.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/immune-lattice",
+   "uri": "hf://spaces/SZLHOLDINGS/immune-lattice",
+   "private": true,
+   "repo": "space",
+   "likes": "0",
+   "sdk": "docker",
+   "updated": "2026-08-29T17:05:19.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/immune",
+   "uri": "hf://spaces/SZLHOLDINGS/immune",
+   "private": false,
+   "repo": "space",
+   "likes": "0",
+   "sdk": "docker",
+   "updated": "2026-08-29T17:05:12.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/terra-assurance",
+   "uri": "hf://spaces/SZLHOLDINGS/terra-assurance",
+   "private": true,
+   "repo": "space",
+   "likes": "0",
+   "sdk": "docker",
+   "updated": "2026-08-29T16:49:25.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/anatomy",
+   "uri": "hf://spaces/SZLHOLDINGS/anatomy",
+   "private": true,
+   "repo": "space",
+   "likes": "0",
+   "sdk": "docker",
+   "updated": "2026-08-29T16:37:34.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/szl-experiments",
+   "uri": "hf://spaces/SZLHOLDINGS/szl-experiments",
+   "private": true,
+   "repo": "space",
+   "likes": "0",
+   "sdk": "docker",
+   "updated": "2026-08-29T16:17:47.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/szl-sovereign-os",
+   "uri": "hf://spaces/SZLHOLDINGS/szl-sovereign-os",
+   "private": true,
+   "repo": "space",
+   "likes": "0",
+   "sdk": "docker",
+   "updated": "2026-08-29T16:03:06.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/evidence-studio",
+   "uri": "hf://spaces/SZLHOLDINGS/evidence-studio",
+   "private": true,
+   "repo": "space",
+   "likes": "0",
+   "sdk": "docker",
+   "updated": "2026-08-29T14:36:39.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/second-brain",
+   "uri": "hf://spaces/SZLHOLDINGS/second-brain",
+   "private": true,
+   "repo": "space",
+   "likes": "0",
+   "sdk": "docker",
+   "updated": "2026-08-29T13:36:33.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/experiments",
+   "uri": "hf://spaces/SZLHOLDINGS/experiments",
+   "private": true,
+   "repo": "space",
+   "likes": "0",
+   "sdk": "docker",
+   "updated": "2026-08-29T04:31:17.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/szl-quant-live",
+   "uri": "hf://spaces/SZLHOLDINGS/szl-quant-live",
+   "private": true,
+   "repo": "space",
+   "likes": "0",
+   "sdk": "static",
+   "updated": "2026-08-28T23:49:20.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/yarqa",
+   "uri": "hf://spaces/SZLHOLDINGS/yarqa",
+   "private": true,
+   "repo": "space",
+   "likes": "0",
+   "sdk": "docker",
+   "updated": "2026-08-28T14:13:39.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/david-leads",
+   "uri": "hf://spaces/SZLHOLDINGS/david-leads",
+   "private": true,
+   "repo": "space",
+   "likes": "0",
+   "sdk": "docker",
+   "updated": "2026-08-26T21:03:52.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/szl-model-inference-lab",
+   "uri": "hf://spaces/SZLHOLDINGS/szl-model-inference-lab",
+   "private": true,
+   "repo": "space",
+   "likes": "0",
+   "sdk": "docker",
+   "updated": "2026-08-26T19:24:49.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/hatun-mcp",
+   "uri": "hf://spaces/SZLHOLDINGS/hatun-mcp",
+   "private": true,
+   "repo": "space",
+   "likes": "0",
+   "sdk": "docker",
+   "updated": "2026-08-26T14:32:55.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/llm-router-live",
+   "uri": "hf://spaces/SZLHOLDINGS/llm-router-live",
+   "private": true,
+   "repo": "space",
+   "likes": "0",
+   "sdk": "docker",
+   "updated": "2026-08-20T10:54:30.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/sda",
+   "uri": "hf://spaces/SZLHOLDINGS/sda",
+   "private": true,
+   "repo": "space",
+   "likes": "0",
+   "sdk": "docker",
+   "updated": "2026-08-08T21:01:34.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/governed-agent-bench",
+   "uri": "hf://spaces/SZLHOLDINGS/governed-agent-bench",
+   "private": true,
+   "repo": "space",
+   "likes": "0",
+   "sdk": "gradio",
+   "updated": "2026-07-28T18:39:01.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/holographic",
+   "uri": "hf://spaces/SZLHOLDINGS/holographic",
+   "private": true,
+   "repo": "space",
+   "likes": "0",
+   "sdk": "docker",
+   "updated": "2026-07-20T16:44:04.000Z"
+  }
+ ],
+ "models": [
+  {
+   "path": "SZLHOLDINGS/SZLHOLDINGS",
+   "uri": "hf://models/SZLHOLDINGS/SZLHOLDINGS",
+   "private": false,
+   "repo": "model",
+   "likes": "0",
+   "downloads": "0",
+   "updated": "2026-08-30T15:15:42.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/chaski",
+   "uri": "hf://models/SZLHOLDINGS/chaski",
+   "private": false,
+   "repo": "model",
+   "likes": "0",
+   "downloads": "1943",
+   "task": "text-generation",
+   "updated": "2026-08-30T15:00:59.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/chaski-r2",
+   "uri": "hf://models/SZLHOLDINGS/chaski-r2",
+   "private": false,
+   "repo": "model",
+   "likes": "0",
+   "downloads": "70",
+   "task": "text-generation",
+   "updated": "2026-08-30T15:00:54.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/WILLAY",
+   "uri": "hf://models/SZLHOLDINGS/WILLAY",
+   "private": false,
+   "repo": "model",
+   "likes": "0",
+   "downloads": "0",
+   "task": "text-generation",
+   "updated": "2026-08-30T15:00:50.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/szl-receiptagent-qwen35-0.8b-v3",
+   "uri": "hf://models/SZLHOLDINGS/szl-receiptagent-qwen35-0.8b-v3",
+   "private": false,
+   "repo": "model",
+   "likes": "0",
+   "downloads": "42",
+   "task": "text-generation",
+   "updated": "2026-08-29T19:26:50.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/khipu-r3",
+   "uri": "hf://models/SZLHOLDINGS/khipu-r3",
+   "private": false,
+   "repo": "model",
+   "likes": "0",
+   "downloads": "25",
+   "task": "text-generation",
+   "updated": "2026-08-29T19:26:24.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/szl-training-scripts",
+   "uri": "hf://models/SZLHOLDINGS/szl-training-scripts",
+   "private": false,
+   "repo": "model",
+   "likes": "0",
+   "downloads": "0",
+   "updated": "2026-08-29T18:58:05.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/chaski-5050",
+   "uri": "hf://models/SZLHOLDINGS/chaski-5050",
+   "private": false,
+   "repo": "model",
+   "likes": "0",
+   "downloads": "52",
+   "task": "text-generation",
+   "updated": "2026-08-29T18:43:09.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/szl-nemo",
+   "uri": "hf://models/SZLHOLDINGS/szl-nemo",
+   "private": false,
+   "repo": "model",
+   "likes": "0",
+   "downloads": "5",
+   "updated": "2026-08-29T18:38:45.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/tinku",
+   "uri": "hf://models/SZLHOLDINGS/tinku",
+   "private": false,
+   "repo": "model",
+   "likes": "0",
+   "downloads": "0",
+   "updated": "2026-08-29T18:11:11.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/waman",
+   "uri": "hf://models/SZLHOLDINGS/waman",
+   "private": false,
+   "repo": "model",
+   "likes": "0",
+   "downloads": "0",
+   "updated": "2026-08-29T18:11:10.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/chakana",
+   "uri": "hf://models/SZLHOLDINGS/chakana",
+   "private": false,
+   "repo": "model",
+   "likes": "0",
+   "downloads": "0",
+   "updated": "2026-08-29T18:11:10.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/qantu",
+   "uri": "hf://models/SZLHOLDINGS/qantu",
+   "private": false,
+   "repo": "model",
+   "likes": "0",
+   "downloads": "0",
+   "updated": "2026-08-29T18:11:09.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/KILLINCHU-EYE",
+   "uri": "hf://models/SZLHOLDINGS/KILLINCHU-EYE",
+   "private": false,
+   "repo": "model",
+   "likes": "0",
+   "downloads": "0",
+   "updated": "2026-08-29T18:10:36.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/szl-khipu-kernels",
+   "uri": "hf://models/SZLHOLDINGS/szl-khipu-kernels",
+   "private": false,
+   "repo": "model",
+   "likes": "0",
+   "downloads": "0",
+   "updated": "2026-08-29T18:07:32.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/MiniEmbed-Nano",
+   "uri": "hf://models/SZLHOLDINGS/MiniEmbed-Nano",
+   "private": false,
+   "repo": "model",
+   "likes": "0",
+   "downloads": "0",
+   "updated": "2026-08-29T18:07:31.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/Moons-Nano",
+   "uri": "hf://models/SZLHOLDINGS/Moons-Nano",
+   "private": false,
+   "repo": "model",
+   "likes": "0",
+   "downloads": "0",
+   "updated": "2026-08-29T18:07:29.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/ReceiptAgent-Nano",
+   "uri": "hf://models/SZLHOLDINGS/ReceiptAgent-Nano",
+   "private": false,
+   "repo": "model",
+   "likes": "0",
+   "downloads": "0",
+   "updated": "2026-08-29T18:07:27.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/TinyKhipu-Nano",
+   "uri": "hf://models/SZLHOLDINGS/TinyKhipu-Nano",
+   "private": false,
+   "repo": "model",
+   "likes": "0",
+   "downloads": "0",
+   "updated": "2026-08-29T18:07:26.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/szl-governed-norm",
+   "uri": "hf://models/SZLHOLDINGS/szl-governed-norm",
+   "private": false,
+   "repo": "model",
+   "likes": "1",
+   "downloads": "222",
+   "updated": "2026-08-29T16:59:57.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/szl-lambda-gate",
+   "uri": "hf://models/SZLHOLDINGS/szl-lambda-gate",
+   "private": false,
+   "repo": "model",
+   "likes": "0",
+   "downloads": "113",
+   "updated": "2026-08-29T16:59:57.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/szl-block-kv",
+   "uri": "hf://models/SZLHOLDINGS/szl-block-kv",
+   "private": false,
+   "repo": "model",
+   "likes": "0",
+   "downloads": "46",
+   "updated": "2026-08-29T16:59:56.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/szl-khipu",
+   "uri": "hf://models/SZLHOLDINGS/szl-khipu",
+   "private": false,
+   "repo": "model",
+   "likes": "0",
+   "downloads": "0",
+   "updated": "2026-08-29T16:17:34.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/szl-ouroboros",
+   "uri": "hf://models/SZLHOLDINGS/szl-ouroboros",
+   "private": false,
+   "repo": "model",
+   "likes": "0",
+   "downloads": "0",
+   "updated": "2026-08-29T16:05:34.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/szl-receipt-attn",
+   "uri": "hf://models/SZLHOLDINGS/szl-receipt-attn",
+   "private": false,
+   "repo": "model",
+   "likes": "0",
+   "downloads": "23",
+   "updated": "2026-08-29T16:05:34.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/YARQA-ATTN",
+   "uri": "hf://models/SZLHOLDINGS/YARQA-ATTN",
+   "private": false,
+   "repo": "model",
+   "likes": "0",
+   "downloads": "0",
+   "updated": "2026-08-29T16:05:33.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/szl-maskmod",
+   "uri": "hf://models/SZLHOLDINGS/szl-maskmod",
+   "private": false,
+   "repo": "model",
+   "likes": "0",
+   "downloads": "30",
+   "updated": "2026-08-29T16:05:33.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/szl-kernels",
+   "uri": "hf://models/SZLHOLDINGS/szl-kernels",
+   "private": false,
+   "repo": "model",
+   "likes": "0",
+   "downloads": "226",
+   "task": "feature-extraction",
+   "updated": "2026-08-29T16:03:19.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/szl-blocked",
+   "uri": "hf://models/SZLHOLDINGS/szl-blocked",
+   "private": false,
+   "repo": "model",
+   "likes": "1",
+   "downloads": "0",
+   "updated": "2026-08-29T16:00:50.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/szl-invariants",
+   "uri": "hf://models/SZLHOLDINGS/szl-invariants",
+   "private": false,
+   "repo": "model",
+   "likes": "2",
+   "downloads": "0",
+   "updated": "2026-08-29T16:00:40.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/szl-formulas",
+   "uri": "hf://models/SZLHOLDINGS/szl-formulas",
+   "private": false,
+   "repo": "model",
+   "likes": "0",
+   "downloads": "0",
+   "updated": "2026-08-29T16:00:26.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/brain-navigator-r2",
+   "uri": "hf://models/SZLHOLDINGS/brain-navigator-r2",
+   "private": false,
+   "repo": "model",
+   "likes": "0",
+   "downloads": "28",
+   "task": "text-generation",
+   "updated": "2026-08-29T13:36:32.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/szl-receiptagent-qwen35-0.8b-v2",
+   "uri": "hf://models/SZLHOLDINGS/szl-receiptagent-qwen35-0.8b-v2",
+   "private": false,
+   "repo": "model",
+   "likes": "0",
+   "downloads": "73",
+   "task": "text-generation",
+   "updated": "2026-08-29T04:27:43.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/szl-provctl",
+   "uri": "hf://models/SZLHOLDINGS/szl-provctl",
+   "private": false,
+   "repo": "model",
+   "likes": "0",
+   "downloads": "0",
+   "updated": "2026-08-29T04:27:42.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/SZL-Khipu-1.5B-GGUF",
+   "uri": "hf://models/SZLHOLDINGS/SZL-Khipu-1.5B-GGUF",
+   "private": false,
+   "repo": "model",
+   "likes": "0",
+   "downloads": "611",
+   "task": "text-generation",
+   "updated": "2026-08-29T04:27:37.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/SZL-Khipu-1.5B-abstain",
+   "uri": "hf://models/SZLHOLDINGS/SZL-Khipu-1.5B-abstain",
+   "private": false,
+   "repo": "model",
+   "likes": "0",
+   "downloads": "0",
+   "task": "text-generation",
+   "updated": "2026-08-29T04:27:37.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/SZL-Khipu-1.5B",
+   "uri": "hf://models/SZLHOLDINGS/SZL-Khipu-1.5B",
+   "private": false,
+   "repo": "model",
+   "likes": "1",
+   "downloads": "1102",
+   "task": "text-generation",
+   "updated": "2026-08-29T04:27:36.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/szl-govsign",
+   "uri": "hf://models/SZLHOLDINGS/szl-govsign",
+   "private": false,
+   "repo": "model",
+   "likes": "0",
+   "downloads": "0",
+   "updated": "2026-08-29T04:27:33.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/SZL-Forge-1.5B-ReceiptAgent",
+   "uri": "hf://models/SZLHOLDINGS/SZL-Forge-1.5B-ReceiptAgent",
+   "private": false,
+   "repo": "model",
+   "likes": "0",
+   "downloads": "954",
+   "task": "text-generation",
+   "updated": "2026-08-29T04:27:31.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/KHIPU-R2",
+   "uri": "hf://models/SZLHOLDINGS/KHIPU-R2",
+   "private": false,
+   "repo": "model",
+   "likes": "0",
+   "downloads": "60",
+   "task": "text-generation",
+   "updated": "2026-08-29T04:27:26.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/governed-inference-meter",
+   "uri": "hf://models/SZLHOLDINGS/governed-inference-meter",
+   "private": false,
+   "repo": "model",
+   "likes": "0",
+   "downloads": "0",
+   "updated": "2026-08-29T04:27:25.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/a11oy-v19-substrate",
+   "uri": "hf://models/SZLHOLDINGS/a11oy-v19-substrate",
+   "private": false,
+   "repo": "model",
+   "likes": "0",
+   "downloads": "0",
+   "updated": "2026-08-29T04:27:22.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/A11OY-MINI",
+   "uri": "hf://models/SZLHOLDINGS/A11OY-MINI",
+   "private": false,
+   "repo": "model",
+   "likes": "0",
+   "downloads": "27",
+   "task": "text-generation",
+   "updated": "2026-08-29T04:27:19.000Z"
+  }
+ ],
+ "datasets": [
+  {
+   "path": "SZLHOLDINGS/killinchu-osint-corpus",
+   "uri": "hf://datasets/SZLHOLDINGS/killinchu-osint-corpus",
+   "private": false,
+   "repo": "dataset",
+   "likes": "8",
+   "downloads": "41122",
+   "updated": "2026-08-30T21:24:30.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/a11oy-verifiable-corpus",
+   "uri": "hf://datasets/SZLHOLDINGS/a11oy-verifiable-corpus",
+   "private": false,
+   "repo": "dataset",
+   "likes": "0",
+   "downloads": "2013",
+   "updated": "2026-08-30T21:13:51.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/szl-evidence",
+   "uri": "hf://datasets/SZLHOLDINGS/szl-evidence",
+   "private": true,
+   "repo": "dataset",
+   "likes": "0",
+   "downloads": "7",
+   "updated": "2026-08-30T18:30:09.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/SZLHOLDINGS",
+   "uri": "hf://datasets/SZLHOLDINGS/SZLHOLDINGS",
+   "private": false,
+   "repo": "dataset",
+   "likes": "0",
+   "downloads": "134",
+   "updated": "2026-08-30T15:15:53.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/szl-lake",
+   "uri": "hf://datasets/SZLHOLDINGS/szl-lake",
+   "private": false,
+   "repo": "dataset",
+   "likes": "0",
+   "downloads": "4363",
+   "updated": "2026-08-30T12:27:14.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/receipted-unsloth",
+   "uri": "hf://datasets/SZLHOLDINGS/receipted-unsloth",
+   "private": false,
+   "repo": "dataset",
+   "likes": "0",
+   "downloads": "44",
+   "updated": "2026-08-29T15:50:06.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/why-we-lead",
+   "uri": "hf://datasets/SZLHOLDINGS/why-we-lead",
+   "private": false,
+   "repo": "dataset",
+   "likes": "0",
+   "downloads": "240",
+   "updated": "2026-08-28T23:03:45.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/vault-artifacts",
+   "uri": "hf://datasets/SZLHOLDINGS/vault-artifacts",
+   "private": true,
+   "repo": "dataset",
+   "likes": "0",
+   "downloads": "0",
+   "updated": "2026-08-14T00:47:25.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/szl-training-receipts",
+   "uri": "hf://datasets/SZLHOLDINGS/szl-training-receipts",
+   "private": true,
+   "repo": "dataset",
+   "likes": "0",
+   "downloads": "13",
+   "updated": "2026-08-01T18:44:20.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/governed-agent-bench",
+   "uri": "hf://datasets/SZLHOLDINGS/governed-agent-bench",
+   "private": false,
+   "repo": "dataset",
+   "likes": "0",
+   "downloads": "156",
+   "updated": "2026-07-28T18:38:53.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/szl-1-doctrine-sft",
+   "uri": "hf://datasets/SZLHOLDINGS/szl-1-doctrine-sft",
+   "private": false,
+   "repo": "dataset",
+   "likes": "0",
+   "downloads": "139",
+   "updated": "2026-07-22T10:50:15.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/alloy-sovereign-eval-runs",
+   "uri": "hf://datasets/SZLHOLDINGS/alloy-sovereign-eval-runs",
+   "private": false,
+   "repo": "dataset",
+   "likes": "0",
+   "downloads": "125",
+   "updated": "2026-07-22T10:50:14.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/energy-attested-runs",
+   "uri": "hf://datasets/SZLHOLDINGS/energy-attested-runs",
+   "private": false,
+   "repo": "dataset",
+   "likes": "0",
+   "downloads": "161",
+   "updated": "2026-07-22T10:50:11.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/governed-receipts-bench",
+   "uri": "hf://datasets/SZLHOLDINGS/governed-receipts-bench",
+   "private": false,
+   "repo": "dataset",
+   "likes": "0",
+   "downloads": "187",
+   "updated": "2026-07-22T10:50:08.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/readiness-runs",
+   "uri": "hf://datasets/SZLHOLDINGS/readiness-runs",
+   "private": false,
+   "repo": "dataset",
+   "likes": "0",
+   "downloads": "645",
+   "updated": "2026-07-22T10:49:54.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/uds-bundles-v1",
+   "uri": "hf://datasets/SZLHOLDINGS/uds-bundles-v1",
+   "private": false,
+   "repo": "dataset",
+   "likes": "0",
+   "downloads": "357",
+   "updated": "2026-07-22T10:49:50.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/yuyay-v3-axis-labels-v1",
+   "uri": "hf://datasets/SZLHOLDINGS/yuyay-v3-axis-labels-v1",
+   "private": true,
+   "repo": "dataset",
+   "likes": "0",
+   "downloads": "9",
+   "updated": "2026-07-22T10:49:47.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/k-verify-benchmark-v1",
+   "uri": "hf://datasets/SZLHOLDINGS/k-verify-benchmark-v1",
+   "private": false,
+   "repo": "dataset",
+   "likes": "0",
+   "downloads": "164",
+   "updated": "2026-07-22T10:49:45.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/doctrine-v10-v11",
+   "uri": "hf://datasets/SZLHOLDINGS/doctrine-v10-v11",
+   "private": false,
+   "repo": "dataset",
+   "likes": "0",
+   "downloads": "169",
+   "updated": "2026-07-22T10:49:43.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/thesis-corpus-v18",
+   "uri": "hf://datasets/SZLHOLDINGS/thesis-corpus-v18",
+   "private": false,
+   "repo": "dataset",
+   "likes": "0",
+   "downloads": "186",
+   "updated": "2026-07-22T10:49:41.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/canonical-formulas-v1",
+   "uri": "hf://datasets/SZLHOLDINGS/canonical-formulas-v1",
+   "private": false,
+   "repo": "dataset",
+   "likes": "0",
+   "downloads": "143",
+   "updated": "2026-07-22T10:49:39.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/lean-proofs-v1",
+   "uri": "hf://datasets/SZLHOLDINGS/lean-proofs-v1",
+   "private": false,
+   "repo": "dataset",
+   "likes": "0",
+   "downloads": "424",
+   "updated": "2026-07-22T10:49:38.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/rag-corpus-v1",
+   "uri": "hf://datasets/SZLHOLDINGS/rag-corpus-v1",
+   "private": false,
+   "repo": "dataset",
+   "likes": "0",
+   "downloads": "246",
+   "updated": "2026-07-22T10:49:36.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/lean-theorem-tree",
+   "uri": "hf://datasets/SZLHOLDINGS/lean-theorem-tree",
+   "private": false,
+   "repo": "dataset",
+   "likes": "0",
+   "downloads": "82",
+   "updated": "2026-07-22T10:49:34.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/thesis-formula-index",
+   "uri": "hf://datasets/SZLHOLDINGS/thesis-formula-index",
+   "private": true,
+   "repo": "dataset",
+   "likes": "0",
+   "downloads": "7",
+   "updated": "2026-07-22T10:49:33.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/anatomy-alive-harness",
+   "uri": "hf://datasets/SZLHOLDINGS/anatomy-alive-harness",
+   "private": true,
+   "repo": "dataset",
+   "likes": "0",
+   "downloads": "6",
+   "updated": "2026-07-22T10:49:32.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/szl-artifacts",
+   "uri": "hf://datasets/SZLHOLDINGS/szl-artifacts",
+   "private": false,
+   "repo": "dataset",
+   "likes": "0",
+   "downloads": "731",
+   "updated": "2026-07-22T10:49:28.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/ouroboros-arxiv-preprint",
+   "uri": "hf://datasets/SZLHOLDINGS/ouroboros-arxiv-preprint",
+   "private": false,
+   "repo": "dataset",
+   "likes": "0",
+   "downloads": "182",
+   "updated": "2026-07-22T10:49:26.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/szl-org-infra",
+   "uri": "hf://datasets/SZLHOLDINGS/szl-org-infra",
+   "private": true,
+   "repo": "dataset",
+   "likes": "0",
+   "downloads": "8",
+   "updated": "2026-07-22T10:49:18.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/uds-governance-receipts",
+   "uri": "hf://datasets/SZLHOLDINGS/uds-governance-receipts",
+   "private": false,
+   "repo": "dataset",
+   "likes": "0",
+   "downloads": "541",
+   "updated": "2026-07-22T10:49:13.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/uds-spans-receipts",
+   "uri": "hf://datasets/SZLHOLDINGS/uds-spans-receipts",
+   "private": false,
+   "repo": "dataset",
+   "likes": "0",
+   "downloads": "531",
+   "updated": "2026-07-22T10:49:10.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/thesis-v18-formal-verification",
+   "uri": "hf://datasets/SZLHOLDINGS/thesis-v18-formal-verification",
+   "private": false,
+   "repo": "dataset",
+   "likes": "0",
+   "downloads": "323",
+   "updated": "2026-07-22T10:49:06.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/test-results",
+   "uri": "hf://datasets/SZLHOLDINGS/test-results",
+   "private": false,
+   "repo": "dataset",
+   "likes": "0",
+   "downloads": "142",
+   "updated": "2026-07-22T08:49:50.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/szl-quant-sft-v1",
+   "uri": "hf://datasets/SZLHOLDINGS/szl-quant-sft-v1",
+   "private": false,
+   "repo": "dataset",
+   "likes": "0",
+   "downloads": "120",
+   "updated": "2026-07-22T08:49:49.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/szl-second-brain-inrepo",
+   "uri": "hf://datasets/SZLHOLDINGS/szl-second-brain-inrepo",
+   "private": false,
+   "repo": "dataset",
+   "likes": "0",
+   "downloads": "147",
+   "updated": "2026-07-22T08:49:46.000Z"
+  },
+  {
+   "path": "SZLHOLDINGS/legacy-archive",
+   "uri": "hf://datasets/SZLHOLDINGS/legacy-archive",
+   "private": true,
+   "repo": "dataset",
+   "likes": "0",
+   "downloads": "6",
+   "updated": "2026-07-22T08:49:31.000Z"
+  }
+ ],
+ "alloyscape_spaces": [],
+ "alloyscape_models": [],
+ "alloyscape_datasets": []
+}

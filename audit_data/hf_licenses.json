@@ -1,0 +1,717 @@
+{
+ "models": {
+  "SZLHOLDINGS/SZLHOLDINGS": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": null,
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "7a3881a594de"
+  },
+  "SZLHOLDINGS/chaski": {
+   "license": "apache-2.0",
+   "base_model": "Qwen/Qwen3.5-0.8B",
+   "library": "transformers",
+   "pipeline_tag": "text-generation",
+   "gated": false,
+   "private": false,
+   "sha": "8964fb999d5c"
+  },
+  "SZLHOLDINGS/chaski-r2": {
+   "license": "apache-2.0",
+   "base_model": "Qwen/Qwen3.5-0.8B",
+   "library": "peft",
+   "pipeline_tag": "text-generation",
+   "gated": false,
+   "private": false,
+   "sha": "1ef68d73f63b"
+  },
+  "SZLHOLDINGS/WILLAY": {
+   "license": "apache-2.0",
+   "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+   "library": "transformers",
+   "pipeline_tag": "text-generation",
+   "gated": false,
+   "private": false,
+   "sha": "eb3711d40839"
+  },
+  "SZLHOLDINGS/szl-receiptagent-qwen35-0.8b-v3": {
+   "license": "apache-2.0",
+   "base_model": "Qwen/Qwen3.5-0.8B",
+   "library": "peft",
+   "pipeline_tag": "text-generation",
+   "gated": false,
+   "private": false,
+   "sha": "e3dc1b672f0c"
+  },
+  "SZLHOLDINGS/khipu-r3": {
+   "license": "apache-2.0",
+   "base_model": "Qwen/Qwen3.5-0.8B",
+   "library": "peft",
+   "pipeline_tag": "text-generation",
+   "gated": false,
+   "private": false,
+   "sha": "59d96a970d4c"
+  },
+  "SZLHOLDINGS/szl-training-scripts": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": "other",
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "10b315eb9805"
+  },
+  "SZLHOLDINGS/chaski-5050": {
+   "license": "apache-2.0",
+   "base_model": "Qwen/Qwen3.5-0.8B",
+   "library": "peft",
+   "pipeline_tag": "text-generation",
+   "gated": false,
+   "private": false,
+   "sha": "17a9662b0f7b"
+  },
+  "SZLHOLDINGS/szl-nemo": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": "sklearn",
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "0f089e28afeb"
+  },
+  "SZLHOLDINGS/tinku": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": "other",
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "07ea318ed1f9"
+  },
+  "SZLHOLDINGS/waman": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": "other",
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "3f57b4baeb34"
+  },
+  "SZLHOLDINGS/chakana": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": "other",
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "46e3b791026a"
+  },
+  "SZLHOLDINGS/qantu": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": "other",
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "9dbe03d86ed8"
+  },
+  "SZLHOLDINGS/KILLINCHU-EYE": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": "other",
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "d3dd392769b7"
+  },
+  "SZLHOLDINGS/szl-khipu-kernels": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": "kernels",
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "5aef545c1ffe"
+  },
+  "SZLHOLDINGS/MiniEmbed-Nano": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": "numpy",
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "6fd949190bc1"
+  },
+  "SZLHOLDINGS/Moons-Nano": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": "numpy",
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "e80c95f3801b"
+  },
+  "SZLHOLDINGS/ReceiptAgent-Nano": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": "numpy",
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "1035caaa2302"
+  },
+  "SZLHOLDINGS/TinyKhipu-Nano": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": "numpy",
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "5b6c7bdbb632"
+  },
+  "SZLHOLDINGS/szl-governed-norm": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": "kernels",
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "3ba72385fa4c"
+  },
+  "SZLHOLDINGS/szl-lambda-gate": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": "kernels",
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "1725d5cb9835"
+  },
+  "SZLHOLDINGS/szl-block-kv": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": "kernels",
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "3a83d0c45f2d"
+  },
+  "SZLHOLDINGS/szl-khipu": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": "numpy",
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "2c76977ecf43"
+  },
+  "SZLHOLDINGS/szl-ouroboros": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": "kernels",
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "10b2de5a88c2"
+  },
+  "SZLHOLDINGS/szl-receipt-attn": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": "kernels",
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "c7d4e985ca73"
+  },
+  "SZLHOLDINGS/YARQA-ATTN": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": "kernels",
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "8b13ef28509c"
+  },
+  "SZLHOLDINGS/szl-maskmod": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": "kernels",
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "5037e05e185f"
+  },
+  "SZLHOLDINGS/szl-kernels": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": "kernels",
+   "pipeline_tag": "feature-extraction",
+   "gated": false,
+   "private": false,
+   "sha": "919d428f528e"
+  },
+  "SZLHOLDINGS/szl-blocked": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": "kernels",
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "0c70948fad41"
+  },
+  "SZLHOLDINGS/szl-invariants": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": "kernels",
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "15f67356d78a"
+  },
+  "SZLHOLDINGS/szl-formulas": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": "kernels",
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "d9a10dd0b4c9"
+  },
+  "SZLHOLDINGS/brain-navigator-r2": {
+   "license": "apache-2.0",
+   "base_model": "Qwen/Qwen3.5-0.8B",
+   "library": "peft",
+   "pipeline_tag": "text-generation",
+   "gated": false,
+   "private": false,
+   "sha": "1a7fe17cbc5a"
+  },
+  "SZLHOLDINGS/szl-receiptagent-qwen35-0.8b-v2": {
+   "license": "apache-2.0",
+   "base_model": "Qwen/Qwen3.5-0.8B",
+   "library": "peft",
+   "pipeline_tag": "text-generation",
+   "gated": false,
+   "private": false,
+   "sha": "9009f0619efa"
+  },
+  "SZLHOLDINGS/szl-provctl": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": "kernels",
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "cc134a618c36"
+  },
+  "SZLHOLDINGS/SZL-Khipu-1.5B-GGUF": {
+   "license": "apache-2.0",
+   "base_model": "SZLHOLDINGS/SZL-Khipu-1.5B",
+   "library": "llama.cpp",
+   "pipeline_tag": "text-generation",
+   "gated": false,
+   "private": false,
+   "sha": "cf771c4c39ae"
+  },
+  "SZLHOLDINGS/SZL-Khipu-1.5B-abstain": {
+   "license": "apache-2.0",
+   "base_model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "library": "peft",
+   "pipeline_tag": "text-generation",
+   "gated": false,
+   "private": false,
+   "sha": "cf6afd99cc14"
+  },
+  "SZLHOLDINGS/SZL-Khipu-1.5B": {
+   "license": "apache-2.0",
+   "base_model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "library": "transformers",
+   "pipeline_tag": "text-generation",
+   "gated": false,
+   "private": false,
+   "sha": "37830323f21a"
+  },
+  "SZLHOLDINGS/szl-govsign": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": "kernels",
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "84c99227f025"
+  },
+  "SZLHOLDINGS/SZL-Forge-1.5B-ReceiptAgent": {
+   "license": "apache-2.0",
+   "base_model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "library": "transformers",
+   "pipeline_tag": "text-generation",
+   "gated": false,
+   "private": false,
+   "sha": "7a27708d97a7"
+  },
+  "SZLHOLDINGS/KHIPU-R2": {
+   "license": "apache-2.0",
+   "base_model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "library": "peft",
+   "pipeline_tag": "text-generation",
+   "gated": false,
+   "private": false,
+   "sha": "449305ca4591"
+  },
+  "SZLHOLDINGS/governed-inference-meter": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": "kernels",
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "5649a8af9a1c"
+  },
+  "SZLHOLDINGS/a11oy-v19-substrate": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": null,
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "9f03f6ed3896"
+  },
+  "SZLHOLDINGS/A11OY-MINI": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": "llama.cpp",
+   "pipeline_tag": "text-generation",
+   "gated": false,
+   "private": false,
+   "sha": "b122bb9617d1"
+  }
+ },
+ "datasets": {
+  "SZLHOLDINGS/killinchu-osint-corpus": {
+   "license": "other",
+   "base_model": [],
+   "library": null,
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "49fa0129adf1"
+  },
+  "SZLHOLDINGS/a11oy-verifiable-corpus": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": null,
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "1eb8dbb71736"
+  },
+  "SZLHOLDINGS/szl-evidence": {
+   "license": null,
+   "base_model": [],
+   "library": null,
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": ""
+  },
+  "SZLHOLDINGS/SZLHOLDINGS": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": null,
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "32b932c95388"
+  },
+  "SZLHOLDINGS/szl-lake": {
+   "license": "cc-by-4.0",
+   "base_model": [],
+   "library": null,
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "81373ab5b1da"
+  },
+  "SZLHOLDINGS/receipted-unsloth": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": null,
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "a62226464cab"
+  },
+  "SZLHOLDINGS/why-we-lead": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": null,
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "d4831596a0e9"
+  },
+  "SZLHOLDINGS/vault-artifacts": {
+   "license": null,
+   "base_model": [],
+   "library": null,
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": ""
+  },
+  "SZLHOLDINGS/szl-training-receipts": {
+   "license": null,
+   "base_model": [],
+   "library": null,
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": ""
+  },
+  "SZLHOLDINGS/governed-agent-bench": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": null,
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "a182f0e68f15"
+  },
+  "SZLHOLDINGS/szl-1-doctrine-sft": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": null,
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "b11a9d6abe33"
+  },
+  "SZLHOLDINGS/alloy-sovereign-eval-runs": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": null,
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "6926b2d49aee"
+  },
+  "SZLHOLDINGS/energy-attested-runs": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": null,
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "674fdba8eea3"
+  },
+  "SZLHOLDINGS/governed-receipts-bench": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": null,
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "235ef348dce7"
+  },
+  "SZLHOLDINGS/readiness-runs": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": null,
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "3798719acbfc"
+  },
+  "SZLHOLDINGS/uds-bundles-v1": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": null,
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "797eb62a3d55"
+  },
+  "SZLHOLDINGS/yuyay-v3-axis-labels-v1": {
+   "license": null,
+   "base_model": [],
+   "library": null,
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": ""
+  },
+  "SZLHOLDINGS/k-verify-benchmark-v1": {
+   "license": "cc-by-4.0",
+   "base_model": [],
+   "library": null,
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "82bf28814d0b"
+  },
+  "SZLHOLDINGS/doctrine-v10-v11": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": null,
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "4bafa5dededa"
+  },
+  "SZLHOLDINGS/thesis-corpus-v18": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": null,
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "8254324026bf"
+  },
+  "SZLHOLDINGS/canonical-formulas-v1": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": null,
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "1395ee1aa26a"
+  },
+  "SZLHOLDINGS/lean-proofs-v1": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": null,
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "563beb5786a4"
+  },
+  "SZLHOLDINGS/rag-corpus-v1": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": null,
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "5287573c5f47"
+  },
+  "SZLHOLDINGS/lean-theorem-tree": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": null,
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "b93a14cd411e"
+  },
+  "SZLHOLDINGS/thesis-formula-index": {
+   "license": null,
+   "base_model": [],
+   "library": null,
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": ""
+  },
+  "SZLHOLDINGS/anatomy-alive-harness": {
+   "license": null,
+   "base_model": [],
+   "library": null,
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": ""
+  },
+  "SZLHOLDINGS/szl-artifacts": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": null,
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "feff62cecb94"
+  },
+  "SZLHOLDINGS/ouroboros-arxiv-preprint": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": null,
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "13ee49f4bbb8"
+  },
+  "SZLHOLDINGS/szl-org-infra": {
+   "license": null,
+   "base_model": [],
+   "library": null,
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": ""
+  },
+  "SZLHOLDINGS/uds-governance-receipts": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": null,
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "aa6b8ab824e4"
+  },
+  "SZLHOLDINGS/uds-spans-receipts": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": null,
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "41f07ff6541a"
+  },
+  "SZLHOLDINGS/thesis-v18-formal-verification": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": null,
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "50d804156d12"
+  },
+  "SZLHOLDINGS/test-results": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": null,
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "b488e7f4b181"
+  },
+  "SZLHOLDINGS/szl-quant-sft-v1": {
+   "license": "apache-2.0",
+   "base_model": [],
+   "library": null,
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "dfe997e573bd"
+  },
+  "SZLHOLDINGS/szl-second-brain-inrepo": {
+   "license": "other",
+   "base_model": [],
+   "library": null,
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": "d44a595b6c2b"
+  },
+  "SZLHOLDINGS/legacy-archive": {
+   "license": null,
+   "base_model": [],
+   "library": null,
+   "pipeline_tag": null,
+   "gated": false,
+   "private": false,
+   "sha": ""
+  }
+ }
+}

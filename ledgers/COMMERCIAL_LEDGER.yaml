@@ -1,0 +1,123 @@
+ledger: COMMERCIAL_LEDGER
+rule: "Any UNKNOWN row sets blocks_raise=true. The release gate fails until every row is attested with evidence."
+rows:
+  - metric: ARR
+    definition: "Annual recurring revenue, contracted"
+    value: UNKNOWN
+    evidence_ref: UNKNOWN
+    blocks_raise: true
+  - metric: MRR
+    definition: Monthly recurring revenue
+    value: UNKNOWN
+    evidence_ref: UNKNOWN
+    blocks_raise: true
+  - metric: paying_customers
+    definition: Count of customers with a signed paid agreement
+    value: UNKNOWN
+    evidence_ref: UNKNOWN
+    blocks_raise: true
+  - metric: design_partners_signed
+    definition: "Paid design partners, not free pilots"
+    value: UNKNOWN
+    evidence_ref: UNKNOWN
+    blocks_raise: true
+  - metric: gross_margin_pct
+    definition: "Revenue minus cost-to-serve, as %"
+    value: UNKNOWN
+    evidence_ref: UNKNOWN
+    blocks_raise: true
+  - metric: net_revenue_retention_pct
+    definition: "NRR incl. expansion, target >=110"
+    value: UNKNOWN
+    evidence_ref: UNKNOWN
+    blocks_raise: true
+  - metric: cac_payback_months
+    definition: Months to recover acquisition cost
+    value: UNKNOWN
+    evidence_ref: UNKNOWN
+    blocks_raise: true
+  - metric: burn_multiple
+    definition: "Net burn / net new ARR, target <1.5x"
+    value: UNKNOWN
+    evidence_ref: UNKNOWN
+    blocks_raise: true
+  - metric: runway_months
+    definition: Cash / net burn
+    value: UNKNOWN
+    evidence_ref: UNKNOWN
+    blocks_raise: true
+  - metric: cash_on_hand
+    definition: Current liquid balance
+    value: UNKNOWN
+    evidence_ref: UNKNOWN
+    blocks_raise: true
+  - metric: monthly_burn
+    definition: Average net monthly burn
+    value: UNKNOWN
+    evidence_ref: UNKNOWN
+    blocks_raise: true
+  - metric: published_price
+    definition: A price a stranger can read without a call
+    value: UNKNOWN
+    evidence_ref: UNKNOWN
+    blocks_raise: true
+  - metric: pricing_model
+    definition: "Per-action? Per-seat? Platform fee? Undecided = UNKNOWN"
+    value: UNKNOWN
+    evidence_ref: UNKNOWN
+    blocks_raise: true
+  - metric: buyer_persona
+    definition: Named single buyer with budget line
+    value: UNKNOWN
+    evidence_ref: UNKNOWN
+    blocks_raise: true
+  - metric: first_wedge
+    definition: One workflow with a budget owner
+    value: UNKNOWN
+    evidence_ref: UNKNOWN
+    blocks_raise: true
+  - metric: co_founder_name
+    definition: "Second name with ownership, not advisory"
+    value: UNKNOWN
+    evidence_ref: UNKNOWN
+    blocks_raise: true
+  - metric: cap_table_clean
+    definition: "Delaware C-Corp, no side letters, no dead equity"
+    value: UNKNOWN
+    evidence_ref: UNKNOWN
+    blocks_raise: true
+  - metric: ip_assignments_complete
+    definition: Every contributor signed assignment to the company
+    value: UNKNOWN
+    evidence_ref: UNKNOWN
+    blocks_raise: true
+  - metric: model_bom
+    definition: Bill of materials for all 43 models incl. base weights
+    value: UNKNOWN
+    evidence_ref: UNKNOWN
+    blocks_raise: true
+  - metric: dataset_license_register
+    definition: License + provenance for all 36 datasets
+    value: UNKNOWN
+    evidence_ref: UNKNOWN
+    blocks_raise: true
+  - metric: training_data_rights
+    definition: Legal basis for each training corpus
+    value: UNKNOWN
+    evidence_ref: UNKNOWN
+    blocks_raise: true
+  - metric: soc2_status
+    definition: "Type I readiness date, or UNKNOWN"
+    value: UNKNOWN
+    evidence_ref: UNKNOWN
+    blocks_raise: true
+  - metric: eu_design_partner
+    definition: Named EU partner with Annex III exposure
+    value: UNKNOWN
+    evidence_ref: UNKNOWN
+    blocks_raise: true
+  - metric: demo_video_90s
+    definition: Public 90-second deny/sign/tamper/verify recording
+    value: UNKNOWN
+    evidence_ref: UNKNOWN
+    blocks_raise: true

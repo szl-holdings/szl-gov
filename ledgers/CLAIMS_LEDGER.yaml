@@ -1,0 +1,67 @@
+ledger: CLAIMS_LEDGER
+claims:
+  - claim_id: C-001
+    claim: Killinchu public counter-UAS demo is live as a Docker Space
+    truth_state: VERIFIED
+    evidence:
+      - "https://huggingface.co/spaces/SZLHOLDINGS/killinchu"
+    notes: "Public Docker Space observed 2026-08-30, likes=2. Runtime stage NOT attested."
+  - claim_id: C-002
+    claim: a11oy public governance Space is live
+    truth_state: VERIFIED
+    evidence:
+      - "https://huggingface.co/spaces/SZLHOLDINGS/a11oy"
+    notes: "Public Docker Space observed. Carries slsa-l1, doctrine-v11, dsse tags."
+  - claim_id: C-003
+    claim: "killinchu-osint-corpus is the estate's distribution leader"
+    truth_state: VERIFIED
+    evidence:
+      - "https://huggingface.co/datasets/SZLHOLDINGS/killinchu-osint-corpus"
+    notes: "41,122 downloads, 8 likes. Next nearest dataset is szl-lake at 4,363."
+  - claim_id: C-004
+    claim: SZL-Khipu-1.5B is a publicly downloaded model
+    truth_state: VERIFIED
+    evidence:
+      - "https://huggingface.co/SZLHOLDINGS/SZL-Khipu-1.5B"
+    notes: "1,102 downloads. GGUF variant 611. ReceiptAgent variant 954."
+  - claim_id: C-005
+    claim: The estate operates 26 Hugging Face Spaces
+    truth_state: BLOCKED
+    evidence: []
+    notes: "Measured 45 on 2026-08-30. The '26' figure is stale marketing; retire it."
+  - claim_id: C-006
+    claim: The flagship set is currently attested
+    truth_state: "UNKNOWN"
+    evidence: []
+    notes: Flagship admission tests (8 criteria) have not been run per-Space. Capacity is 5; attested count is 0.
+  - claim_id: C-007
+    claim: Receipts are DSSE-signed and offline-verifiable
+    truth_state: VERIFIED
+    evidence:
+      - tools/receipt.py
+      - tools/verify_receipt.py
+      - receipts/audit-receipt-2026-08-30.dsse.json
+    notes: Ed25519 DSSE sign + offline verify demonstrated 2026-08-30; tamper test rejects single byte-flip. Not yet linked from a public Space.
+  - claim_id: C-008
+    claim: a11oy proves what an agent was authorized to do (vs IAM access)
+    truth_state: "UNKNOWN"
+    evidence: []
+    notes: "Positioning line, not a shipped integration. No customer audit has consumed a receipt."
+  - claim_id: C-009
+    claim: Model Bill of Materials exists for all models
+    truth_state: VERIFIED
+    evidence:
+      - ledgers/MODEL_BOM.yaml
+    notes: "43/43 license declared (all Apache-2.0); 13/43 base-model lineage declared; 12 third-party Qwen bases flagged."
+  - claim_id: C-010
+    claim: Dataset license register exists
+    truth_state: DEGRADED
+    evidence:
+      - ledgers/DATASET_LICENSE_REGISTER.yaml
+    notes: "28/36 declared. 8 UNKNOWN, all private repos — cards not machine-readable anonymously; owner must declare."
+  - claim_id: C-011
+    claim: Public Spaces are runtime-observed RUNNING
+    truth_state: VERIFIED
+    evidence:
+      - audit_data/probes/
+    notes: "7/7 public Spaces RUNNING with HEAD SHA captured 2026-08-30. Stage is not deployed-revision evidence (B-06)."
