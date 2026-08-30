@@ -136,15 +136,15 @@
     "current source revision attested",
     "deployed revision attested",
     "mobile smoke test passed",
+    "conversion event present",
     "link to a real verifier or receipt artifact",
     "no stale metric on the card",
     "declared truth state"
    ],
    "tests_failed": [
-    "conversion event present",
     "buyer-legible CTA"
    ],
-   "notes": "Flagship gap(s): conversion event present, buyer-legible CTA"
+   "notes": "Flagship gap(s): buyer-legible CTA"
   },
   {
    "name": "energy-attest-holo",

@@ -58,9 +58,12 @@ def main() -> int:
     tier_spaces.main()
 
     # 2. sign the audit's own receipt
-    KEYS.mkdir(exist_ok=True)
-    key_path = KEYS / "szl-audit-ed25519.pem"
-    pub_path = KEYS / "szl-audit-ed25519.pub.pem"
+    # Key lives outside the repo so the public push can never leak it.
+    EXTKEYS = ROOT.parent / "szl-gov-keys"
+    EXTKEYS.mkdir(exist_ok=True)
+    key_path = EXTKEYS / "szl-audit-ed25519.pem"
+    pub_path = EXTKEYS / "szl-audit-ed25519.pub.pem"
+    pub_copy = KEYS / "szl-audit-ed25519.pub.pem"
     if key_path.exists():
         sk = R.load_private(key_path.read_text())
         pk = R.load_public(pub_path.read_text())
@@ -69,6 +72,9 @@ def main() -> int:
         key_path.write_text(R.private_key_pem(sk))
         pub_path.write_text(R.public_key_pem(pk))
         key_path.chmod(0o600)
+    # publish only the public key into the repo
+    KEYS.mkdir(exist_ok=True)
+    pub_copy.write_text(R.public_key_pem(pk))
 
     hf = json.load(open(ROOT / "audit_data" / "hf_org_listing.json"))
     gh = json.load(open(ROOT / "audit_data" / "gh_repos.json"))
@@ -111,7 +117,14 @@ def main() -> int:
         },
     )
 
-    statement = R.build_statement(action, source_rev="workspace:szl-gov")
+    statement = R.build_statement(
+        action,
+        source_rev="github.com/szl-holdings/szl-gov",
+    )
+    statement["predicate"]["verification_surface"] = (
+        "https://github.com/szl-holdings/szl-gov "
+        "(offline verify: python3 tools/verify_receipt.py <receipt> keys/szl-audit-ed25519.pub.pem)"
+    )
     env = R.sign_statement(statement, sk)
     RECEIPTS.mkdir(exist_ok=True)
     out = RECEIPTS / "audit-receipt-2026-08-30.dsse.json"

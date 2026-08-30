@@ -3,3 +3,5 @@ keys/*.pem
 !keys/*.pub.pem
 __pycache__/
 *.pyc
+# local-only working keys (defense in depth on top of external key dir)
+szl-gov-keys/
