@@ -44,5 +44,5 @@ See `email-1-cold.md`, `email-2-followup.md`, `email-3-proof.md`, `linkedin-note
 
 - Never ask "would you use a governed inference platform?" — invites polite fiction
 - Never lead with "AI governance platform" — too broad, you'll be lumped with OneTrust
-- Never claim "EU AI Act compliant" — say "Article 12 logging conformance profile"
-- Never say a competitor "has no logs" — say "not its stated purpose"
+- Never claim "EU AI Act compliant" — say "Article 12 logging conformance profile" <!-- lexicon-ok -->
+- Never say a competitor "has no logs" — say "not its stated purpose" <!-- lexicon-ok -->
