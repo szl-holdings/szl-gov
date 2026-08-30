@@ -151,10 +151,10 @@ def main() -> int:
     ]
     # Honest evidence for rows this week's work actually created. The rest stay UNKNOWN.
     EVIDENCE = {
-        "published_price": ("Control $75-250K/yr; Assurance/Sovereign $250K+/yr; Verify open",
-                            "commercial/index.html"),
-        "pricing_model": ("Annual platform fee by tier (Control/Assurance/Sovereign); design-partner 6-month paid. Never token-priced.",
-                          "commercial/index.html"),
+        "published_price": ("Control $75-250K/yr; Assurance/Sovereign $250K+/yr; Verify open — LIVE at a11oy.net/pricing",
+                            "https://a11oy.net/pricing/"),
+        "pricing_model": ("Annual platform fee by tier (Control/Assurance/Sovereign); design-partner 6-month paid. Never token-priced. Public.",
+                          "https://a11oy.net/pricing/"),
         "first_wedge": ("Governed agent change management: signal->investigate->policy->approve->patch->deploy->signed receipt",
                         "SZL_MASTER_PAYLOAD.md#3"),
         "buyer_persona": ("VP Eng/Platform + CISO (dual), regulated AI product teams with EU Annex III exposure",

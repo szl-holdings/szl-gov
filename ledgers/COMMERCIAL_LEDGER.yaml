@@ -69,14 +69,14 @@ rows:
     evidence_class: none
   - metric: published_price
     definition: A price a stranger can read without a call
-    value: Control $75-250K/yr; Assurance/Sovereign $250K+/yr; Verify open
-    evidence_ref: commercial/index.html
+    value: Control $75-250K/yr; Assurance/Sovereign $250K+/yr; Verify open — LIVE at a11oy.net/pricing
+    evidence_ref: "https://a11oy.net/pricing/"
     blocks_raise: true
     evidence_class: hypothesis_artifact
   - metric: pricing_model
     definition: "Per-action? Per-seat? Platform fee? Undecided = UNKNOWN"
-    value: Annual platform fee by tier (Control/Assurance/Sovereign); design-partner 6-month paid. Never token-priced.
-    evidence_ref: commercial/index.html
+    value: Annual platform fee by tier (Control/Assurance/Sovereign); design-partner 6-month paid. Never token-priced. Public.
+    evidence_ref: "https://a11oy.net/pricing/"
     blocks_raise: true
     evidence_class: hypothesis_artifact
   - metric: buyer_persona
