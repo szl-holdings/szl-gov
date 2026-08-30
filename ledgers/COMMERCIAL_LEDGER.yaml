@@ -6,118 +6,142 @@ rows:
     value: UNKNOWN
     evidence_ref: UNKNOWN
     blocks_raise: true
+    evidence_class: none
   - metric: MRR
     definition: Monthly recurring revenue
     value: UNKNOWN
     evidence_ref: UNKNOWN
     blocks_raise: true
+    evidence_class: none
   - metric: paying_customers
     definition: Count of customers with a signed paid agreement
     value: UNKNOWN
     evidence_ref: UNKNOWN
     blocks_raise: true
+    evidence_class: none
   - metric: design_partners_signed
     definition: "Paid design partners, not free pilots"
     value: UNKNOWN
     evidence_ref: UNKNOWN
     blocks_raise: true
+    evidence_class: none
   - metric: gross_margin_pct
     definition: "Revenue minus cost-to-serve, as %"
     value: UNKNOWN
     evidence_ref: UNKNOWN
     blocks_raise: true
+    evidence_class: none
   - metric: net_revenue_retention_pct
     definition: "NRR incl. expansion, target >=110"
     value: UNKNOWN
     evidence_ref: UNKNOWN
     blocks_raise: true
+    evidence_class: none
   - metric: cac_payback_months
     definition: Months to recover acquisition cost
     value: UNKNOWN
     evidence_ref: UNKNOWN
     blocks_raise: true
+    evidence_class: none
   - metric: burn_multiple
     definition: "Net burn / net new ARR, target <1.5x"
     value: UNKNOWN
     evidence_ref: UNKNOWN
     blocks_raise: true
+    evidence_class: none
   - metric: runway_months
     definition: Cash / net burn
     value: UNKNOWN
     evidence_ref: UNKNOWN
     blocks_raise: true
+    evidence_class: none
   - metric: cash_on_hand
     definition: Current liquid balance
     value: UNKNOWN
     evidence_ref: UNKNOWN
     blocks_raise: true
+    evidence_class: none
   - metric: monthly_burn
     definition: Average net monthly burn
     value: UNKNOWN
     evidence_ref: UNKNOWN
     blocks_raise: true
+    evidence_class: none
   - metric: published_price
     definition: A price a stranger can read without a call
-    value: UNKNOWN
-    evidence_ref: UNKNOWN
+    value: Control $75-250K/yr; Assurance/Sovereign $250K+/yr; Verify open
+    evidence_ref: commercial/index.html
     blocks_raise: true
+    evidence_class: hypothesis_artifact
   - metric: pricing_model
     definition: "Per-action? Per-seat? Platform fee? Undecided = UNKNOWN"
-    value: UNKNOWN
-    evidence_ref: UNKNOWN
+    value: Annual platform fee by tier (Control/Assurance/Sovereign); design-partner 6-month paid. Never token-priced.
+    evidence_ref: commercial/index.html
     blocks_raise: true
+    evidence_class: hypothesis_artifact
   - metric: buyer_persona
     definition: Named single buyer with budget line
-    value: UNKNOWN
-    evidence_ref: UNKNOWN
+    value: "VP Eng/Platform + CISO (dual), regulated AI product teams with EU Annex III exposure"
+    evidence_ref: "SZL_MASTER_PAYLOAD.md#3"
     blocks_raise: true
+    evidence_class: hypothesis_artifact
   - metric: first_wedge
     definition: One workflow with a budget owner
-    value: UNKNOWN
-    evidence_ref: UNKNOWN
+    value: "Governed agent change management: signal->investigate->policy->approve->patch->deploy->signed receipt"
+    evidence_ref: "SZL_MASTER_PAYLOAD.md#3"
     blocks_raise: true
+    evidence_class: hypothesis_artifact
   - metric: co_founder_name
     definition: "Second name with ownership, not advisory"
     value: UNKNOWN
     evidence_ref: UNKNOWN
     blocks_raise: true
+    evidence_class: none
   - metric: cap_table_clean
     definition: "Delaware C-Corp, no side letters, no dead equity"
     value: UNKNOWN
     evidence_ref: UNKNOWN
     blocks_raise: true
+    evidence_class: none
   - metric: ip_assignments_complete
     definition: Every contributor signed assignment to the company
     value: UNKNOWN
     evidence_ref: UNKNOWN
     blocks_raise: true
+    evidence_class: none
   - metric: model_bom
     definition: Bill of materials for all 43 models incl. base weights
     value: UNKNOWN
     evidence_ref: UNKNOWN
     blocks_raise: true
+    evidence_class: none
   - metric: dataset_license_register
     definition: License + provenance for all 36 datasets
     value: UNKNOWN
     evidence_ref: UNKNOWN
     blocks_raise: true
+    evidence_class: none
   - metric: training_data_rights
     definition: Legal basis for each training corpus
     value: UNKNOWN
     evidence_ref: UNKNOWN
     blocks_raise: true
+    evidence_class: none
   - metric: soc2_status
     definition: "Type I readiness date, or UNKNOWN"
     value: UNKNOWN
     evidence_ref: UNKNOWN
     blocks_raise: true
+    evidence_class: none
   - metric: eu_design_partner
     definition: Named EU partner with Annex III exposure
     value: UNKNOWN
     evidence_ref: UNKNOWN
     blocks_raise: true
+    evidence_class: none
   - metric: demo_video_90s
     definition: Public 90-second deny/sign/tamper/verify recording
-    value: UNKNOWN
-    evidence_ref: UNKNOWN
+    value: Scripted as 7-step on-page proof; not yet recorded as video
+    evidence_ref: "commercial/index.html#demo"
     blocks_raise: true
+    evidence_class: hypothesis_artifact

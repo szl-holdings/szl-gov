@@ -12,9 +12,9 @@ contradictions:
     statement: HF backlink parser needs literal model IDs in Space files; 10/43 models backlinked
     resolution: "Patches staged in patches/ for immune, governed-receipt-verifier, README. Apply with a write-scoped HF token or manually in the Hub UI. 30 of 45 Spaces still need models: lines."
   - id: B-04
-    severity: BLOCKER
-    statement: "No pricing published => GM/NRR/CAC/burn multiple are uncomputable"
-    resolution: "Ship a price page this week; hypotheses allowed, absence is not"
+    severity: HIGH
+    statement: "GM/NRR/CAC/burn multiple uncomputable (pricing hypothesis exists, no contracted revenue)"
+    resolution: Pricing page + 3 SKUs shipped 2026-08-30 (commercial/index.html). Hypothesis only; validate with first design-partner contract to clear.
   - id: B-05
     severity: BLOCKER
     statement: "Solo founder. Series A graduation 12.9% vs 23.7% (2 founders) / 29.3% (3)"

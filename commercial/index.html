@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>a11oy — Pricing | Governed AI you can prove</title>
+<style>
+  :root{
+    --bg:#0a0e14; --ink:#e6edf3; --dim:#8b98a5; --line:#222c38;
+    --gold:#d7b96b; --teal:#3af4c8; --violet:#7a5cff; --red:#ff6b6b;
+    --card:#11161d;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+  header{padding:28px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+  .logo{font-weight:700;font-size:18px;letter-spacing:.5px}
+  .logo em{color:var(--teal);font-style:normal}
+  nav a{color:var(--dim);text-decoration:none;margin-left:24px;font-size:14px}
+  nav a:hover{color:var(--ink)}
+  .hero{padding:72px 0 48px;text-align:left}
+  .kicker{color:var(--gold);font-size:13px;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px}
+  h1{font-size:clamp(30px,5vw,50px);line-height:1.1;font-weight:800;max-width:760px}
+  h1 .t{color:var(--teal)}
+  .sub{color:var(--dim);font-size:17px;max-width:620px;margin-top:20px}
+  .verify-inline{margin-top:24px;display:inline-flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;font-size:13px;color:var(--dim)}
+  .verify-inline code{color:var(--teal);font-family:ui-monospace,monospace}
+  section{padding:56px 0}
+  h2{font-size:26px;font-weight:800;margin-bottom:8px}
+  .lede{color:var(--dim);margin-bottom:36px;max-width:640px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  @media(max-width:860px){.grid3{grid-template-columns:1fr}}
+  .tier{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px;position:relative;display:flex;flex-direction:column}
+  .tier.hot{border-color:var(--teal);box-shadow:0 0 0 1px var(--teal) inset}
+  .tag{position:absolute;top:-12px;left:24px;background:var(--teal);color:#04110d;font-size:11px;font-weight:800;letter-spacing:1px;padding:4px 12px;border-radius:20px;text-transform:uppercase}
+  .tier h3{font-size:19px;margin-bottom:4px}
+  .tier .price{font-size:32px;font-weight:800;margin:14px 0 2px}
+  .tier .per{color:var(--dim);font-size:13px;margin-bottom:18px}
+  .tier ul{list-style:none;margin:6px 0 24px;flex:1}
+  .tier li{padding:7px 0;color:var(--dim);font-size:14px;border-bottom:1px solid var(--line)}
+  .tier li::before{content:"—";color:var(--teal);margin-right:10px}
+  .btn{display:block;text-align:center;background:var(--teal);color:#04110d;font-weight:700;text-decoration:none;padding:13px;border-radius:10px;font-size:15px}
+  .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+  .btn:hover{filter:brightness(1.08)}
+  /* demo */
+  .demo{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:32px}
+  .steps{counter-reset:s}
+  .step{display:flex;gap:18px;padding:14px 0;border-bottom:1px solid var(--line)}
+  .step:last-child{border:0}
+  .num{counter-increment:s;flex:none;width:34px;height:34px;border-radius:50%;border:1px solid var(--teal);color:var(--teal);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
+  .num::before{content:counter(s,decimal-leading-zero)}
+  .step b{display:block;font-size:15px}
+  .step span{color:var(--dim);font-size:14px}
+  .pill{display:inline-block;font-size:11px;font-weight:700;letter-spacing:1px;padding:3px 10px;border-radius:20px;text-transform:uppercase;margin-left:10px;vertical-align:middle}
+  .pill.fail{background:rgba(255,107,107,.15);color:var(--red)}
+  .pill.pass{background:rgba(58,244,200,.15);color:var(--teal)}
+  .pill.inc{background:rgba(215,185,107,.15);color:var(--gold)}
+  footer{border-top:1px solid var(--line);padding:32px 0;color:var(--dim);font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+  a.ct{color:var(--teal);text-decoration:none}
+  .fine{color:var(--dim);font-size:12px;margin-top:6px}
+</style>
+</head>
+<body>
+<header class="wrap">
+  <div class="logo">a11oy <em>/ SZL Holdings</em></div>
+  <nav>
+    <a href="#pricing">Pricing</a>
+    <a href="#demo">The proof</a>
+    <a href="https://github.com/szl-holdings/szl-gov" target="_blank" rel="noopener">Verify</a>
+  </nav>
+</header>
+
+<section class="hero wrap">
+  <div class="kicker">Governed Inference</div>
+  <h1>AI that <span class="t">proves its receipt state</span> and refuses to lie.</h1>
+  <p class="sub">IAM says what an identity may access. a11oy proves what an agent was authorized to do, what it actually did, and whether the required evidence exists — signed, offline-verifiable, portable across vendors.</p>
+  <div class="verify-inline">
+    <span>Don't take our word for it —</span>
+    <code>python3 tools/verify_receipt.py receipts/… keys/szl-audit-ed25519.pub.pem</code>
+  </div>
+</section>
+
+<section class="wrap" id="pricing">
+  <h2>Pricing</h2>
+  <p class="lede">Hypothesis pricing — we publish a number because an honest wrong price beats none. Design partners lock founding terms.</p>
+  <div class="grid3">
+    <div class="tier">
+      <h3>Verify</h3>
+      <div class="price">Open</div>
+      <div class="per">free forever</div>
+      <ul>
+        <li>GovernedAction/v1 predicate spec</li>
+        <li>Reference offline verifier</li>
+        <li>Article 12 conformance profile</li>
+        <li>Community receipt format</li>
+      </ul>
+      <a class="btn ghost" href="https://github.com/szl-holdings/szl-gov" target="_blank" rel="noopener">Get the spec</a>
+    </div>
+    <div class="tier hot">
+      <div class="tag">Design Partner</div>
+      <h3>Control</h3>
+      <div class="price">$75–250K<span style="font-size:15px;color:var(--dim)">/yr</span></div>
+      <div class="per">6-month paid design partner · dept deployment</div>
+      <ul>
+        <li>Governed agent change management wedge</li>
+        <li>Default-DENY policy engine</li>
+        <li>Flight recorder (flock+fsync, PENDING_SYNC)</li>
+        <li>Signed receipt per consequential action</li>
+        <li>80% conversion target — you shape the product</li>
+      </ul>
+      <a class="btn" href="mailto:stephenlutar2@gmail.com?subject=a11oy%20Design%20Partner">Become a design partner</a>
+    </div>
+    <div class="tier">
+      <h3>Assurance / Sovereign</h3>
+      <div class="price">$250K+<span style="font-size:15px;color:var(--dim)">/yr</span></div>
+      <div class="per">enterprise + sovereign / air-gapped</div>
+      <ul>
+        <li>Everything in Control</li>
+        <li>Article 12 conformance reporting</li>
+        <li>Retention architecture + AQL</li>
+        <li>Own-metal / air-gap deployment</li>
+        <li>Redaction-with-integrity commitments</li>
+      </ul>
+      <a class="btn ghost" href="mailto:stephenlutar2@gmail.com?subject=a11oy%20Enterprise">Talk to us</a>
+    </div>
+  </div>
+  <p class="fine">Never token-priced. The value is control, auditability, and deployment enablement — not token throughput.</p>
+</section>
+
+<section class="wrap" id="demo">
+  <h2>The 90-second proof</h2>
+  <p class="lede">Every claim below is enforced in code and covered by a contract test. This demo is the product.</p>
+  <div class="demo">
+    <div class="steps">
+      <div class="step"><div class="num"></div><div><b>Deny an unauthorized action<span class="pill fail">DENY</span></b><span>Default-DENY policy engine blocks an action outside authority.</span></div></div>
+      <div class="step"><div class="num"></div><div><b>Sign an approved action<span class="pill pass">SIGN</span></b><span>Human approval → DSSE/Ed25519 receipt in an in-toto envelope.</span></div></div>
+      <div class="step"><div class="num"></div><div><b>Tamper one byte<span class="pill fail">FAIL</span></b><span>Offline verification rejects the altered receipt. Signature ≠ truth.</span></div></div>
+      <div class="step"><div class="num"></div><div><b>Remove required evidence<span class="pill inc">INCOMPLETE</span></b><span>Missing evidence yields INCOMPLETE — never PASS.</span></div></div>
+      <div class="step"><div class="num"></div><div><b>Kill the network<span class="pill inc">PENDING_SYNC</span></b><span>Local durability ACK after flock+fsync; sync state stays visible.</span></div></div>
+      <div class="step"><div class="num"></div><div><b>Replay, non-mutating<span class="pill pass">REPLAY</span></b><span>Idempotency key proves no duplicate execution on recovery.</span></div></div>
+      <div class="step"><div class="num"></div><div><b>Article 12 report<span class="pill pass">EXPORT</span></b><span>Machine-readable conformance profile, 180-day retention floor.</span></div></div>
+    </div>
+  </div>
+  <div class="verify-inline" style="margin-top:20px">
+    <span>We audit ourselves the same way:</span>
+    <a class="ct" href="https://github.com/szl-holdings/szl-gov" target="_blank" rel="noopener">our signed estate receipt is public, honestly INCOMPLETE →</a>
+  </div>
+</section>
+
+<footer class="wrap">
+  <div>© 2026 SZL Holdings · a11oy</div>
+  <div>Control before action. Evidence after.</div>
+</footer>
+</body>
+</html>

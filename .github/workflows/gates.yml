@@ -1,0 +1,54 @@
+name: truth-gates
+on:
+  push:
+  pull_request:
+
+jobs:
+  contract-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install cryptography
+      - name: Contract tests (receipt stack)
+        run: python3 tools/test_receipt.py
+
+  lexicon:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install cryptography
+      - name: Ledger build (brings ledgers to latest)
+        run: python3 tools/build_ledgers.py
+      - name: Lexicon gate — no claim without evidence
+        run: python3 tools/lexicon_gate.py
+
+  spaces:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install cryptography
+      - run: python3 tools/tier_spaces.py
+      - name: Spaces gate — flagship attestation
+        run: python3 tools/spaces_gate.py
+
+  release:
+    runs-on: ubuntu-latest
+    continue-on-error: true  # release gate fails by design until commercial rows carry evidence
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install cryptography
+      - run: python3 tools/build_ledgers.py
+      - name: Release gate — commercial truth (expected red)
+        run: python3 tools/release_gate.py

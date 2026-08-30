@@ -149,11 +149,31 @@ def main() -> int:
         ("eu_design_partner", "Named EU partner with Annex III exposure"),
         ("demo_video_90s", "Public 90-second deny/sign/tamper/verify recording"),
     ]
+    # Honest evidence for rows this week's work actually created. The rest stay UNKNOWN.
+    EVIDENCE = {
+        "published_price": ("Control $75-250K/yr; Assurance/Sovereign $250K+/yr; Verify open",
+                            "commercial/index.html"),
+        "pricing_model": ("Annual platform fee by tier (Control/Assurance/Sovereign); design-partner 6-month paid. Never token-priced.",
+                          "commercial/index.html"),
+        "first_wedge": ("Governed agent change management: signal->investigate->policy->approve->patch->deploy->signed receipt",
+                        "SZL_MASTER_PAYLOAD.md#3"),
+        "buyer_persona": ("VP Eng/Platform + CISO (dual), regulated AI product teams with EU Annex III exposure",
+                          "SZL_MASTER_PAYLOAD.md#3"),
+        "demo_video_90s": ("Scripted as 7-step on-page proof; not yet recorded as video",
+                           "commercial/index.html#demo"),
+    }
     commercial = {
         "ledger": "COMMERCIAL_LEDGER",
         "rule": "Any UNKNOWN row sets blocks_raise=true. The release gate fails until every row is attested with evidence.",
         "rows": [
-            {"metric": k, "definition": v, "value": None, "evidence_ref": None, "blocks_raise": True}
+            {"metric": k,
+             "definition": v,
+             "value": EVIDENCE.get(k, (None, None))[0],
+             "evidence_ref": EVIDENCE.get(k, (None, None))[1],
+             # Hypothesis artifacts address the row but are NOT contracted revenue.
+             # They stop blocking once validated by a customer signal; until then keep blocking.
+             "blocks_raise": True,
+             "evidence_class": "hypothesis_artifact" if k in EVIDENCE else "none"}
             for k, v in commercial_rows
         ],
     }
@@ -169,9 +189,9 @@ def main() -> int:
         {"id": "B-03", "severity": "MEDIUM",
          "statement": "HF backlink parser needs literal model IDs in Space files; 10/43 models backlinked",
          "resolution": "Patches staged in patches/ for immune, governed-receipt-verifier, README. Apply with a write-scoped HF token or manually in the Hub UI. 30 of 45 Spaces still need models: lines."},
-        {"id": "B-04", "severity": "BLOCKER",
-         "statement": "No pricing published => GM/NRR/CAC/burn multiple are uncomputable",
-         "resolution": "Ship a price page this week; hypotheses allowed, absence is not"},
+        {"id": "B-04", "severity": "HIGH",
+         "statement": "GM/NRR/CAC/burn multiple uncomputable (pricing hypothesis exists, no contracted revenue)",
+         "resolution": "Pricing page + 3 SKUs shipped 2026-08-30 (commercial/index.html). Hypothesis only; validate with first design-partner contract to clear."},
         {"id": "B-05", "severity": "BLOCKER",
          "statement": "Solo founder. Series A graduation 12.9% vs 23.7% (2 founders) / 29.3% (3)",
          "resolution": "Recruit one named co-owner; write them into the deck"},
