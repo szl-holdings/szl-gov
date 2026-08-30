@@ -43,3 +43,16 @@ Gates fail on first run by design. The exit codes are the Week 1 checklist.
 - Dataset license register: 28/36 declared, 8 UNKNOWN (all private — owner must declare)
 - Backlink coverage measured at 10/43 models; 3 patches staged, 30 Spaces still need `models:` lines
 - Signed receipt v2 includes BOM, license register, tiering as generated_artifact evidence
+
+## License
+
+Apache-2.0 — see [LICENSE](LICENSE) and [NOTICE](NOTICE).
+
+**Key material.** `keys/szl-audit-ed25519.pub.pem` is a **public** verification key,
+published so third parties can verify estate audit receipts offline. No private key
+material is present in this repository, and none may ever be committed to it.
+
+**Verification boundary.** A signed estate-audit receipt proves integrity and origin
+of the audit record — that these values were observed and signed at that time. It does
+not prove the estate is secure, compliant, or correct. Λ = Conjecture 1 (advisory).
+Absent evidence is reported as UNKNOWN, never converted into a pass.
