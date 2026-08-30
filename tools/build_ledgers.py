@@ -148,6 +148,7 @@ def main() -> int:
         ("soc2_status", "Type I readiness date, or UNKNOWN"),
         ("eu_design_partner", "Named EU partner with Annex III exposure"),
         ("demo_video_90s", "Public 90-second deny/sign/tamper/verify recording"),
+        ("outbound_kit", "Design-partner sequences + target archetypes drafted"),
     ]
     # Honest evidence for rows this week's work actually created. The rest stay UNKNOWN.
     EVIDENCE = {
@@ -161,6 +162,8 @@ def main() -> int:
                           "SZL_MASTER_PAYLOAD.md#3"),
         "demo_video_90s": ("Scripted as 7-step on-page proof; not yet recorded as video",
                            "commercial/index.html#demo"),
+        "outbound_kit": ("3-email sequence + LinkedIn note + target archetypes drafted",
+                         "outreach/"),
     }
     commercial = {
         "ledger": "COMMERCIAL_LEDGER",

@@ -145,3 +145,9 @@ rows:
     evidence_ref: "commercial/index.html#demo"
     blocks_raise: true
     evidence_class: hypothesis_artifact
+  - metric: outbound_kit
+    definition: Design-partner sequences + target archetypes drafted
+    value: "3-email sequence + LinkedIn note + target archetypes drafted"
+    evidence_ref: outreach/
+    blocks_raise: true
+    evidence_class: hypothesis_artifact
