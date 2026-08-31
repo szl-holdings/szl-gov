@@ -121,6 +121,20 @@ def main() -> int:
             "notes": "7/7 public Spaces RUNNING with HEAD SHA captured 2026-08-30. Stage is not deployed-revision evidence (B-06).",
         },
         {
+            "claim_id": "C-013",
+            "claim": "Hardware track exists: A11oy Beacon / PHYS-1 RFQ issued to a JDM",
+            "truth_state": "VERIFIED",
+            "evidence": ["docs/hardware/README.md", "docs/hardware/BEACON_PHYS1_RFQ_extract.md"],
+            "notes": "Rev 0.9 RFQ prepared for Minewing 2026-08-31, pre-NDA. Scope: ONE engineering prototype, no production tooling. RC1 coprocessor = hardware-enforced privileged-output boundary.",
+        },
+        {
+            "claim_id": "C-014",
+            "claim": "RC1 hardware boundary is a novel, defensible differentiator",
+            "truth_state": "UNKNOWN",
+            "evidence": [],
+            "notes": "Spec section 24 correctly refuses a novelty claim pending claim-charted search by counsel. Prior art identified incl. US10872153B2, US20190110172A1, EMBRAVE. Do not claim primacy until counsel clears.",
+        },
+        {
             "claim_id": "C-012",
             "claim": "Design-partner outreach has begun to verified public program inboxes",
             "truth_state": "VERIFIED",
@@ -226,6 +240,12 @@ def main() -> int:
         {"id": "B-12", "severity": "HIGH",
          "statement": "Receipt backdating is possible without trusted timestamp",
          "resolution": "rfc3161_token + ntp_synced:true required in receipt context"},
+        {"id": "HW-001", "severity": "BLOCKER",
+         "statement": "Beacon RFQ discloses the RC1 privileged-output boundary in enabling detail to a third-party manufacturer before a mutual NDA is executed and before any provisional filing",
+         "resolution": "Order of operations: (1) execute mutual NDA, (2) file provisional on the RC1 boundary per counsel, (3) only then transmit sections 7 and 22 enabling detail. A CONFIDENTIAL marking is not an agreement. Same counsel engagement can cover IP-001."},
+        {"id": "HW-002", "severity": "HIGH",
+         "statement": "Hardware acceptance criteria are not yet bound to the software verifier",
+         "resolution": "Make tools/verify_receipt.py the acceptance test for RC1 execution receipts so hardware and software emit one predicate, not two."},
     ]
 
     LEDGERS.mkdir(exist_ok=True)
