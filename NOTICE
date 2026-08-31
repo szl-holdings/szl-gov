@@ -1,0 +1,31 @@
+szl-gov — estate truth layer
+Copyright 2026 Lutar, Stephen P. — SZL Holdings
+
+This product includes software developed by SZL Holdings.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+--------------------------------------------------------------------------------
+KEY MATERIAL
+
+keys/szl-audit-ed25519.pub.pem is a PUBLIC verification key, published so third
+parties can verify estate audit receipts offline. No private key material is
+present in this repository, and none may ever be committed to it.
+
+VERIFICATION BOUNDARY
+
+A signed estate-audit receipt proves integrity and origin of the audit record —
+that these values were observed and signed at that time. It does NOT prove the
+estate is secure, compliant, or correct. Λ = Conjecture 1 (advisory; uniqueness
+open) — never "proven trust." Absent evidence is reported as UNKNOWN, never
+converted into a pass.
