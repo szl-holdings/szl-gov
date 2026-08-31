@@ -76,8 +76,8 @@ def main() -> int:
     KEYS.mkdir(exist_ok=True)
     pub_copy.write_text(R.public_key_pem(pk))
 
-    hf = json.load(open(ROOT / "audit_data" / "hf_org_listing.json"))
-    gh = json.load(open(ROOT / "audit_data" / "gh_repos.json"))
+    _ = json.load(open(ROOT / "audit_data" / "hf_org_listing.json"))
+    _ = json.load(open(ROOT / "audit_data" / "gh_repos.json"))
 
     evidence = [
         R.EvidenceItem(kind="api_response", ref="audit_data/gh_repos.json",
@@ -138,7 +138,7 @@ def main() -> int:
     print(f"  predicateType: {R.PREDICATE_TYPE}")
     print(f"  completeness:  {action.completeness}  (missing human attestations -> INCOMPLETE, never PASS)")
     print(f"  keyid:         {env['signatures'][0]['keyid']}")
-    print(f"  self-verify:   PASS (offline, public key only)")
+    print("  self-verify:   PASS (offline, public key only)")
 
     # 3. gates
     print()
