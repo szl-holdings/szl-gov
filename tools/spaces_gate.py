@@ -39,7 +39,7 @@ def main() -> int:
 
     hf = json.load(open(AUDIT / "hf_org_listing.json"))
     spaces = hf["spaces"]
-    by_path = {s["path"].split("/")[-1]: s for s in spaces}
+    _ = {s["path"].split("/")[-1]: s for s in spaces}
 
     failures, warnings = [], []
 

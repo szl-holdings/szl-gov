@@ -76,8 +76,8 @@ def main() -> int:
     KEYS.mkdir(exist_ok=True)
     pub_copy.write_text(R.public_key_pem(pk))
 
-    hf = json.load(open(ROOT / "audit_data" / "hf_org_listing.json"))
-    gh = json.load(open(ROOT / "audit_data" / "gh_repos.json"))
+    _ = json.load(open(ROOT / "audit_data" / "hf_org_listing.json"))
+    _ = json.load(open(ROOT / "audit_data" / "gh_repos.json"))
 
     evidence = [
         R.EvidenceItem(kind="api_response", ref="audit_data/gh_repos.json",
