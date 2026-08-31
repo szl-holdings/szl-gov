@@ -138,7 +138,7 @@ def main() -> int:
     print(f"  predicateType: {R.PREDICATE_TYPE}")
     print(f"  completeness:  {action.completeness}  (missing human attestations -> INCOMPLETE, never PASS)")
     print(f"  keyid:         {env['signatures'][0]['keyid']}")
-    print(f"  self-verify:   PASS (offline, public key only)")
+    print("  self-verify:   PASS (offline, public key only)")
 
     # 3. gates
     print()

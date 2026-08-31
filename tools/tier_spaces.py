@@ -25,7 +25,6 @@ RECOMMENDED_FLAGSHIP = [
 # Org card gets its own tier.
 ORG_CARD = "README"
 
-import re
 
 # All 8 tests machine-checked 2026-08-30 against live README + probe + mobile-UA evidence.
 def _readme(name):
