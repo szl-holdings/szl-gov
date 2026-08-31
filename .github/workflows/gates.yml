@@ -1,7 +1,18 @@
-name: truth-gates
+name: Repository truth checks
+
 on:
   push:
   pull_request:
+  workflow_dispatch:
+    inputs:
+      enforce_readiness:
+        description: Fail unless both Space and commercial release readiness gates pass
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
 
 jobs:
   contract-tests:
@@ -28,9 +39,9 @@ jobs:
       - name: Lexicon gate — no claim without evidence
         run: python3 tools/lexicon_gate.py
 
-  spaces:
+  spaces-readiness-audit:
+    name: Spaces readiness audit (non-promotional)
     runs-on: ubuntu-latest
-    continue-on-error: true  # state gate: reports flagship attestation, doesn't block code health
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
@@ -38,12 +49,33 @@ jobs:
           python-version: "3.12"
       - run: pip install cryptography
       - run: python3 tools/tier_spaces.py
-      - name: Spaces gate — flagship attestation
-        run: python3 tools/spaces_gate.py
+      - name: Record Space readiness without claiming promotion
+        shell: bash
+        run: |
+          set +e
+          python3 tools/spaces_gate.py
+          code=$?
+          set -e
+          case "$code" in
+            0)
+              echo "Space readiness audit result: READY" | tee -a "$GITHUB_STEP_SUMMARY"
+              ;;
+            2|3|4)
+              {
+                echo "Space readiness audit result: BLOCKED (exit $code)"
+                echo
+                echo "This green job means the non-promotional audit executed; it is not deployment or release evidence."
+              } | tee -a "$GITHUB_STEP_SUMMARY"
+              ;;
+            *)
+              echo "::error::Space readiness audit crashed with unexpected exit code $code"
+              exit "$code"
+              ;;
+          esac
 
-  release:
+  commercial-readiness-audit:
+    name: Commercial readiness audit (non-promotional)
     runs-on: ubuntu-latest
-    continue-on-error: true  # release gate fails by design until commercial rows carry evidence
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
@@ -51,5 +83,43 @@ jobs:
           python-version: "3.12"
       - run: pip install cryptography
       - run: python3 tools/build_ledgers.py
-      - name: Release gate — commercial truth (expected red)
+      - name: Record commercial readiness without claiming release
+        shell: bash
+        run: |
+          set +e
+          python3 tools/release_gate.py
+          code=$?
+          set -e
+          case "$code" in
+            0)
+              echo "Commercial readiness audit result: READY" | tee -a "$GITHUB_STEP_SUMMARY"
+              ;;
+            6)
+              {
+                echo "Commercial readiness audit result: BLOCKED (exit 6)"
+                echo
+                echo "This green job means the non-promotional audit executed; it is not a release claim."
+              } | tee -a "$GITHUB_STEP_SUMMARY"
+              ;;
+            *)
+              echo "::error::Commercial readiness audit crashed with unexpected exit code $code"
+              exit "$code"
+              ;;
+          esac
+
+  enforce-readiness:
+    name: Enforce Space and commercial readiness
+    if: github.event_name == 'workflow_dispatch' && inputs.enforce_readiness
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: "3.12"
+      - run: pip install cryptography
+      - run: python3 tools/build_ledgers.py
+      - run: python3 tools/tier_spaces.py
+      - name: Enforce Space readiness
+        run: python3 tools/spaces_gate.py
+      - name: Enforce commercial release readiness
         run: python3 tools/release_gate.py
