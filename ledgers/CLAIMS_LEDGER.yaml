@@ -65,6 +65,18 @@ claims:
     evidence:
       - audit_data/probes/
     notes: "7/7 public Spaces RUNNING with HEAD SHA captured 2026-08-30. Stage is not deployed-revision evidence (B-06)."
+  - claim_id: C-013
+    claim: "Hardware track exists: A11oy Beacon / PHYS-1 RFQ issued to a JDM"
+    truth_state: VERIFIED
+    evidence:
+      - docs/hardware/README.md
+      - docs/hardware/BEACON_PHYS1_RFQ_extract.md
+    notes: "Rev 0.9 RFQ prepared for Minewing 2026-08-31, pre-NDA. Scope: ONE engineering prototype, no production tooling. RC1 coprocessor = hardware-enforced privileged-output boundary."
+  - claim_id: C-014
+    claim: "RC1 hardware boundary is a novel, defensible differentiator"
+    truth_state: "UNKNOWN"
+    evidence: []
+    notes: "Spec section 24 correctly refuses a novelty claim pending claim-charted search by counsel. Prior art identified incl. US10872153B2, US20190110172A1, EMBRAVE. Do not claim primacy until counsel clears."
   - claim_id: C-012
     claim: Design-partner outreach has begun to verified public program inboxes
     truth_state: VERIFIED

@@ -26,7 +26,7 @@ def rows_with_unknown(text: str) -> list[str]:
 
 def open_blockers(text: str) -> list[str]:
     out = []
-    for m in re.finditer(r"id: (B-\d+)\n\s+severity: (BLOCKER)", text):
+    for m in re.finditer(r"id: ((?:B-\d+|HW-\d+))\n\s+severity: (BLOCKER)", text):
         out.append(m.group(1))
     return out
 
