@@ -30,7 +30,7 @@ python3 tools/verify_receipt.py receipts/audit-receipt-2026-08-30.dsse.json keys
 
 ## Ground truth (2026-08-30)
 
-98 GitHub repos · 45 HF Spaces (28 Docker, 7 public) · 43 models · 36 datasets.
+100 GitHub repos (59 active public · 36 archived public · 5 private — GitHub API census 2026-08-30) · 45 HF Spaces (28 Docker, 7 public) · 43 models · 36 datasets.
 Marketed count was 26 Spaces — stale (B-01). Flagship capacity 5, attested 0. <!-- lexicon-ok -->
 
 Gates fail on first run by design. The exit codes are the Week 1 checklist.
