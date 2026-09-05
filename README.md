@@ -13,7 +13,20 @@ Proof: [a11oy.net](https://a11oy.net)
 
 Signed, offline-verifiable audit of the SZL estate, plus the gates that keep it honest.
 
-## Run it
+## Live estate census
+
+The authoritative GitHub inventory is now `tools/audit_github_estate.py`. It enumerates every repository visible to the organization audit credential, walks every exact default-branch tree, records every blob/submodule identity, and fails closed on unreadable or truncated evidence. Control mode audits high-signal files; archive mode byte-verifies exact commit archives and never labels active-only or budget-limited coverage as a full-estate pass.
+
+```bash
+ESTATE_GITHUB_TOKEN=... python3 tools/audit_github_estate.py \
+  --org szl-holdings \
+  --content-mode control \
+  --fail-on critical
+```
+
+See [`docs/LIVE_ESTATE_FILE_AUDIT.md`](docs/LIVE_ESTATE_FILE_AUDIT.md) for the evidence model, coverage semantics, archive verification, and CI contract.
+
+## Run the signed snapshot toolchain
 
 ```bash
 python3 tools/szl_master_bootstrap.py --run   # ledgers + signed receipt + all gates
@@ -27,33 +40,34 @@ python3 tools/verify_receipt.py receipts/audit-receipt-2026-08-30.dsse.json keys
 
 | Path | What |
 |---|---|
+| `tools/audit_github_estate.py` | live token-visible repository/file census, bounded content checks, archive byte verification, and cross-repository duplicate evidence |
+| `.github/workflows/live-estate-file-audit.yml` | daily exact control census and weekly full-estate archive attempt with immutable artifacts |
 | `tools/receipt.py` | GovernedAction/v1 predicate, in-toto Statement, DSSE Ed25519 sign/verify |
-| `tools/build_ledgers.py` | generates the four ledgers from the audit snapshot |
+| `tools/build_ledgers.py` | generates the four ledgers from the retained audit snapshot |
 | `tools/tier_spaces.py` | applies the 8 flagship tests to all Spaces -> `spaces_tiering.json` |
 | `tools/build_bom.py` | Model BOM + Dataset License Register (diligence deliverables) |
 | `tools/szl_master_bootstrap.py` | one command: ledgers + self-signed receipt + gates |
 | `tools/verify_receipt.py` | offline verifier — the artifact a CISO runs |
-| `ledgers/` | ESTATE_INVENTORY / CLAIMS / COMMERCIAL (24 UNKNOWN rows) / CONTRADICTION_REGISTER / MODEL_BOM / DATASET_LICENSE_REGISTER / spaces_tiering.json |
-| `patches/` | Ready-to-apply `models:` front-matter READMEs for the 3 backlink-gap Spaces (needs write-scoped HF token) |
-| `receipts/` | DSSE-signed receipt for this audit, completeness INCOMPLETE (honest) |
+| `ledgers/` | retained snapshot ledgers and registers |
+| `patches/` | ready-to-apply model-card patches retained from the 2026-08-30 snapshot |
+| `receipts/` | DSSE-signed historical audit receipts |
 | `SZL_MASTER_PAYLOAD.md` | the Codex build directive |
 | `docs/positioning/AUTO_REVIEW_DELTA.md` | Codex auto-review comparison, 12 rows |
 
-## Ground truth (2026-08-30)
+## Historical snapshot — 2026-08-30
 
-100 GitHub repos (59 active public · 36 archived public · 5 private — GitHub API census 2026-08-30) · 45 HF Spaces (28 Docker, 7 public) · 43 models · 36 datasets.
-Marketed count was 26 Spaces — stale (B-01). Flagship capacity 5, attested 0. <!-- lexicon-ok -->
+The retained 2026-08-30 snapshot recorded 100 GitHub repositories (59 active public, 36 archived public, 5 private), 45 Hugging Face Spaces, 43 models, and 36 datasets. Those values are historical evidence, not a current inventory claim. The live controller above supersedes static counts for current-state decisions.
 
-Gates fail on first run by design. The exit codes are the Week 1 checklist.
+The snapshot gates fail on first run by design. Their exit codes remain the historical Week 1 checklist.
 
-## What changed 2026-08-30 v2
+## What changed in the 2026-08-30 v2 snapshot
 
 - All 7 public Spaces probed RUNNING with HEAD SHA (`audit_data/probes/`)
 - 45 Spaces tiered: 5 FLAGSHIP (recommended), 38 LAB, 1 SUPPORTING, 1 ORG_CARD
 - Model BOM: 43/43 license declared (all Apache-2.0), 13/43 base lineage, 12 third-party Qwen bases
 - Dataset license register: 28/36 declared, 8 UNKNOWN (all private — owner must declare)
 - Backlink coverage measured at 10/43 models; 3 patches staged, 30 Spaces still need `models:` lines
-- Signed receipt v2 includes BOM, license register, tiering as generated_artifact evidence
+- Signed receipt v2 includes BOM, license register, tiering as generated-artifact evidence
 
 ## License
 

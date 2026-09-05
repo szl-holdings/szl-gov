@@ -1,0 +1,237 @@
+name: Live GitHub estate file audit
+
+on:
+  pull_request:
+    paths:
+      - tools/audit_github_estate.py
+      - tests/test_audit_github_estate.py
+      - docs/LIVE_ESTATE_FILE_AUDIT.md
+      - .github/workflows/live-estate-file-audit.yml
+  push:
+    branches: [main]
+    paths:
+      - tools/audit_github_estate.py
+      - tests/test_audit_github_estate.py
+      - docs/LIVE_ESTATE_FILE_AUDIT.md
+      - .github/workflows/live-estate-file-audit.yml
+  schedule:
+    - cron: "17 5 * * *"
+    - cron: "41 5 * * 0"
+  workflow_dispatch:
+    inputs:
+      content_mode:
+        description: Audit depth
+        required: true
+        default: archive
+        type: choice
+        options:
+          - control
+          - archive
+      include_archived_content:
+        description: Include archived repositories in archive-byte verification
+        required: true
+        default: true
+        type: boolean
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: live-estate-file-audit-${{ github.event_name }}-${{ github.event.schedule || inputs.content_mode || 'control' }}
+  cancel-in-progress: false
+
+env:
+  ESTATE_GITHUB_TOKEN: ${{ secrets.SZL_ORG_ADMIN_TOKEN || secrets.ORG_ADMIN_TOKEN || secrets.SZL_GITHUB_TOKEN || secrets.GH_PAT || github.token }}
+
+jobs:
+  control-census:
+    name: Exact repository tree and control-file census
+    if: ${{ github.event_name != 'workflow_dispatch' || inputs.content_mode == 'control' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Harden runner
+        uses: step-security/harden-runner@05e31511f85b41b11d1cf0ef85d0992719546e2c # v2.21.0
+        with:
+          egress-policy: audit
+
+      - name: Checkout exact controller source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+
+      - name: Prove controller contracts offline
+        run: |
+          python -m py_compile tools/audit_github_estate.py tests/test_audit_github_estate.py
+          python -m unittest discover -s tests -p 'test_audit_github_estate.py' -v
+
+      - name: Inventory every token-visible repository and exact default-branch file
+        id: audit
+        shell: bash
+        run: |
+          set +e
+          mkdir -p reports/live-estate
+          threshold=critical
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            # Bootstrap qualification blocks coverage loss. The protected-main
+            # and scheduled controller blocks both incomplete evidence and new
+            # high-confidence committed-secret findings.
+            threshold=incomplete
+          fi
+          python tools/audit_github_estate.py \
+            --org szl-holdings \
+            --content-mode control \
+            --workers 8 \
+            --fail-on "$threshold" \
+            --output-json reports/live-estate/control.json \
+            --output-md reports/live-estate/control.md \
+            --output-csv reports/live-estate/control-files.csv
+          code=$?
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Upload immutable control-census evidence
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: live-estate-control-${{ github.run_id }}-${{ github.run_attempt }}
+          path: reports/live-estate/
+          if-no-files-found: error
+          retention-days: 90
+
+      - name: Synchronize deterministic estate-audit incident
+        if: ${{ always() && (github.event_name == 'schedule' || github.ref == 'refs/heads/main') }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPORT: reports/live-estate/control.json
+          TITLE: "[ESTATE-FILE-AUDIT] live census incomplete or critical"
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f "$REPORT"
+          python - "$REPORT" > /tmp/estate-audit-body.md <<'PY'
+          import json, sys
+          report = json.load(open(sys.argv[1], encoding="utf-8"))
+          counts = report["finding_counts"]["by_severity"]
+          coverage = report["coverage"]
+          print("## Live GitHub estate and file audit")
+          print()
+          print(f"- State: `{report['state']}`")
+          print(f"- Repositories: `{coverage['repositories_inventory_complete']}/{coverage['repositories_discovered']}`")
+          print(f"- Files/submodules: `{coverage['files_inventory_total']}`")
+          print(f"- Every file content-addressed: `{coverage['every_file_content_addressed']}`")
+          print(f"- Critical/high: `{counts['critical']}/{counts['high']}`")
+          print(f"- Receipt: `{report['receipt_sha256']}`")
+          print(f"- Run: {__import__('os').environ['GITHUB_SERVER_URL']}/{__import__('os').environ['GITHUB_REPOSITORY']}/actions/runs/{__import__('os').environ['GITHUB_RUN_ID']}")
+          print()
+          print("The controller is read-only. This incident is closed only when the requested audit is complete and no critical finding remains.")
+          PY
+          incident=$(python - "$REPORT" <<'PY'
+          import json, sys
+          report = json.load(open(sys.argv[1], encoding="utf-8"))
+          c = report["finding_counts"]["by_severity"]["critical"]
+          complete = report["coverage"]["requested_audit_complete"]
+          print("true" if (not complete or c) else "false")
+          PY
+          )
+          number=$(gh issue list \
+            --repo "$GITHUB_REPOSITORY" \
+            --state all \
+            --limit 100 \
+            --search "\"$TITLE\" in:title" \
+            --json number,title \
+            --jq ".[] | select(.title == \"$TITLE\") | .number" \
+            | head -n 1)
+          if [ "$incident" = "true" ]; then
+            if [ -z "$number" ]; then
+              gh issue create --repo "$GITHUB_REPOSITORY" --title "$TITLE" --body-file /tmp/estate-audit-body.md
+            else
+              gh issue reopen "$number" --repo "$GITHUB_REPOSITORY" || true
+              gh issue edit "$number" --repo "$GITHUB_REPOSITORY" --body-file /tmp/estate-audit-body.md
+            fi
+          elif [ -n "$number" ]; then
+            gh issue close "$number" \
+              --repo "$GITHUB_REPOSITORY" \
+              --reason completed \
+              --comment "Current exact census is complete and contains no critical finding. Run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          fi
+
+      - name: Enforce control-census verdict
+        if: always()
+        run: exit "${{ steps.audit.outputs.exit_code || '2' }}"
+
+  archive-census:
+    name: Exact archive byte verification across the estate
+    if: >-
+      ${{
+        (github.event_name == 'schedule' && github.event.schedule == '41 5 * * 0') ||
+        (github.event_name == 'workflow_dispatch' && inputs.content_mode == 'archive')
+      }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - name: Harden runner
+        uses: step-security/harden-runner@05e31511f85b41b11d1cf0ef85d0992719546e2c # v2.21.0
+        with:
+          egress-policy: audit
+
+      - name: Checkout exact controller source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+
+      - name: Prove controller contracts offline
+        run: |
+          python -m py_compile tools/audit_github_estate.py tests/test_audit_github_estate.py
+          python -m unittest discover -s tests -p 'test_audit_github_estate.py' -v
+
+      - name: Byte-verify every exact default-branch archive in scope
+        id: audit
+        shell: bash
+        run: |
+          set +e
+          mkdir -p reports/live-estate-archive
+          archived_flag=""
+          if [ "${{ github.event_name }}" = "schedule" ] || [ "${{ inputs.include_archived_content }}" = "true" ]; then
+            archived_flag="--include-archived-content"
+          fi
+          python tools/audit_github_estate.py \
+            --org szl-holdings \
+            --content-mode archive \
+            $archived_flag \
+            --workers 8 \
+            --max-archive-bytes 805306368 \
+            --max-total-archive-bytes 10737418240 \
+            --fail-on critical \
+            --output-json reports/live-estate-archive/archive.json \
+            --output-md reports/live-estate-archive/archive.md \
+            --output-csv reports/live-estate-archive/archive-files.csv
+          code=$?
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Upload immutable archive evidence
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: live-estate-archive-${{ github.run_id }}-${{ github.run_attempt }}
+          path: reports/live-estate-archive/
+          if-no-files-found: error
+          retention-days: 90
+
+      - name: Enforce archive-census verdict
+        if: always()
+        run: exit "${{ steps.audit.outputs.exit_code || '2' }}"
