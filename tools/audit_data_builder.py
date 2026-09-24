@@ -14,9 +14,16 @@ PUBLIC_FLAGSHIP_CANDIDATES = [
     "a11oy", "killinchu", "governed-receipt-verifier", "szl-atelier", "README",
 ]
 
+
 def build(gh_repos, hf) -> dict:
     def _truthy(v):
         return str(v).strip().lower() in {"true", "1", "yes"}
+
+    def _updated_at(record):
+        """Preserve provider observation time from either supported snapshot key."""
+        if "updated_at" in record:
+            return record["updated_at"]
+        return record.get("updated")
 
     spaces = hf["spaces"]
     docker_spaces = [s for s in spaces if s.get("sdk") == "docker"]
@@ -60,7 +67,7 @@ def build(gh_repos, hf) -> dict:
                 "sdk": s.get("sdk"),
                 "private": bool(s.get("private")),
                 "likes": int(s.get("likes", 0)),
-                "updated_at": s.get("updated_at"),
+                "updated_at": _updated_at(s),
                 # RUNNING is never evidence of deployed revision. We recorded
                 # presence + config only; runtime stage was not attested.
                 "runtime_attested": False,
@@ -73,7 +80,7 @@ def build(gh_repos, hf) -> dict:
                 "downloads": int(m.get("downloads", 0)),
                 "likes": int(m.get("likes", 0)),
                 "task": m.get("task"),
-                "updated_at": m.get("updated_at"),
+                "updated_at": _updated_at(m),
                 "evidence_ref": f"https://huggingface.co/{m['path']}",
             } for m in hf["models"]
         ],
@@ -82,7 +89,7 @@ def build(gh_repos, hf) -> dict:
                 "path": dset["path"],
                 "downloads": int(dset.get("downloads", 0)),
                 "private": bool(dset.get("private")),
-                "updated_at": dset.get("updated_at"),
+                "updated_at": _updated_at(dset),
                 "evidence_ref": f"https://huggingface.co/datasets/{dset['path']}",
             } for dset in hf["datasets"]
         ],
