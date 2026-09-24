@@ -1,10 +1,12 @@
 import json
+import sys
 from pathlib import Path
-
-from tools.audit_data_builder import build
 
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "tools"))
+
+from audit_data_builder import build
 
 
 def _minimal_hf(updated_key="updated"):
