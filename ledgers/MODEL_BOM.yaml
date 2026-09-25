@@ -5,6 +5,7 @@ summary:
   license_declared: 43
   base_declared: 13
   third_party_bases: 12
+  withheld_non_public: 0
 models:
   - model: SZLHOLDINGS/A11OY-MINI
     license: apache-2.0

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""tier_spaces.py — apply the 8 flagship tests to all 45 Spaces, emit spaces_tiering.json.
+"""tier_spaces.py — apply the 8 flagship tests to every public Space, emit spaces_tiering.json.
 
 Machine-checked tests are computed from live probe + listing evidence.
 Human-only tests stay false with an attestation placeholder — UNKNOWN, not invented.
@@ -10,6 +10,10 @@ from __future__ import annotations
 import json
 import pathlib
 import re
+import sys
+
+sys.path.insert(0, str(pathlib.Path(__file__).parent))
+from audit_data_builder import is_public_hf, load_withheld
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 AUDIT = ROOT / "audit_data"
@@ -50,7 +54,9 @@ HUMAN_TESTS = []  # all machine-checked; human-only = billing + final attestatio
 
 def main() -> int:
     hf = json.load(open(AUDIT / "hf_org_listing.json"))
-    spaces = hf["spaces"]
+    # Only Spaces the snapshot marks public are tiered and listed; the rest are counted.
+    spaces = [s for s in hf["spaces"] if is_public_hf(s)]
+    withheld = len(hf["spaces"]) - len(spaces) + load_withheld(AUDIT).get("hf_spaces", 0)
     tiers = []
 
     for s in spaces:
@@ -98,6 +104,7 @@ def main() -> int:
         "generated_by": "tools/tier_spaces.py",
         "flagship_capacity": 5,
         "billing_verified": False,  # human: confirm HF TEAM plan covers the 4 public Docker Spaces
+        "withheld_non_public": withheld,
         "tiers": tiers,
     }
     dest = ROOT / "ledgers" / "spaces_tiering.json"
@@ -105,7 +112,7 @@ def main() -> int:
 
     from collections import Counter
     c = Counter(t["tier"] for t in tiers)
-    print("tiering written:", dict(c))
+    print("tiering written:", dict(c), f"(non-public Spaces withheld: {withheld})")
     return 0
 
 

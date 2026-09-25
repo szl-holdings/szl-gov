@@ -2,10 +2,22 @@
 
 Reads nothing at import; build() runs the probe results captured 2026-08-30.
 Every count here is derived from raw API snapshots, never asserted in prose.
+
+Public-only listings: a row is listed only when the snapshot marks it public
+(GitHub visibility PUBLIC, Hub private false). Anything else, including a row
+with no visibility flag, is left out of every listing and kept only as an
+aggregate count, so estate totals stay measured without naming it.
 """
 from __future__ import annotations
 
+import json
+import pathlib
+
 FLAGSHIP_CAPACITY = 5
+
+# Aggregate counts of rows already removed from the committed snapshot
+# (written by tools/public_snapshot.py). Counts only, never names.
+WITHHELD_FILE = "withheld_private_counts.json"
 
 # Public docker spaces — these are the investor-visible Docker estate (billing risk class).
 # From 2026-08-30 audit: public docker = a11oy, killinchu, szl-khipu, immune (4).
@@ -15,9 +27,27 @@ PUBLIC_FLAGSHIP_CANDIDATES = [
 ]
 
 
-def build(gh_repos, hf) -> dict:
-    def _truthy(v):
-        return str(v).strip().lower() in {"true", "1", "yes"}
+def is_public_repo(record) -> bool:
+    """A GitHub row is listed only when the snapshot says PUBLIC (fail closed)."""
+    return str(record.get("visibility", "")).strip().upper() == "PUBLIC"
+
+
+def is_public_hf(record) -> bool:
+    """A Hub row is listed only when the snapshot says private is false (fail closed)."""
+    return str(record.get("private")).strip().lower() in {"false", "0", "no"}
+
+
+def load_withheld(audit_dir) -> dict:
+    """Aggregate counts of rows withheld from the committed snapshot, if recorded."""
+    path = pathlib.Path(audit_dir) / WITHHELD_FILE
+    if not path.exists():
+        return {}
+    data = json.loads(path.read_text(encoding="utf-8"))
+    return {k: int(v) for k, v in data.get("counts", {}).items()}
+
+
+def build(gh_repos, hf, withheld=None) -> dict:
+    withheld = withheld or {}
 
     def _updated_at(record):
         """Preserve provider observation time from either supported snapshot key."""
@@ -25,10 +55,30 @@ def build(gh_repos, hf) -> dict:
             return record["updated_at"]
         return record.get("updated")
 
-    spaces = hf["spaces"]
-    docker_spaces = [s for s in spaces if s.get("sdk") == "docker"]
-    public_spaces = [s for s in spaces if not _truthy(s.get("private"))]
-    public_docker = [s["path"] for s in docker_spaces if not _truthy(s.get("private"))]
+    all_spaces = hf["spaces"]
+    all_docker = [s for s in all_spaces if s.get("sdk") == "docker"]
+    public_repos = [r for r in gh_repos if is_public_repo(r)]
+    spaces = [s for s in all_spaces if is_public_hf(s)]
+    models = [m for m in hf["models"] if is_public_hf(m)]
+    datasets = [d for d in hf["datasets"] if is_public_hf(d)]
+    public_docker = [s["path"] for s in spaces if s.get("sdk") == "docker"]
+
+    # Totals cover the whole estate; every listing below is public rows only.
+    seen = {
+        "github_repos": gh_repos,
+        "hf_spaces": all_spaces,
+        "hf_spaces_docker": all_docker,
+        "hf_models": hf["models"],
+        "hf_datasets": hf["datasets"],
+    }
+    listed = {
+        "github_repos": public_repos,
+        "hf_spaces": spaces,
+        "hf_spaces_docker": public_docker,
+        "hf_models": models,
+        "hf_datasets": datasets,
+    }
+    totals = {k: len(rows) + int(withheld.get(k, 0)) for k, rows in seen.items()}
 
     estate = {
         "meta": {
@@ -39,13 +89,14 @@ def build(gh_repos, hf) -> dict:
             "collector": "szl-gov estate audit (READ_ONLY, API snapshots)",
         },
         "counts": {
-            "github_repos": len(gh_repos),
-            "hf_spaces": len(spaces),
-            "hf_spaces_docker": len(docker_spaces),
-            "hf_spaces_public": len(public_spaces),
-            "hf_models": len(hf["models"]),
-            "hf_datasets": len(hf["datasets"]),
+            "github_repos": totals["github_repos"],
+            "hf_spaces": totals["hf_spaces"],
+            "hf_spaces_docker": totals["hf_spaces_docker"],
+            "hf_spaces_public": len(spaces),
+            "hf_models": totals["hf_models"],
+            "hf_datasets": totals["hf_datasets"],
             "advertised_flagships": 5,
+            "withheld_non_public": {k: totals[k] - len(listed[k]) for k in totals},
         },
         # Prior rounds marketed the estate as 26 Spaces / 5 flagships.
         # Measured ground truth is 45/9. The gap between the two numbers
@@ -59,13 +110,13 @@ def build(gh_repos, hf) -> dict:
                 "pushed_at": r["pushedAt"],
                 "archived": r.get("isArchived", False),
                 "evidence_ref": f"https://github.com/szl-holdings/{r['name']}",
-            } for r in gh_repos
+            } for r in public_repos
         ],
         "hf_spaces": [
             {
                 "path": s["path"],
                 "sdk": s.get("sdk"),
-                "private": bool(s.get("private")),
+                "private": not is_public_hf(s),
                 "likes": int(s.get("likes", 0)),
                 "updated_at": _updated_at(s),
                 # RUNNING is never evidence of deployed revision. We recorded
@@ -82,16 +133,16 @@ def build(gh_repos, hf) -> dict:
                 "task": m.get("task"),
                 "updated_at": _updated_at(m),
                 "evidence_ref": f"https://huggingface.co/{m['path']}",
-            } for m in hf["models"]
+            } for m in models
         ],
         "hf_datasets": [
             {
                 "path": dset["path"],
                 "downloads": int(dset.get("downloads", 0)),
-                "private": bool(dset.get("private")),
+                "private": not is_public_hf(dset),
                 "updated_at": _updated_at(dset),
                 "evidence_ref": f"https://huggingface.co/datasets/{dset['path']}",
-            } for dset in hf["datasets"]
+            } for dset in datasets
         ],
         "findings": {
             "docker_tier_risk": {

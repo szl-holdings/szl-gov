@@ -15,6 +15,9 @@ import json
 import pathlib
 import sys
 
+sys.path.insert(0, str(pathlib.Path(__file__).parent))
+from audit_data_builder import load_withheld
+
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 AUDIT = ROOT / "audit_data"
 FLAGSHIP_CAPACITY = 5
@@ -73,7 +76,10 @@ def main() -> int:
     untiered = len(spaces) if not tier_path.exists() else 0
 
     print("== SPACES GATE ==")
-    print(f"spaces={len(spaces)} public_docker={len(public_docker)} untiered={untiered}")
+    # The committed listing is public rows only; non-public Spaces survive as a count.
+    withheld = load_withheld(AUDIT).get("hf_spaces", 0)
+    print(f"spaces={len(spaces)} public_docker={len(public_docker)} untiered={untiered} "
+          f"withheld_non_public={withheld}")
     for w in warnings:
         print("WARN:", w)
     for f in failures:
