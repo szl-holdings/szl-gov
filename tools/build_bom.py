@@ -14,6 +14,7 @@ import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
 import yamlite
+from audit_data_builder import is_public_hf, load_withheld
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 AUDIT = ROOT / "audit_data"
@@ -23,11 +24,21 @@ LEDGERS = ROOT / "ledgers"
 def main() -> int:
     lic = json.load(open(AUDIT / "hf_licenses.json"))
     hf = json.load(open(AUDIT / "hf_org_listing.json"))
+    withheld = load_withheld(AUDIT)
     dl_counts = {e["path"]: int(e.get("downloads", 0)) for e in hf["models"]}
+
+    def _public(kind):
+        """License rows whose repo the listing marks public; everything else is withheld."""
+        listed = {e["path"] for e in hf[kind] if is_public_hf(e)}
+        rows = {rid: m for rid, m in lic[kind].items() if rid in listed and is_public_hf(m)}
+        return rows, len(lic[kind]) - len(rows) + withheld.get(f"hf_{kind}", 0)
+
+    public_models, models_withheld = _public("models")
+    public_datasets, datasets_withheld = _public("datasets")
 
     # ---- MODEL BOM
     models = []
-    for rid, m in sorted(lic["models"].items()):
+    for rid, m in sorted(public_models.items()):
         base = m.get("base_model")
         if isinstance(base, list):
             base = base[0] if base else None
@@ -50,18 +61,19 @@ def main() -> int:
         "ledger": "MODEL_BOM",
         "rule": "Every model needs license + base_model + training-data basis before diligence. UNKNOWN blocks the raise.",
         "summary": {
-            "total": len(models),
+            "total": len(models) + models_withheld,
             "license_declared": sum(1 for m in models if m["license"]),
             "base_declared": sum(1 for m in models if m["base_model"]),
             "third_party_bases": sum(1 for m in models if m["third_party_base"]),
+            "withheld_non_public": models_withheld,
         },
         "models": models,
     }
 
     # ---- DATASET LICENSE REGISTER
     datasets = []
-    ds_priv = {e["path"]: e.get("private") for e in hf["datasets"]}
-    for rid, m in sorted(lic["datasets"].items()):
+    ds_priv = {e["path"]: not is_public_hf(e) for e in hf["datasets"]}
+    for rid, m in sorted(public_datasets.items()):
         private = bool(ds_priv.get(rid))
         datasets.append({
             "dataset": rid,
@@ -76,10 +88,12 @@ def main() -> int:
     register = {
         "ledger": "DATASET_LICENSE_REGISTER",
         "rule": "Every public dataset needs a declared license + training-data rights basis. UNKNOWN_PRIVATE requires owner declaration.",
+        # Withheld rows are counted, never listed, and stay UNKNOWN until the owner declares them.
         "summary": {
-            "total": len(datasets),
+            "total": len(datasets) + datasets_withheld,
             "declared": sum(1 for d in datasets if d["license"]),
-            "unknown": sum(1 for d in datasets if not d["license"]),
+            "unknown": sum(1 for d in datasets if not d["license"]) + datasets_withheld,
+            "withheld_non_public": datasets_withheld,
         },
         "datasets": datasets,
     }

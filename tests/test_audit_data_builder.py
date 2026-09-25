@@ -23,6 +23,7 @@ def _minimal_hf(updated_key="updated"):
         "models": [
             {
                 "path": "SZLHOLDINGS/example-model",
+                "private": False,
                 "downloads": "2",
                 "likes": "3",
                 "task": "text-generation",

@@ -33,6 +33,7 @@ python3 tools/verify_receipt.py receipts/audit-receipt-2026-08-30.dsse.json keys
 | `tools/build_bom.py` | Model BOM + Dataset License Register (diligence deliverables) |
 | `tools/szl_master_bootstrap.py` | one command: ledgers + self-signed receipt + gates |
 | `tools/verify_receipt.py` | offline verifier — the artifact a CISO runs |
+| `tools/public_snapshot.py` | reduces a fresh API capture to public rows before commit; other rows are kept only as counts in `audit_data/withheld_private_counts.json` |
 | `ledgers/` | ESTATE_INVENTORY / CLAIMS / COMMERCIAL (24 UNKNOWN rows) / CONTRADICTION_REGISTER / MODEL_BOM / DATASET_LICENSE_REGISTER / spaces_tiering.json |
 | `patches/` | Ready-to-apply `models:` front-matter READMEs for the 3 backlink-gap Spaces (needs write-scoped HF token) |
 | `receipts/` | DSSE-signed receipt for this audit, completeness INCOMPLETE (honest) |
@@ -43,6 +44,8 @@ python3 tools/verify_receipt.py receipts/audit-receipt-2026-08-30.dsse.json keys
 
 100 GitHub repos (59 active public · 36 archived public · 5 private — GitHub API census 2026-08-30) · 45 HF Spaces (28 Docker, 7 public) · 43 models · 36 datasets.
 Marketed count was 26 Spaces — stale (B-01). Flagship capacity 5, attested 0. <!-- lexicon-ok -->
+
+Listings in `audit_data/` and `ledgers/` name public repos, Spaces, models and datasets only. The totals above still include non-public rows, as aggregate counts.
 
 Gates fail on first run by design. The exit codes are the Week 1 checklist.
 

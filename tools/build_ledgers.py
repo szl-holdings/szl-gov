@@ -12,7 +12,7 @@ import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
 import yamlite
-from audit_data_builder import build, FLAGSHIP_CAPACITY
+from audit_data_builder import build, load_withheld, FLAGSHIP_CAPACITY
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 LEDGERS = ROOT / "ledgers"
@@ -22,7 +22,8 @@ AUDIT = ROOT / "audit_data"
 def main() -> int:
     gh = json.load(open(AUDIT / "gh_repos.json"))
     hf = json.load(open(AUDIT / "hf_org_listing.json"))
-    estate = build(gh, hf)
+    # Listings are public rows only; withheld rows survive as aggregate counts.
+    estate = build(gh, hf, load_withheld(AUDIT))
     c = estate["counts"]
 
     # ---------------- ESTATE INVENTORY (what exists, attested) ----------------

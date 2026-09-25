@@ -1,0 +1,11 @@
+{
+ "rule": "Rows the capture did not mark public are not published. Only these aggregate counts are kept so estate totals stay measured.",
+ "generated_by": "tools/public_snapshot.py",
+ "counts": {
+  "github_repos": 5,
+  "hf_spaces": 38,
+  "hf_spaces_docker": 24,
+  "hf_models": 0,
+  "hf_datasets": 8
+ }
+}

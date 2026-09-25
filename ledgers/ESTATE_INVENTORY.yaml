@@ -12,6 +12,12 @@ counts:
   hf_models: 43
   hf_datasets: 36
   advertised_flagships: 5
+  withheld_non_public:
+    github_repos: 5
+    hf_spaces: 38
+    hf_spaces_docker: 24
+    hf_models: 0
+    hf_datasets: 8
 prior_marketed_counts:
   spaces_advertised: 26
   flagships_advertised: 5
@@ -140,12 +146,6 @@ github_repos:
     pushed_at: "2026-08-30T20:21:29Z"
     archived: false
     evidence_ref: "https://github.com/szl-holdings/szl-quant-witness"
-  - name: szl-org-health
-    visibility: PRIVATE
-    lang: Python
-    pushed_at: "2026-08-30T20:15:12Z"
-    archived: false
-    evidence_ref: "https://github.com/szl-holdings/szl-org-health"
   - name: szl-lake
     visibility: PUBLIC
     lang: Python
@@ -218,12 +218,6 @@ github_repos:
     pushed_at: "2026-08-30T15:07:21Z"
     archived: false
     evidence_ref: "https://github.com/szl-holdings/szl-khipu"
-  - name: pitch-collateral
-    visibility: PRIVATE
-    lang: UNKNOWN
-    pushed_at: "2026-08-30T14:52:30Z"
-    archived: false
-    evidence_ref: "https://github.com/szl-holdings/pitch-collateral"
   - name: governed-inference-meter
     visibility: PUBLIC
     lang: Python
@@ -236,12 +230,6 @@ github_repos:
     pushed_at: "2026-08-30T13:21:57Z"
     archived: false
     evidence_ref: "https://github.com/szl-holdings/governed-receipt-spec"
-  - name: szl-defensive-control-plane
-    visibility: PRIVATE
-    lang: Python
-    pushed_at: "2026-08-30T13:08:40Z"
-    archived: false
-    evidence_ref: "https://github.com/szl-holdings/szl-defensive-control-plane"
   - name: szl-holdings.github.io
     visibility: PUBLIC
     lang: HTML
@@ -344,12 +332,6 @@ github_repos:
     pushed_at: "2026-08-29T16:08:16Z"
     archived: true
     evidence_ref: "https://github.com/szl-holdings/khipu-pages"
-  - name: szl-estate-os
-    visibility: PRIVATE
-    lang: Python
-    pushed_at: "2026-08-29T15:59:29Z"
-    archived: false
-    evidence_ref: "https://github.com/szl-holdings/szl-estate-os"
   - name: anatomy
     visibility: PUBLIC
     lang: JavaScript
@@ -500,12 +482,6 @@ github_repos:
     pushed_at: "2026-08-26T13:46:39Z"
     archived: false
     evidence_ref: "https://github.com/szl-holdings/szl-trust"
-  - name: gdw-frontier
-    visibility: PRIVATE
-    lang: Python
-    pushed_at: "2026-08-26T13:45:06Z"
-    archived: false
-    evidence_ref: "https://github.com/szl-holdings/gdw-frontier"
   - name: khipu-consensus
     visibility: PUBLIC
     lang: Python
@@ -609,758 +585,452 @@ github_repos:
     archived: true
     evidence_ref: "https://github.com/szl-holdings/uds-bundles"
 hf_spaces:
-  - path: SZLHOLDINGS/a11oy-factory
-    sdk: docker
-    private: true
-    likes: 0
-    updated_at: UNKNOWN
-    runtime_attested: false
-    evidence_ref: "https://huggingface.co/spaces/SZLHOLDINGS/a11oy-factory"
   - path: SZLHOLDINGS/a11oy
     sdk: docker
     private: false
     likes: 0
-    updated_at: UNKNOWN
+    updated_at: "2026-08-30T16:27:45.000Z"
     runtime_attested: false
     evidence_ref: "https://huggingface.co/spaces/SZLHOLDINGS/a11oy"
   - path: SZLHOLDINGS/killinchu
     sdk: docker
     private: false
     likes: 2
-    updated_at: UNKNOWN
+    updated_at: "2026-08-30T16:25:02.000Z"
     runtime_attested: false
     evidence_ref: "https://huggingface.co/spaces/SZLHOLDINGS/killinchu"
-  - path: SZLHOLDINGS/szl-provctl-live
-    sdk: static
-    private: true
-    likes: 0
-    updated_at: UNKNOWN
-    runtime_attested: false
-    evidence_ref: "https://huggingface.co/spaces/SZLHOLDINGS/szl-provctl-live"
-  - path: SZLHOLDINGS/receipt-chain-live
-    sdk: static
-    private: true
-    likes: 0
-    updated_at: UNKNOWN
-    runtime_attested: false
-    evidence_ref: "https://huggingface.co/spaces/SZLHOLDINGS/receipt-chain-live"
   - path: SZLHOLDINGS/governed-receipt-verifier
     sdk: static
     private: false
     likes: 0
-    updated_at: UNKNOWN
+    updated_at: "2026-08-30T15:22:23.000Z"
     runtime_attested: false
     evidence_ref: "https://huggingface.co/spaces/SZLHOLDINGS/governed-receipt-verifier"
-  - path: SZLHOLDINGS/energy-attest-holo
-    sdk: static
-    private: true
-    likes: 0
-    updated_at: UNKNOWN
-    runtime_attested: false
-    evidence_ref: "https://huggingface.co/spaces/SZLHOLDINGS/energy-attest-holo"
-  - path: SZLHOLDINGS/szl-kernels-live
-    sdk: static
-    private: true
-    likes: 0
-    updated_at: UNKNOWN
-    runtime_attested: false
-    evidence_ref: "https://huggingface.co/spaces/SZLHOLDINGS/szl-kernels-live"
-  - path: SZLHOLDINGS/szl-govsign-live
-    sdk: static
-    private: true
-    likes: 0
-    updated_at: UNKNOWN
-    runtime_attested: false
-    evidence_ref: "https://huggingface.co/spaces/SZLHOLDINGS/szl-govsign-live"
-  - path: SZLHOLDINGS/szl-estate-live
-    sdk: static
-    private: true
-    likes: 0
-    updated_at: UNKNOWN
-    runtime_attested: false
-    evidence_ref: "https://huggingface.co/spaces/SZLHOLDINGS/szl-estate-live"
-  - path: SZLHOLDINGS/szl-forge-lab
-    sdk: static
-    private: true
-    likes: 0
-    updated_at: UNKNOWN
-    runtime_attested: false
-    evidence_ref: "https://huggingface.co/spaces/SZLHOLDINGS/szl-forge-lab"
-  - path: SZLHOLDINGS/szl-blocked-live
-    sdk: static
-    private: true
-    likes: 0
-    updated_at: UNKNOWN
-    runtime_attested: false
-    evidence_ref: "https://huggingface.co/spaces/SZLHOLDINGS/szl-blocked-live"
-  - path: SZLHOLDINGS/guardrail-receipt
-    sdk: static
-    private: true
-    likes: 0
-    updated_at: UNKNOWN
-    runtime_attested: false
-    evidence_ref: "https://huggingface.co/spaces/SZLHOLDINGS/guardrail-receipt"
-  - path: SZLHOLDINGS/lambda-gate-holo
-    sdk: static
-    private: true
-    likes: 0
-    updated_at: UNKNOWN
-    runtime_attested: false
-    evidence_ref: "https://huggingface.co/spaces/SZLHOLDINGS/lambda-gate-holo"
-  - path: SZLHOLDINGS/governed-norm-holo
-    sdk: static
-    private: true
-    likes: 0
-    updated_at: UNKNOWN
-    runtime_attested: false
-    evidence_ref: "https://huggingface.co/spaces/SZLHOLDINGS/governed-norm-holo"
-  - path: SZLHOLDINGS/energy-attested-runs
-    sdk: static
-    private: true
-    likes: 0
-    updated_at: UNKNOWN
-    runtime_attested: false
-    evidence_ref: "https://huggingface.co/spaces/SZLHOLDINGS/energy-attested-runs"
-  - path: SZLHOLDINGS/ayllu
-    sdk: docker
-    private: true
-    likes: 0
-    updated_at: UNKNOWN
-    runtime_attested: false
-    evidence_ref: "https://huggingface.co/spaces/SZLHOLDINGS/ayllu"
   - path: SZLHOLDINGS/szl-atelier
     sdk: static
     private: false
     likes: 0
-    updated_at: UNKNOWN
+    updated_at: "2026-08-29T18:58:01.000Z"
     runtime_attested: false
     evidence_ref: "https://huggingface.co/spaces/SZLHOLDINGS/szl-atelier"
-  - path: SZLHOLDINGS/nexus
-    sdk: docker
-    private: true
-    likes: 0
-    updated_at: UNKNOWN
-    runtime_attested: false
-    evidence_ref: "https://huggingface.co/spaces/SZLHOLDINGS/nexus"
   - path: SZLHOLDINGS/szl-khipu
     sdk: docker
     private: false
     likes: 0
-    updated_at: UNKNOWN
+    updated_at: "2026-08-29T18:07:48.000Z"
     runtime_attested: false
     evidence_ref: "https://huggingface.co/spaces/SZLHOLDINGS/szl-khipu"
-  - path: SZLHOLDINGS/lyte-services
-    sdk: docker
-    private: true
-    likes: 0
-    updated_at: UNKNOWN
-    runtime_attested: false
-    evidence_ref: "https://huggingface.co/spaces/SZLHOLDINGS/lyte-services"
-  - path: SZLHOLDINGS/szl-command-lab
-    sdk: docker
-    private: true
-    likes: 0
-    updated_at: UNKNOWN
-    runtime_attested: false
-    evidence_ref: "https://huggingface.co/spaces/SZLHOLDINGS/szl-command-lab"
   - path: SZLHOLDINGS/README
     sdk: static
     private: false
     likes: 0
-    updated_at: UNKNOWN
+    updated_at: "2026-08-29T17:54:21.000Z"
     runtime_attested: false
     evidence_ref: "https://huggingface.co/spaces/SZLHOLDINGS/README"
-  - path: SZLHOLDINGS/cosmos
-    sdk: docker
-    private: true
-    likes: 0
-    updated_at: UNKNOWN
-    runtime_attested: false
-    evidence_ref: "https://huggingface.co/spaces/SZLHOLDINGS/cosmos"
-  - path: SZLHOLDINGS/szl-real-estate
-    sdk: docker
-    private: true
-    likes: 0
-    updated_at: UNKNOWN
-    runtime_attested: false
-    evidence_ref: "https://huggingface.co/spaces/SZLHOLDINGS/szl-real-estate"
-  - path: SZLHOLDINGS/khipu-lab
-    sdk: docker
-    private: true
-    likes: 0
-    updated_at: UNKNOWN
-    runtime_attested: false
-    evidence_ref: "https://huggingface.co/spaces/SZLHOLDINGS/khipu-lab"
-  - path: SZLHOLDINGS/counsel
-    sdk: docker
-    private: true
-    likes: 0
-    updated_at: UNKNOWN
-    runtime_attested: false
-    evidence_ref: "https://huggingface.co/spaces/SZLHOLDINGS/counsel"
-  - path: SZLHOLDINGS/immune-lattice
-    sdk: docker
-    private: true
-    likes: 0
-    updated_at: UNKNOWN
-    runtime_attested: false
-    evidence_ref: "https://huggingface.co/spaces/SZLHOLDINGS/immune-lattice"
   - path: SZLHOLDINGS/immune
     sdk: docker
     private: false
     likes: 0
-    updated_at: UNKNOWN
+    updated_at: "2026-08-29T17:05:12.000Z"
     runtime_attested: false
     evidence_ref: "https://huggingface.co/spaces/SZLHOLDINGS/immune"
-  - path: SZLHOLDINGS/terra-assurance
-    sdk: docker
-    private: true
-    likes: 0
-    updated_at: UNKNOWN
-    runtime_attested: false
-    evidence_ref: "https://huggingface.co/spaces/SZLHOLDINGS/terra-assurance"
-  - path: SZLHOLDINGS/anatomy
-    sdk: docker
-    private: true
-    likes: 0
-    updated_at: UNKNOWN
-    runtime_attested: false
-    evidence_ref: "https://huggingface.co/spaces/SZLHOLDINGS/anatomy"
-  - path: SZLHOLDINGS/szl-experiments
-    sdk: docker
-    private: true
-    likes: 0
-    updated_at: UNKNOWN
-    runtime_attested: false
-    evidence_ref: "https://huggingface.co/spaces/SZLHOLDINGS/szl-experiments"
-  - path: SZLHOLDINGS/szl-sovereign-os
-    sdk: docker
-    private: true
-    likes: 0
-    updated_at: UNKNOWN
-    runtime_attested: false
-    evidence_ref: "https://huggingface.co/spaces/SZLHOLDINGS/szl-sovereign-os"
-  - path: SZLHOLDINGS/evidence-studio
-    sdk: docker
-    private: true
-    likes: 0
-    updated_at: UNKNOWN
-    runtime_attested: false
-    evidence_ref: "https://huggingface.co/spaces/SZLHOLDINGS/evidence-studio"
-  - path: SZLHOLDINGS/second-brain
-    sdk: docker
-    private: true
-    likes: 0
-    updated_at: UNKNOWN
-    runtime_attested: false
-    evidence_ref: "https://huggingface.co/spaces/SZLHOLDINGS/second-brain"
-  - path: SZLHOLDINGS/experiments
-    sdk: docker
-    private: true
-    likes: 0
-    updated_at: UNKNOWN
-    runtime_attested: false
-    evidence_ref: "https://huggingface.co/spaces/SZLHOLDINGS/experiments"
-  - path: SZLHOLDINGS/szl-quant-live
-    sdk: static
-    private: true
-    likes: 0
-    updated_at: UNKNOWN
-    runtime_attested: false
-    evidence_ref: "https://huggingface.co/spaces/SZLHOLDINGS/szl-quant-live"
-  - path: SZLHOLDINGS/yarqa
-    sdk: docker
-    private: true
-    likes: 0
-    updated_at: UNKNOWN
-    runtime_attested: false
-    evidence_ref: "https://huggingface.co/spaces/SZLHOLDINGS/yarqa"
-  - path: SZLHOLDINGS/david-leads
-    sdk: docker
-    private: true
-    likes: 0
-    updated_at: UNKNOWN
-    runtime_attested: false
-    evidence_ref: "https://huggingface.co/spaces/SZLHOLDINGS/david-leads"
-  - path: SZLHOLDINGS/szl-model-inference-lab
-    sdk: docker
-    private: true
-    likes: 0
-    updated_at: UNKNOWN
-    runtime_attested: false
-    evidence_ref: "https://huggingface.co/spaces/SZLHOLDINGS/szl-model-inference-lab"
-  - path: SZLHOLDINGS/hatun-mcp
-    sdk: docker
-    private: true
-    likes: 0
-    updated_at: UNKNOWN
-    runtime_attested: false
-    evidence_ref: "https://huggingface.co/spaces/SZLHOLDINGS/hatun-mcp"
-  - path: SZLHOLDINGS/llm-router-live
-    sdk: docker
-    private: true
-    likes: 0
-    updated_at: UNKNOWN
-    runtime_attested: false
-    evidence_ref: "https://huggingface.co/spaces/SZLHOLDINGS/llm-router-live"
-  - path: SZLHOLDINGS/sda
-    sdk: docker
-    private: true
-    likes: 0
-    updated_at: UNKNOWN
-    runtime_attested: false
-    evidence_ref: "https://huggingface.co/spaces/SZLHOLDINGS/sda"
-  - path: SZLHOLDINGS/governed-agent-bench
-    sdk: gradio
-    private: true
-    likes: 0
-    updated_at: UNKNOWN
-    runtime_attested: false
-    evidence_ref: "https://huggingface.co/spaces/SZLHOLDINGS/governed-agent-bench"
-  - path: SZLHOLDINGS/holographic
-    sdk: docker
-    private: true
-    likes: 0
-    updated_at: UNKNOWN
-    runtime_attested: false
-    evidence_ref: "https://huggingface.co/spaces/SZLHOLDINGS/holographic"
 hf_models:
   - path: SZLHOLDINGS/SZLHOLDINGS
     downloads: 0
     likes: 0
     task: UNKNOWN
-    updated_at: UNKNOWN
+    updated_at: "2026-08-30T15:15:42.000Z"
     evidence_ref: "https://huggingface.co/SZLHOLDINGS/SZLHOLDINGS"
   - path: SZLHOLDINGS/chaski
     downloads: 1943
     likes: 0
     task: text-generation
-    updated_at: UNKNOWN
+    updated_at: "2026-08-30T15:00:59.000Z"
     evidence_ref: "https://huggingface.co/SZLHOLDINGS/chaski"
   - path: SZLHOLDINGS/chaski-r2
     downloads: 70
     likes: 0
     task: text-generation
-    updated_at: UNKNOWN
+    updated_at: "2026-08-30T15:00:54.000Z"
     evidence_ref: "https://huggingface.co/SZLHOLDINGS/chaski-r2"
   - path: SZLHOLDINGS/WILLAY
     downloads: 0
     likes: 0
     task: text-generation
-    updated_at: UNKNOWN
+    updated_at: "2026-08-30T15:00:50.000Z"
     evidence_ref: "https://huggingface.co/SZLHOLDINGS/WILLAY"
   - path: SZLHOLDINGS/szl-receiptagent-qwen35-0.8b-v3
     downloads: 42
     likes: 0
     task: text-generation
-    updated_at: UNKNOWN
+    updated_at: "2026-08-29T19:26:50.000Z"
     evidence_ref: "https://huggingface.co/SZLHOLDINGS/szl-receiptagent-qwen35-0.8b-v3"
   - path: SZLHOLDINGS/khipu-r3
     downloads: 25
     likes: 0
     task: text-generation
-    updated_at: UNKNOWN
+    updated_at: "2026-08-29T19:26:24.000Z"
     evidence_ref: "https://huggingface.co/SZLHOLDINGS/khipu-r3"
   - path: SZLHOLDINGS/szl-training-scripts
     downloads: 0
     likes: 0
     task: UNKNOWN
-    updated_at: UNKNOWN
+    updated_at: "2026-08-29T18:58:05.000Z"
     evidence_ref: "https://huggingface.co/SZLHOLDINGS/szl-training-scripts"
   - path: SZLHOLDINGS/chaski-5050
     downloads: 52
     likes: 0
     task: text-generation
-    updated_at: UNKNOWN
+    updated_at: "2026-08-29T18:43:09.000Z"
     evidence_ref: "https://huggingface.co/SZLHOLDINGS/chaski-5050"
   - path: SZLHOLDINGS/szl-nemo
     downloads: 5
     likes: 0
     task: UNKNOWN
-    updated_at: UNKNOWN
+    updated_at: "2026-08-29T18:38:45.000Z"
     evidence_ref: "https://huggingface.co/SZLHOLDINGS/szl-nemo"
   - path: SZLHOLDINGS/tinku
     downloads: 0
     likes: 0
     task: UNKNOWN
-    updated_at: UNKNOWN
+    updated_at: "2026-08-29T18:11:11.000Z"
     evidence_ref: "https://huggingface.co/SZLHOLDINGS/tinku"
   - path: SZLHOLDINGS/waman
     downloads: 0
     likes: 0
     task: UNKNOWN
-    updated_at: UNKNOWN
+    updated_at: "2026-08-29T18:11:10.000Z"
     evidence_ref: "https://huggingface.co/SZLHOLDINGS/waman"
   - path: SZLHOLDINGS/chakana
     downloads: 0
     likes: 0
     task: UNKNOWN
-    updated_at: UNKNOWN
+    updated_at: "2026-08-29T18:11:10.000Z"
     evidence_ref: "https://huggingface.co/SZLHOLDINGS/chakana"
   - path: SZLHOLDINGS/qantu
     downloads: 0
     likes: 0
     task: UNKNOWN
-    updated_at: UNKNOWN
+    updated_at: "2026-08-29T18:11:09.000Z"
     evidence_ref: "https://huggingface.co/SZLHOLDINGS/qantu"
   - path: SZLHOLDINGS/KILLINCHU-EYE
     downloads: 0
     likes: 0
     task: UNKNOWN
-    updated_at: UNKNOWN
+    updated_at: "2026-08-29T18:10:36.000Z"
     evidence_ref: "https://huggingface.co/SZLHOLDINGS/KILLINCHU-EYE"
   - path: SZLHOLDINGS/szl-khipu-kernels
     downloads: 0
     likes: 0
     task: UNKNOWN
-    updated_at: UNKNOWN
+    updated_at: "2026-08-29T18:07:32.000Z"
     evidence_ref: "https://huggingface.co/SZLHOLDINGS/szl-khipu-kernels"
   - path: SZLHOLDINGS/MiniEmbed-Nano
     downloads: 0
     likes: 0
     task: UNKNOWN
-    updated_at: UNKNOWN
+    updated_at: "2026-08-29T18:07:31.000Z"
     evidence_ref: "https://huggingface.co/SZLHOLDINGS/MiniEmbed-Nano"
   - path: SZLHOLDINGS/Moons-Nano
     downloads: 0
     likes: 0
     task: UNKNOWN
-    updated_at: UNKNOWN
+    updated_at: "2026-08-29T18:07:29.000Z"
     evidence_ref: "https://huggingface.co/SZLHOLDINGS/Moons-Nano"
   - path: SZLHOLDINGS/ReceiptAgent-Nano
     downloads: 0
     likes: 0
     task: UNKNOWN
-    updated_at: UNKNOWN
+    updated_at: "2026-08-29T18:07:27.000Z"
     evidence_ref: "https://huggingface.co/SZLHOLDINGS/ReceiptAgent-Nano"
   - path: SZLHOLDINGS/TinyKhipu-Nano
     downloads: 0
     likes: 0
     task: UNKNOWN
-    updated_at: UNKNOWN
+    updated_at: "2026-08-29T18:07:26.000Z"
     evidence_ref: "https://huggingface.co/SZLHOLDINGS/TinyKhipu-Nano"
   - path: SZLHOLDINGS/szl-governed-norm
     downloads: 222
     likes: 1
     task: UNKNOWN
-    updated_at: UNKNOWN
+    updated_at: "2026-08-29T16:59:57.000Z"
     evidence_ref: "https://huggingface.co/SZLHOLDINGS/szl-governed-norm"
   - path: SZLHOLDINGS/szl-lambda-gate
     downloads: 113
     likes: 0
     task: UNKNOWN
-    updated_at: UNKNOWN
+    updated_at: "2026-08-29T16:59:57.000Z"
     evidence_ref: "https://huggingface.co/SZLHOLDINGS/szl-lambda-gate"
   - path: SZLHOLDINGS/szl-block-kv
     downloads: 46
     likes: 0
     task: UNKNOWN
-    updated_at: UNKNOWN
+    updated_at: "2026-08-29T16:59:56.000Z"
     evidence_ref: "https://huggingface.co/SZLHOLDINGS/szl-block-kv"
   - path: SZLHOLDINGS/szl-khipu
     downloads: 0
     likes: 0
     task: UNKNOWN
-    updated_at: UNKNOWN
+    updated_at: "2026-08-29T16:17:34.000Z"
     evidence_ref: "https://huggingface.co/SZLHOLDINGS/szl-khipu"
   - path: SZLHOLDINGS/szl-ouroboros
     downloads: 0
     likes: 0
     task: UNKNOWN
-    updated_at: UNKNOWN
+    updated_at: "2026-08-29T16:05:34.000Z"
     evidence_ref: "https://huggingface.co/SZLHOLDINGS/szl-ouroboros"
   - path: SZLHOLDINGS/szl-receipt-attn
     downloads: 23
     likes: 0
     task: UNKNOWN
-    updated_at: UNKNOWN
+    updated_at: "2026-08-29T16:05:34.000Z"
     evidence_ref: "https://huggingface.co/SZLHOLDINGS/szl-receipt-attn"
   - path: SZLHOLDINGS/YARQA-ATTN
     downloads: 0
     likes: 0
     task: UNKNOWN
-    updated_at: UNKNOWN
+    updated_at: "2026-08-29T16:05:33.000Z"
     evidence_ref: "https://huggingface.co/SZLHOLDINGS/YARQA-ATTN"
   - path: SZLHOLDINGS/szl-maskmod
     downloads: 30
     likes: 0
     task: UNKNOWN
-    updated_at: UNKNOWN
+    updated_at: "2026-08-29T16:05:33.000Z"
     evidence_ref: "https://huggingface.co/SZLHOLDINGS/szl-maskmod"
   - path: SZLHOLDINGS/szl-kernels
     downloads: 226
     likes: 0
     task: feature-extraction
-    updated_at: UNKNOWN
+    updated_at: "2026-08-29T16:03:19.000Z"
     evidence_ref: "https://huggingface.co/SZLHOLDINGS/szl-kernels"
   - path: SZLHOLDINGS/szl-blocked
     downloads: 0
     likes: 1
     task: UNKNOWN
-    updated_at: UNKNOWN
+    updated_at: "2026-08-29T16:00:50.000Z"
     evidence_ref: "https://huggingface.co/SZLHOLDINGS/szl-blocked"
   - path: SZLHOLDINGS/szl-invariants
     downloads: 0
     likes: 2
     task: UNKNOWN
-    updated_at: UNKNOWN
+    updated_at: "2026-08-29T16:00:40.000Z"
     evidence_ref: "https://huggingface.co/SZLHOLDINGS/szl-invariants"
   - path: SZLHOLDINGS/szl-formulas
     downloads: 0
     likes: 0
     task: UNKNOWN
-    updated_at: UNKNOWN
+    updated_at: "2026-08-29T16:00:26.000Z"
     evidence_ref: "https://huggingface.co/SZLHOLDINGS/szl-formulas"
   - path: SZLHOLDINGS/brain-navigator-r2
     downloads: 28
     likes: 0
     task: text-generation
-    updated_at: UNKNOWN
+    updated_at: "2026-08-29T13:36:32.000Z"
     evidence_ref: "https://huggingface.co/SZLHOLDINGS/brain-navigator-r2"
   - path: SZLHOLDINGS/szl-receiptagent-qwen35-0.8b-v2
     downloads: 73
     likes: 0
     task: text-generation
-    updated_at: UNKNOWN
+    updated_at: "2026-08-29T04:27:43.000Z"
     evidence_ref: "https://huggingface.co/SZLHOLDINGS/szl-receiptagent-qwen35-0.8b-v2"
   - path: SZLHOLDINGS/szl-provctl
     downloads: 0
     likes: 0
     task: UNKNOWN
-    updated_at: UNKNOWN
+    updated_at: "2026-08-29T04:27:42.000Z"
     evidence_ref: "https://huggingface.co/SZLHOLDINGS/szl-provctl"
   - path: SZLHOLDINGS/SZL-Khipu-1.5B-GGUF
     downloads: 611
     likes: 0
     task: text-generation
-    updated_at: UNKNOWN
+    updated_at: "2026-08-29T04:27:37.000Z"
     evidence_ref: "https://huggingface.co/SZLHOLDINGS/SZL-Khipu-1.5B-GGUF"
   - path: SZLHOLDINGS/SZL-Khipu-1.5B-abstain
     downloads: 0
     likes: 0
     task: text-generation
-    updated_at: UNKNOWN
+    updated_at: "2026-08-29T04:27:37.000Z"
     evidence_ref: "https://huggingface.co/SZLHOLDINGS/SZL-Khipu-1.5B-abstain"
   - path: SZLHOLDINGS/SZL-Khipu-1.5B
     downloads: 1102
     likes: 1
     task: text-generation
-    updated_at: UNKNOWN
+    updated_at: "2026-08-29T04:27:36.000Z"
     evidence_ref: "https://huggingface.co/SZLHOLDINGS/SZL-Khipu-1.5B"
   - path: SZLHOLDINGS/szl-govsign
     downloads: 0
     likes: 0
     task: UNKNOWN
-    updated_at: UNKNOWN
+    updated_at: "2026-08-29T04:27:33.000Z"
     evidence_ref: "https://huggingface.co/SZLHOLDINGS/szl-govsign"
   - path: SZLHOLDINGS/SZL-Forge-1.5B-ReceiptAgent
     downloads: 954
     likes: 0
     task: text-generation
-    updated_at: UNKNOWN
+    updated_at: "2026-08-29T04:27:31.000Z"
     evidence_ref: "https://huggingface.co/SZLHOLDINGS/SZL-Forge-1.5B-ReceiptAgent"
   - path: SZLHOLDINGS/KHIPU-R2
     downloads: 60
     likes: 0
     task: text-generation
-    updated_at: UNKNOWN
+    updated_at: "2026-08-29T04:27:26.000Z"
     evidence_ref: "https://huggingface.co/SZLHOLDINGS/KHIPU-R2"
   - path: SZLHOLDINGS/governed-inference-meter
     downloads: 0
     likes: 0
     task: UNKNOWN
-    updated_at: UNKNOWN
+    updated_at: "2026-08-29T04:27:25.000Z"
     evidence_ref: "https://huggingface.co/SZLHOLDINGS/governed-inference-meter"
   - path: SZLHOLDINGS/a11oy-v19-substrate
     downloads: 0
     likes: 0
     task: UNKNOWN
-    updated_at: UNKNOWN
+    updated_at: "2026-08-29T04:27:22.000Z"
     evidence_ref: "https://huggingface.co/SZLHOLDINGS/a11oy-v19-substrate"
   - path: SZLHOLDINGS/A11OY-MINI
     downloads: 27
     likes: 0
     task: text-generation
-    updated_at: UNKNOWN
+    updated_at: "2026-08-29T04:27:19.000Z"
     evidence_ref: "https://huggingface.co/SZLHOLDINGS/A11OY-MINI"
 hf_datasets:
   - path: SZLHOLDINGS/killinchu-osint-corpus
     downloads: 41122
     private: false
-    updated_at: UNKNOWN
+    updated_at: "2026-08-30T21:24:30.000Z"
     evidence_ref: "https://huggingface.co/datasets/SZLHOLDINGS/killinchu-osint-corpus"
   - path: SZLHOLDINGS/a11oy-verifiable-corpus
     downloads: 2013
     private: false
-    updated_at: UNKNOWN
+    updated_at: "2026-08-30T21:13:51.000Z"
     evidence_ref: "https://huggingface.co/datasets/SZLHOLDINGS/a11oy-verifiable-corpus"
-  - path: SZLHOLDINGS/szl-evidence
-    downloads: 7
-    private: true
-    updated_at: UNKNOWN
-    evidence_ref: "https://huggingface.co/datasets/SZLHOLDINGS/szl-evidence"
   - path: SZLHOLDINGS/SZLHOLDINGS
     downloads: 134
     private: false
-    updated_at: UNKNOWN
+    updated_at: "2026-08-30T15:15:53.000Z"
     evidence_ref: "https://huggingface.co/datasets/SZLHOLDINGS/SZLHOLDINGS"
   - path: SZLHOLDINGS/szl-lake
     downloads: 4363
     private: false
-    updated_at: UNKNOWN
+    updated_at: "2026-08-30T12:27:14.000Z"
     evidence_ref: "https://huggingface.co/datasets/SZLHOLDINGS/szl-lake"
   - path: SZLHOLDINGS/receipted-unsloth
     downloads: 44
     private: false
-    updated_at: UNKNOWN
+    updated_at: "2026-08-29T15:50:06.000Z"
     evidence_ref: "https://huggingface.co/datasets/SZLHOLDINGS/receipted-unsloth"
   - path: SZLHOLDINGS/why-we-lead
     downloads: 240
     private: false
-    updated_at: UNKNOWN
+    updated_at: "2026-08-28T23:03:45.000Z"
     evidence_ref: "https://huggingface.co/datasets/SZLHOLDINGS/why-we-lead"
-  - path: SZLHOLDINGS/vault-artifacts
-    downloads: 0
-    private: true
-    updated_at: UNKNOWN
-    evidence_ref: "https://huggingface.co/datasets/SZLHOLDINGS/vault-artifacts"
-  - path: SZLHOLDINGS/szl-training-receipts
-    downloads: 13
-    private: true
-    updated_at: UNKNOWN
-    evidence_ref: "https://huggingface.co/datasets/SZLHOLDINGS/szl-training-receipts"
   - path: SZLHOLDINGS/governed-agent-bench
     downloads: 156
     private: false
-    updated_at: UNKNOWN
+    updated_at: "2026-07-28T18:38:53.000Z"
     evidence_ref: "https://huggingface.co/datasets/SZLHOLDINGS/governed-agent-bench"
   - path: SZLHOLDINGS/szl-1-doctrine-sft
     downloads: 139
     private: false
-    updated_at: UNKNOWN
+    updated_at: "2026-07-22T10:50:15.000Z"
     evidence_ref: "https://huggingface.co/datasets/SZLHOLDINGS/szl-1-doctrine-sft"
   - path: SZLHOLDINGS/alloy-sovereign-eval-runs
     downloads: 125
     private: false
-    updated_at: UNKNOWN
+    updated_at: "2026-07-22T10:50:14.000Z"
     evidence_ref: "https://huggingface.co/datasets/SZLHOLDINGS/alloy-sovereign-eval-runs"
   - path: SZLHOLDINGS/energy-attested-runs
     downloads: 161
     private: false
-    updated_at: UNKNOWN
+    updated_at: "2026-07-22T10:50:11.000Z"
     evidence_ref: "https://huggingface.co/datasets/SZLHOLDINGS/energy-attested-runs"
   - path: SZLHOLDINGS/governed-receipts-bench
     downloads: 187
     private: false
-    updated_at: UNKNOWN
+    updated_at: "2026-07-22T10:50:08.000Z"
     evidence_ref: "https://huggingface.co/datasets/SZLHOLDINGS/governed-receipts-bench"
   - path: SZLHOLDINGS/readiness-runs
     downloads: 645
     private: false
-    updated_at: UNKNOWN
+    updated_at: "2026-07-22T10:49:54.000Z"
     evidence_ref: "https://huggingface.co/datasets/SZLHOLDINGS/readiness-runs"
   - path: SZLHOLDINGS/uds-bundles-v1
     downloads: 357
     private: false
-    updated_at: UNKNOWN
+    updated_at: "2026-07-22T10:49:50.000Z"
     evidence_ref: "https://huggingface.co/datasets/SZLHOLDINGS/uds-bundles-v1"
-  - path: SZLHOLDINGS/yuyay-v3-axis-labels-v1
-    downloads: 9
-    private: true
-    updated_at: UNKNOWN
-    evidence_ref: "https://huggingface.co/datasets/SZLHOLDINGS/yuyay-v3-axis-labels-v1"
   - path: SZLHOLDINGS/k-verify-benchmark-v1
     downloads: 164
     private: false
-    updated_at: UNKNOWN
+    updated_at: "2026-07-22T10:49:45.000Z"
     evidence_ref: "https://huggingface.co/datasets/SZLHOLDINGS/k-verify-benchmark-v1"
   - path: SZLHOLDINGS/doctrine-v10-v11
     downloads: 169
     private: false
-    updated_at: UNKNOWN
+    updated_at: "2026-07-22T10:49:43.000Z"
     evidence_ref: "https://huggingface.co/datasets/SZLHOLDINGS/doctrine-v10-v11"
   - path: SZLHOLDINGS/thesis-corpus-v18
     downloads: 186
     private: false
-    updated_at: UNKNOWN
+    updated_at: "2026-07-22T10:49:41.000Z"
     evidence_ref: "https://huggingface.co/datasets/SZLHOLDINGS/thesis-corpus-v18"
   - path: SZLHOLDINGS/canonical-formulas-v1
     downloads: 143
     private: false
-    updated_at: UNKNOWN
+    updated_at: "2026-07-22T10:49:39.000Z"
     evidence_ref: "https://huggingface.co/datasets/SZLHOLDINGS/canonical-formulas-v1"
   - path: SZLHOLDINGS/lean-proofs-v1
     downloads: 424
     private: false
-    updated_at: UNKNOWN
+    updated_at: "2026-07-22T10:49:38.000Z"
     evidence_ref: "https://huggingface.co/datasets/SZLHOLDINGS/lean-proofs-v1"
   - path: SZLHOLDINGS/rag-corpus-v1
     downloads: 246
     private: false
-    updated_at: UNKNOWN
+    updated_at: "2026-07-22T10:49:36.000Z"
     evidence_ref: "https://huggingface.co/datasets/SZLHOLDINGS/rag-corpus-v1"
   - path: SZLHOLDINGS/lean-theorem-tree
     downloads: 82
     private: false
-    updated_at: UNKNOWN
+    updated_at: "2026-07-22T10:49:34.000Z"
     evidence_ref: "https://huggingface.co/datasets/SZLHOLDINGS/lean-theorem-tree"
-  - path: SZLHOLDINGS/thesis-formula-index
-    downloads: 7
-    private: true
-    updated_at: UNKNOWN
-    evidence_ref: "https://huggingface.co/datasets/SZLHOLDINGS/thesis-formula-index"
-  - path: SZLHOLDINGS/anatomy-alive-harness
-    downloads: 6
-    private: true
-    updated_at: UNKNOWN
-    evidence_ref: "https://huggingface.co/datasets/SZLHOLDINGS/anatomy-alive-harness"
   - path: SZLHOLDINGS/szl-artifacts
     downloads: 731
     private: false
-    updated_at: UNKNOWN
+    updated_at: "2026-07-22T10:49:28.000Z"
     evidence_ref: "https://huggingface.co/datasets/SZLHOLDINGS/szl-artifacts"
   - path: SZLHOLDINGS/ouroboros-arxiv-preprint
     downloads: 182
     private: false
-    updated_at: UNKNOWN
+    updated_at: "2026-07-22T10:49:26.000Z"
     evidence_ref: "https://huggingface.co/datasets/SZLHOLDINGS/ouroboros-arxiv-preprint"
-  - path: SZLHOLDINGS/szl-org-infra
-    downloads: 8
-    private: true
-    updated_at: UNKNOWN
-    evidence_ref: "https://huggingface.co/datasets/SZLHOLDINGS/szl-org-infra"
   - path: SZLHOLDINGS/uds-governance-receipts
     downloads: 541
     private: false
-    updated_at: UNKNOWN
+    updated_at: "2026-07-22T10:49:13.000Z"
     evidence_ref: "https://huggingface.co/datasets/SZLHOLDINGS/uds-governance-receipts"
   - path: SZLHOLDINGS/uds-spans-receipts
     downloads: 531
     private: false
-    updated_at: UNKNOWN
+    updated_at: "2026-07-22T10:49:10.000Z"
     evidence_ref: "https://huggingface.co/datasets/SZLHOLDINGS/uds-spans-receipts"
   - path: SZLHOLDINGS/thesis-v18-formal-verification
     downloads: 323
     private: false
-    updated_at: UNKNOWN
+    updated_at: "2026-07-22T10:49:06.000Z"
     evidence_ref: "https://huggingface.co/datasets/SZLHOLDINGS/thesis-v18-formal-verification"
   - path: SZLHOLDINGS/test-results
     downloads: 142
     private: false
-    updated_at: UNKNOWN
+    updated_at: "2026-07-22T08:49:50.000Z"
     evidence_ref: "https://huggingface.co/datasets/SZLHOLDINGS/test-results"
   - path: SZLHOLDINGS/szl-quant-sft-v1
     downloads: 120
     private: false
-    updated_at: UNKNOWN
+    updated_at: "2026-07-22T08:49:49.000Z"
     evidence_ref: "https://huggingface.co/datasets/SZLHOLDINGS/szl-quant-sft-v1"
   - path: SZLHOLDINGS/szl-second-brain-inrepo
     downloads: 147
     private: false
-    updated_at: UNKNOWN
+    updated_at: "2026-07-22T08:49:46.000Z"
     evidence_ref: "https://huggingface.co/datasets/SZLHOLDINGS/szl-second-brain-inrepo"
-  - path: SZLHOLDINGS/legacy-archive
-    downloads: 6
-    private: true
-    updated_at: UNKNOWN
-    evidence_ref: "https://huggingface.co/datasets/SZLHOLDINGS/legacy-archive"
