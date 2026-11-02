@@ -20,7 +20,7 @@ Signed, offline-verifiable audit of the SZL estate, plus the gates that keep it 
 python3 tools/szl_master_bootstrap.py --run   # ledgers + signed receipt + all gates
 python3 tools/lexicon_gate.py                  # honesty gate (exit 5 = banned phrasing)
 python3 tools/spaces_gate.py                   # spaces tiering gate (exit 2/3)
-python3 tools/release_gate.py                  # raise gate (exit 6 = UNKNOWN commercial rows)
+python3 tools/release_gate.py                  # raise gate (exit 6 = blocked/unattested/invalid ledgers)
 python3 tools/verify_receipt.py receipts/audit-receipt-2026-08-30.dsse.json keys/szl-audit-ed25519.pub.pem
 ```
 
@@ -49,6 +49,14 @@ Marketed count was 26 Spaces — stale (B-01). Flagship capacity 5, attested 0. 
 Listings in `audit_data/` and `ledgers/` name public repos, Spaces, models and datasets only. The totals above still include non-public rows, as aggregate counts.
 
 Gates fail on first run by design. The exit codes are the Week 1 checklist.
+
+The release gate requires both truth ledgers in the flat YAML format emitted by
+`build_ledgers.py`/`yamlite.py`; unsupported syntax, missing or duplicate fields,
+missing metrics, and ledgers over 1 MiB are refusals. It checks the builder's full
+commercial metric set, honors `blocks_raise`, and requires populated values and
+evidence references. An explicit `contradictions: []` is allowed; an absent or
+empty register is not. These are local ledger consistency checks, not independent
+authentication of the referenced evidence or approval to release.
 
 ## What changed 2026-08-30 v2
 

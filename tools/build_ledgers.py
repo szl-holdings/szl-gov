@@ -18,6 +18,34 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 LEDGERS = ROOT / "ledgers"
 AUDIT = ROOT / "audit_data"
 
+COMMERCIAL_ROWS = [
+    ("ARR", "Annual recurring revenue, contracted"),
+    ("MRR", "Monthly recurring revenue"),
+    ("paying_customers", "Count of customers with a signed paid agreement"),
+    ("design_partners_signed", "Paid design partners, not free pilots"),
+    ("gross_margin_pct", "Revenue minus cost-to-serve, as %"),
+    ("net_revenue_retention_pct", "NRR incl. expansion, target >=110"),
+    ("cac_payback_months", "Months to recover acquisition cost"),
+    ("burn_multiple", "Net burn / net new ARR, target <1.5x"),
+    ("runway_months", "Cash / net burn"),
+    ("cash_on_hand", "Current liquid balance"),
+    ("monthly_burn", "Average net monthly burn"),
+    ("published_price", "A price a stranger can read without a call"),
+    ("pricing_model", "Per-action? Per-seat? Platform fee? Undecided = UNKNOWN"),
+    ("buyer_persona", "Named single buyer with budget line"),
+    ("first_wedge", "One workflow with a budget owner"),
+    ("co_founder_name", "Second name with ownership, not advisory"),
+    ("cap_table_clean", "Delaware C-Corp, no side letters, no dead equity"),
+    ("ip_assignments_complete", "Every contributor signed assignment to the company"),
+    ("model_bom", "Bill of materials for all 43 models incl. base weights"),
+    ("dataset_license_register", "License + provenance for all 36 datasets"),
+    ("training_data_rights", "Legal basis for each training corpus"),
+    ("soc2_status", "Type I readiness date, or UNKNOWN"),
+    ("eu_design_partner", "Named EU partner with Annex III exposure"),
+    ("demo_video_90s", "Public 90-second deny/sign/tamper/verify recording"),
+    ("outbound_kit", "Design-partner sequences + target archetypes drafted"),
+]
+
 
 def main() -> int:
     gh = json.load(open(AUDIT / "gh_repos.json"))
@@ -145,33 +173,6 @@ def main() -> int:
     ]
 
     # ---------------- COMMERCIAL LEDGER (24 rows, all UNKNOWN, all gate the raise) ----------------
-    commercial_rows = [
-        ("ARR", "Annual recurring revenue, contracted"),
-        ("MRR", "Monthly recurring revenue"),
-        ("paying_customers", "Count of customers with a signed paid agreement"),
-        ("design_partners_signed", "Paid design partners, not free pilots"),
-        ("gross_margin_pct", "Revenue minus cost-to-serve, as %"),
-        ("net_revenue_retention_pct", "NRR incl. expansion, target >=110"),
-        ("cac_payback_months", "Months to recover acquisition cost"),
-        ("burn_multiple", "Net burn / net new ARR, target <1.5x"),
-        ("runway_months", "Cash / net burn"),
-        ("cash_on_hand", "Current liquid balance"),
-        ("monthly_burn", "Average net monthly burn"),
-        ("published_price", "A price a stranger can read without a call"),
-        ("pricing_model", "Per-action? Per-seat? Platform fee? Undecided = UNKNOWN"),
-        ("buyer_persona", "Named single buyer with budget line"),
-        ("first_wedge", "One workflow with a budget owner"),
-        ("co_founder_name", "Second name with ownership, not advisory"),
-        ("cap_table_clean", "Delaware C-Corp, no side letters, no dead equity"),
-        ("ip_assignments_complete", "Every contributor signed assignment to the company"),
-        ("model_bom", "Bill of materials for all 43 models incl. base weights"),
-        ("dataset_license_register", "License + provenance for all 36 datasets"),
-        ("training_data_rights", "Legal basis for each training corpus"),
-        ("soc2_status", "Type I readiness date, or UNKNOWN"),
-        ("eu_design_partner", "Named EU partner with Annex III exposure"),
-        ("demo_video_90s", "Public 90-second deny/sign/tamper/verify recording"),
-        ("outbound_kit", "Design-partner sequences + target archetypes drafted"),
-    ]
     # Honest evidence for rows this week's work actually created. The rest stay UNKNOWN.
     EVIDENCE = {
         "published_price": ("Control $75-250K/yr; Assurance/Sovereign $250K+/yr; Verify open — LIVE at a11oy.net/pricing",
@@ -199,7 +200,7 @@ def main() -> int:
              # They stop blocking once validated by a customer signal; until then keep blocking.
              "blocks_raise": True,
              "evidence_class": "hypothesis_artifact" if k in EVIDENCE else "none"}
-            for k, v in commercial_rows
+            for k, v in COMMERCIAL_ROWS
         ],
     }
 
