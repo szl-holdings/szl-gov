@@ -24,6 +24,11 @@ python3 tools/release_gate.py                  # raise gate (exit 6 = blocked/un
 python3 tools/verify_receipt.py receipts/audit-receipt-2026-08-30.dsse.json keys/szl-audit-ed25519.pub.pem
 ```
 
+Space readiness requires one recognized tier decision for every public Space
+in the captured inventory, bound by its full `path`. Missing, duplicate,
+unknown, or malformed tier rows block readiness (exit 2). Non-public rows are
+withheld and counted; flagship attestation and Docker billing checks still apply.
+
 ## What's here
 
 | Path | What |
