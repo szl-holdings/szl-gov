@@ -112,7 +112,7 @@ def main() -> int:
             "claim": "The flagship set is currently attested",
             "truth_state": "UNKNOWN",
             "evidence": [],
-            "notes": "Flagship admission tests (8 criteria) have not been run per-Space. Capacity is 5; attested count is 0.",
+            "notes": "The 8 admission tests run per public Space (ledgers/spaces_tiering.json); no flagship passes all 8 (no mobile-UA evidence was captured). Capacity is 5; attested count is 0.",
         },
         {
             "claim_id": "C-007",

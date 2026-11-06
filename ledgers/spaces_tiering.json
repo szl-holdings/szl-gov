@@ -12,21 +12,22 @@
    "private": false,
    "runtime_stage": "RUNNING",
    "source_sha": "9e7088bb",
+   "deployed_sha": "9e7088bb",
    "truth_state": "VERIFIED",
    "attested": false,
    "tests_passed": [
     "current source revision attested",
-    "deployed revision attested",
-    "mobile smoke test passed",
+    "deployed revision attested (stage RUNNING is NOT evidence)",
     "link to a real verifier or receipt artifact",
     "no stale metric on the card",
     "buyer-legible CTA",
     "declared truth state"
    ],
    "tests_failed": [
+    "mobile smoke test passed",
     "conversion event present"
    ],
-   "notes": "Flagship gap(s): conversion event present"
+   "notes": "Flagship gap(s): mobile smoke test passed, conversion event present"
   },
   {
    "name": "killinchu",
@@ -36,20 +37,22 @@
    "private": false,
    "runtime_stage": "RUNNING",
    "source_sha": "49d2011e",
+   "deployed_sha": "49d2011e",
    "truth_state": "VERIFIED",
-   "attested": true,
+   "attested": false,
    "tests_passed": [
     "current source revision attested",
-    "deployed revision attested",
-    "mobile smoke test passed",
+    "deployed revision attested (stage RUNNING is NOT evidence)",
     "conversion event present",
     "link to a real verifier or receipt artifact",
     "no stale metric on the card",
     "buyer-legible CTA",
     "declared truth state"
    ],
-   "tests_failed": [],
-   "notes": "Fully machine-attested."
+   "tests_failed": [
+    "mobile smoke test passed"
+   ],
+   "notes": "Flagship gap(s): mobile smoke test passed"
   },
   {
    "name": "governed-receipt-verifier",
@@ -59,21 +62,22 @@
    "private": false,
    "runtime_stage": "RUNNING",
    "source_sha": "aac8de8c",
+   "deployed_sha": null,
    "truth_state": "VERIFIED",
    "attested": false,
    "tests_passed": [
     "current source revision attested",
-    "deployed revision attested",
-    "mobile smoke test passed",
     "conversion event present",
     "link to a real verifier or receipt artifact",
     "no stale metric on the card",
     "declared truth state"
    ],
    "tests_failed": [
+    "deployed revision attested (stage RUNNING is NOT evidence)",
+    "mobile smoke test passed",
     "buyer-legible CTA"
    ],
-   "notes": "Flagship gap(s): buyer-legible CTA"
+   "notes": "Flagship gap(s): deployed revision attested (stage RUNNING is NOT evidence), mobile smoke test passed, buyer-legible CTA"
   },
   {
    "name": "szl-atelier",
@@ -83,17 +87,18 @@
    "private": false,
    "runtime_stage": "RUNNING",
    "source_sha": "28801d92",
+   "deployed_sha": null,
    "truth_state": "VERIFIED",
    "attested": false,
    "tests_passed": [
     "current source revision attested",
-    "deployed revision attested",
-    "mobile smoke test passed",
     "link to a real verifier or receipt artifact",
     "no stale metric on the card",
     "declared truth state"
    ],
    "tests_failed": [
+    "deployed revision attested (stage RUNNING is NOT evidence)",
+    "mobile smoke test passed",
     "conversion event present",
     "buyer-legible CTA"
    ],
@@ -107,21 +112,22 @@
    "private": false,
    "runtime_stage": "RUNNING",
    "source_sha": "e5ecf740",
+   "deployed_sha": "e5ecf740",
    "truth_state": "VERIFIED",
    "attested": false,
    "tests_passed": [
     "current source revision attested",
-    "deployed revision attested",
-    "mobile smoke test passed",
+    "deployed revision attested (stage RUNNING is NOT evidence)",
     "no stale metric on the card",
     "declared truth state"
    ],
    "tests_failed": [
+    "mobile smoke test passed",
     "conversion event present",
     "link to a real verifier or receipt artifact",
     "buyer-legible CTA"
    ],
-   "notes": "Flagship gap(s): conversion event present, link to a real verifier or receipt artifact, buyer-legible CTA"
+   "notes": "Flagship gap(s): mobile smoke test passed, conversion event present, link to a real verifier or receipt artifact, buyer-legible CTA"
   },
   {
    "name": "README",
@@ -131,19 +137,21 @@
    "private": false,
    "runtime_stage": "RUNNING",
    "source_sha": "d2379f04",
+   "deployed_sha": null,
    "truth_state": "VERIFIED",
-   "attested": true,
+   "attested": false,
    "tests_passed": [
     "current source revision attested",
-    "deployed revision attested",
-    "mobile smoke test passed",
     "conversion event present",
     "link to a real verifier or receipt artifact",
     "no stale metric on the card",
     "buyer-legible CTA",
     "declared truth state"
    ],
-   "tests_failed": [],
+   "tests_failed": [
+    "deployed revision attested (stage RUNNING is NOT evidence)",
+    "mobile smoke test passed"
+   ],
    "notes": "Org card is itself a Space (B-08). Needs receipt link + no stale metric."
   },
   {
@@ -154,20 +162,22 @@
    "private": false,
    "runtime_stage": "RUNNING",
    "source_sha": "c85d4900",
+   "deployed_sha": "c85d4900",
    "truth_state": "VERIFIED",
-   "attested": true,
+   "attested": false,
    "tests_passed": [
     "current source revision attested",
-    "deployed revision attested",
-    "mobile smoke test passed",
+    "deployed revision attested (stage RUNNING is NOT evidence)",
     "conversion event present",
     "link to a real verifier or receipt artifact",
     "no stale metric on the card",
     "buyer-legible CTA",
     "declared truth state"
    ],
-   "tests_failed": [],
-   "notes": "Fully machine-attested."
+   "tests_failed": [
+    "mobile smoke test passed"
+   ],
+   "notes": "Flagship gap(s): mobile smoke test passed"
   }
  ]
 }

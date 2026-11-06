@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """tier_spaces.py — apply the 8 flagship tests to every public Space, emit spaces_tiering.json.
 
-Machine-checked tests are computed from live probe + listing evidence.
-Human-only tests stay false with an attestation placeholder — UNKNOWN, not invented.
-spaces_gate.py consumes the output; failing honestly is the point.
+Machine-checked tests are computed from the committed probe + listing + README
+evidence. A test whose evidence was never captured fails: UNKNOWN, not invented.
+Test names are spaces_gate.FLAGSHIP_TESTS, so a row can only pass what the gate
+checks. spaces_gate.py consumes the output; failing honestly is the point.
 """
 from __future__ import annotations
 
@@ -14,6 +15,7 @@ import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
 from audit_data_builder import is_public_hf, load_withheld
+from spaces_gate import FLAGSHIP_TESTS
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 AUDIT = ROOT / "audit_data"
@@ -30,24 +32,38 @@ RECOMMENDED_FLAGSHIP = [
 ORG_CARD = "README"
 
 
-# All 8 tests machine-checked 2026-08-30 against live README + probe + mobile-UA evidence.
+# The 8 tests run 2026-08-30 evidence: README captures (audit_data/readmes/) and
+# Hub probes (audit_data/probes/). Keys are the gate's FLAGSHIP_TESTS names.
 def _readme(name):
     p = AUDIT / "readmes" / f"{name}.md"
     return p.read_text(errors="replace") if p.exists() else ""
 
+
+def _deployed_revision(probe):
+    """The Hub's runtime.sha (revision of the running build) equals the source revision.
+
+    Stage RUNNING is not evidence of what is deployed (B-06). Static Spaces
+    report no runtime.sha, so their deployed revision stays UNKNOWN.
+    """
+    source = probe.get("sha")
+    return bool(source) and (probe.get("runtime") or {}).get("sha") == source
+
+
 MACHINE_TESTS = {
     "current source revision attested": lambda s, probe: bool(probe.get("sha")),
-    "deployed revision attested": lambda s, probe: bool(probe.get("sha")) and (probe.get("runtime") or {}).get("stage") == "RUNNING",
-    "mobile smoke test passed": lambda s, probe: s["path"].split("/")[-1] in MOBILE_OK or probe.get("sdk") == "static",
+    "deployed revision attested (stage RUNNING is NOT evidence)": lambda s, probe: _deployed_revision(probe),
+    # No mobile-UA capture is committed under audit_data/probes/ (the 2026-08-30
+    # curl results were not recorded), so this is UNKNOWN for every Space until
+    # one is. It used to pass from a hard-coded name list and for any static Space.
+    "mobile smoke test passed": lambda s, probe: False,
     "conversion event present": lambda s, probe: bool(re.search(r"(pricing|buy|contact|demo|get started|sign up|deploy this|use this|try it|try the|purchase|mailto:|verify a)", _readme(s["path"].split("/")[-1]), re.I)),
     "link to a real verifier or receipt artifact": lambda s, probe: bool(re.search(r"(verif|receipt|dsse|signature|a11oy\.net|offline)", _readme(s["path"].split("/")[-1]), re.I)),
     "no stale metric on the card": lambda s, probe: not re.search(r"\b26\s+spaces\b|\b26\s+repos\b", _readme(s["path"].split("/")[-1]), re.I),
     "buyer-legible CTA": lambda s, probe: bool(re.search(r"(pricing|contact us|book|schedule|get started|deploy|use case)", _readme(s["path"].split("/")[-1]), re.I)),
     "declared truth state": lambda s, probe: True,  # every row gets a truth_state field below
 }
-
-# mobile-UA curl results 2026-08-30 (docker apps)
-MOBILE_OK = {"a11oy", "killinchu", "szl-khipu", "immune"}
+if set(MACHINE_TESTS) != set(FLAGSHIP_TESTS):
+    raise RuntimeError("tier_spaces.MACHINE_TESTS must name exactly spaces_gate.FLAGSHIP_TESTS")
 
 HUMAN_TESTS = []  # all machine-checked; human-only = billing + final attestation sign-off
 
@@ -84,6 +100,7 @@ def main() -> int:
             "private": bool(s.get("private")),
             "runtime_stage": (probe.get("runtime") or {}).get("stage") or "UNKNOWN",
             "source_sha": (probe.get("sha") or "")[:8] or None,
+            "deployed_sha": ((probe.get("runtime") or {}).get("sha") or "")[:8] or None,
             "truth_state": "VERIFIED" if (probe.get("runtime") or {}).get("stage") == "RUNNING" else "UNKNOWN",
             "attested": len(passed) == len(MACHINE_TESTS),
             "tests_passed": passed,
