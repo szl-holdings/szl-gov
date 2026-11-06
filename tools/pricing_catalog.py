@@ -34,6 +34,7 @@ import html
 import json
 import re
 import sys
+from dataclasses import dataclass
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -239,6 +240,16 @@ def _tokens(expression: str):
     return out
 
 
+@dataclass(frozen=True)
+class Node:
+    """One expression node. kind: or | and | not | field | starts_with | cmp | ua-exemption."""
+    kind: str
+    parts: tuple = ()  # operands of or / and / not
+    field: str = ""
+    op: str = ""
+    literal: str = ""
+
+
 class _Parser:
     def __init__(self, expression: str):
         self.tokens = _tokens(expression)
@@ -265,19 +276,19 @@ class _Parser:
         while self.peek() == ("word", "or"):
             self.pos += 1
             parts.append(self.andexpr())
-        return parts[0] if len(parts) == 1 else ("or", parts)
+        return parts[0] if len(parts) == 1 else Node("or", tuple(parts))
 
     def andexpr(self):
         parts = [self.unary()]
         while self.peek() == ("word", "and"):
             self.pos += 1
             parts.append(self.unary())
-        return parts[0] if len(parts) == 1 else ("and", parts)
+        return parts[0] if len(parts) == 1 else Node("and", tuple(parts))
 
     def unary(self):
         if self.peek() == ("word", "not"):
             self.pos += 1
-            return ("not", self.unary())
+            return Node("not", (self.unary(),))
         return self.primary()
 
     def primary(self):
@@ -298,15 +309,15 @@ class _Parser:
             self.take("rp")
             if field not in STRING_FIELDS:
                 raise CatalogError(f"unsupported field in starts_with: {field}")
-            return ("starts_with", field, literal)
+            return Node("starts_with", field=field, literal=literal)
         if value not in FIELDS:
             raise CatalogError(f"unsupported field or function: {value}")
         if value == "cf.client.bot":
-            return ("field", value)
+            return Node("field", field=value)
         operator = self.take("word")
         if operator not in COMPARISONS:
             raise CatalogError(f"unsupported operator: {operator}")
-        return ("cmp", operator, value, self.take("str"))
+        return Node("cmp", field=value, op=operator, literal=self.take("str"))
 
 
 def parse_expression(expression: str):
@@ -318,41 +329,43 @@ def _wildcard(pattern: str, value: str) -> bool:
     return re.fullmatch(regex, value, re.IGNORECASE | re.DOTALL) is not None
 
 
-def evaluate(node, request: dict) -> bool:
-    kind = node[0]
-    if kind == "or":
-        return any(evaluate(part, request) for part in node[1])
-    if kind == "and":
-        return all(evaluate(part, request) for part in node[1])
-    if kind == "not":
-        return not evaluate(node[1], request)
-    if kind == "field":
-        return bool(request[FIELDS[node[1]]])
-    if kind == "starts_with":
-        return request[FIELDS[node[1]]].startswith(node[2])
-    _, operator, field, literal = node
-    value = request[FIELDS[field]]
-    if operator == "eq":
-        return value == literal
-    if operator == "contains":
-        return literal in value
-    return _wildcard(literal, value)
+def evaluate(node: Node, request: dict) -> bool:
+    if node.kind == "or":
+        return any(evaluate(part, request) for part in node.parts)
+    if node.kind == "and":
+        return all(evaluate(part, request) for part in node.parts)
+    if node.kind == "not":
+        return not evaluate(node.parts[0], request)
+    value = request[FIELDS[node.field]]
+    if node.kind == "field":
+        return bool(value)
+    if node.kind == "starts_with":
+        return value.startswith(node.literal)
+    if node.op == "eq":
+        return value == node.literal
+    if node.op == "contains":
+        return node.literal in value
+    return _wildcard(node.literal, value)
 
 
-def _conjuncts(node):
-    if node[0] == "and":
-        return [leaf for part in node[1] for leaf in _conjuncts(part)]
+def _conjuncts(node: Node) -> list:
+    if node.kind == "and":
+        return [leaf for part in node.parts for leaf in _conjuncts(part)]
     return [node]
 
 
-def _disjuncts(node):
-    if node[0] == "or":
-        return [leaf for part in node[1] for leaf in _disjuncts(part)]
+def _disjuncts(node: Node) -> list:
+    if node.kind == "or":
+        return [leaf for part in node.parts for leaf in _disjuncts(part)]
     return [node]
 
 
-def _is_ua_contains(node) -> bool:
-    return node[0] == "cmp" and node[1] == "contains" and node[2] == "http.user_agent"
+def _is_ua_contains(node: Node) -> bool:
+    return node.kind == "cmp" and node.op == "contains" and node.field == "http.user_agent"
+
+
+def _is_ua_exemption(node: Node) -> bool:
+    return node.kind == "not" and all(_is_ua_contains(d) for d in _disjuncts(node.parts[0]))
 
 
 REDACTED_UA = re.compile(r"szl-redacted:estate-probe-user-agents:n=(\d+):sha256=([0-9a-f]{64})")
@@ -376,20 +389,19 @@ def describe(expression: str) -> dict:
            "audience": "everyone", "exemption": None}
     for part in _conjuncts(parse_expression(expression)):
         disjuncts = _disjuncts(part)
-        if part == ("field", "cf.client.bot"):
+        path = "http.request.uri.path"
+        if part == Node("field", field="cf.client.bot"):
             out["audience"] = "verified_bots"
-        elif part[0] == "cmp" and part[1] == "eq" and part[2] == "http.host" and out["host"] is None:
-            out["host"] = part[3]
-        elif part[0] == "cmp" and part[1] == "wildcard" and part[2] == "http.request.uri.path" \
-                and out["path_wildcard"] is None:
-            out["path_wildcard"] = part[3]
-        elif all(d[0] == "starts_with" and d[1] == "http.request.uri.path" for d in disjuncts):
-            out["path_prefixes"].extend(d[2] for d in disjuncts)
-        elif part[0] == "not" and part[1][0] == "starts_with" and part[1][1] == "http.request.uri.path":
-            out["path_excludes"].append(part[1][2])
-        elif part[0] == "not" and all(_is_ua_contains(d) for d in _disjuncts(part[1])) \
-                and out["exemption"] is None:
-            out["exemption"] = exemption_fingerprint(d[3] for d in _disjuncts(part[1]))
+        elif part.kind == "cmp" and part.op == "eq" and part.field == "http.host" and out["host"] is None:
+            out["host"] = part.literal
+        elif part.kind == "cmp" and part.op == "wildcard" and part.field == path and out["path_wildcard"] is None:
+            out["path_wildcard"] = part.literal
+        elif all(d.kind == "starts_with" and d.field == path for d in disjuncts):
+            out["path_prefixes"].extend(d.literal for d in disjuncts)
+        elif part.kind == "not" and part.parts[0].kind == "starts_with" and part.parts[0].field == path:
+            out["path_excludes"].append(part.parts[0].literal)
+        elif _is_ua_exemption(part) and out["exemption"] is None:
+            out["exemption"] = exemption_fingerprint(d.literal for d in _disjuncts(part.parts[0]))
         else:
             raise CatalogError(f"unsupported rule condition shape: {part!r}"[:200])
     return out
@@ -402,16 +414,13 @@ _UA_CLAUSE = re.compile(r'not \(http\.user_agent contains "(?:[^"\\]|\\.)*"'
                         r'(?: or http\.user_agent contains "(?:[^"\\]|\\.)*")*\)')
 
 
-def _abstract_exemptions(node, fingerprints: list):
+def _abstract_exemptions(node: Node, fingerprints: list) -> Node:
     """Replace each user-agent exemption clause by a marker, collecting its fingerprint."""
-    kind = node[0]
-    if kind == "not" and all(_is_ua_contains(d) for d in _disjuncts(node[1])):
-        fingerprints.append(exemption_fingerprint(d[3] for d in _disjuncts(node[1])))
-        return ("ua-exemption",)
-    if kind in ("and", "or"):
-        return (kind, [_abstract_exemptions(part, fingerprints) for part in node[1]])
-    if kind == "not":
-        return ("not", _abstract_exemptions(node[1], fingerprints))
+    if _is_ua_exemption(node):
+        fingerprints.append(exemption_fingerprint(d.literal for d in _disjuncts(node.parts[0])))
+        return Node("ua-exemption")
+    if node.kind in ("and", "or", "not"):
+        return Node(node.kind, tuple(_abstract_exemptions(part, fingerprints) for part in node.parts))
     return node
 
 
