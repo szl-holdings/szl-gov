@@ -84,3 +84,5 @@ material is present in this repository, and none may ever be committed to it.
 of the audit record — that these values were observed and signed at that time. It does
 not prove the estate is secure, compliant, or correct. Λ = Conjecture 1 (advisory).
 Absent evidence is reported as UNKNOWN, never converted into a pass.
+
+Estate on Hugging Face: models, datasets and Spaces are published under the [SZLHOLDINGS](https://huggingface.co/SZLHOLDINGS) org.
