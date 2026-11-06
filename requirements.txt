@@ -1,4 +1,5 @@
 # Runtime dependencies for szl-holdings/szl-gov. Pinned by SZL frontier v3 20260928-205006.
 # Evidence: each pinned wheel was sha256-verified from PyPI and provides the imported top-level module.
 # Pins are the latest release at pin time; required CI decides merge.
-cryptography==50.0.1
+# 2026-11-06: cryptography 50.0.1 -> 50.0.2 (2026-09-30 patch release; wheels built with OpenSSL 4.0.3).
+cryptography==50.0.2
