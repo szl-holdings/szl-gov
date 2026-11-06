@@ -8,12 +8,23 @@ One command that:
 
 The audit runs READ_ONLY. If a11oy's own audit cannot obey its own
 side-effect classification, the classification is theater.
+
+Signing needs the key holder's private key in ../szl-gov-keys/ (outside the
+repo). The key is resolved before anything is written:
+
+  0  ledgers built, receipt signed and self-verified against keys/*.pub.pem
+  7  refused: no signing key, or the key is not the published identity
+     (keys/szl-audit-ed25519.pub.pem); nothing was written
+
+Key rotation is explicit: --new-key mints a key pair only when no key exists
+yet, then replaces the published public key. It never overwrites a key.
 """
 from __future__ import annotations
 
 import argparse
 import hashlib
 import json
+import os
 import pathlib
 import subprocess
 import sys
@@ -26,6 +37,46 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 TOOLS = ROOT / "tools"
 RECEIPTS = ROOT / "receipts"
 KEYS = ROOT / "keys"
+# Key lives outside the repo so the public push can never leak it.
+EXTKEYS = ROOT.parent / "szl-gov-keys"
+PUBLISHED_PUB = KEYS / "szl-audit-ed25519.pub.pem"
+KEY_REFUSED = 7
+
+
+def signing_key(new_key: bool = False):
+    """Return (sk, pk) for the published audit identity, or None to refuse.
+
+    Without the private key this used to mint a fresh key pair, overwrite the
+    published public key and re-sign the dated receipt, silently replacing the
+    estate's verification identity. Now absence refuses; rotation is opt-in.
+    """
+    key_path = EXTKEYS / "szl-audit-ed25519.pem"
+    if new_key:
+        if key_path.exists():
+            print(f"REFUSED: {key_path} already exists; --new-key never overwrites a key. "
+                  "Move it aside first to rotate deliberately.", file=sys.stderr)
+            return None
+        sk, pk = R.generate_keypair()
+        EXTKEYS.mkdir(exist_ok=True)
+        # O_EXCL + 0600 at creation: never overwrites, never briefly world-readable.
+        fd = os.open(key_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+        with os.fdopen(fd, "w") as handle:
+            handle.write(R.private_key_pem(sk))
+        (EXTKEYS / "szl-audit-ed25519.pub.pem").write_text(R.public_key_pem(pk))
+        return sk, pk
+    if not key_path.exists():
+        print(f"REFUSED: no signing key at {key_path}; nothing was written. Third parties verify "
+              "with tools/verify_receipt.py and run the gates directly. The key holder restores "
+              "the key, or passes --new-key to rotate the published identity on purpose.",
+              file=sys.stderr)
+        return None
+    sk = R.load_private(key_path.read_text())
+    pk = sk.public_key()
+    if PUBLISHED_PUB.exists() and R.key_id(pk) != R.key_id(R.load_public(PUBLISHED_PUB.read_text())):
+        print(f"REFUSED: the key at {key_path} (keyid {R.key_id(pk)}) is not the published identity "
+              f"in {PUBLISHED_PUB}; nothing was written.", file=sys.stderr)
+        return None
+    return sk, pk
 
 
 def run_gate(script: str) -> int:
@@ -36,16 +87,24 @@ def run_gate(script: str) -> int:
     return p.returncode
 
 
-def main() -> int:
+def main(argv=None) -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--run", action="store_true", help="execute (default is dry plan)")
-    args = ap.parse_args()
+    ap.add_argument("--new-key", action="store_true",
+                    help="rotate: mint a new signing key (only if none exists) and replace the published public key")
+    args = ap.parse_args(argv)
 
     if not args.run:
-        print("plan: build ledgers -> sign audit receipt -> run 3 gates. Pass --run.")
+        print("plan: resolve signing key -> build ledgers -> sign audit receipt -> run 3 gates. Pass --run.")
         return 0
 
     t0 = time.time()
+
+    # 0. control before action: no key, no writes
+    resolved = signing_key(args.new_key)
+    if resolved is None:
+        return KEY_REFUSED
+    sk, pk = resolved
 
     # 1. ledgers (+ BOM + license register via build_bom inside build_ledgers)
     import build_ledgers
@@ -57,24 +116,11 @@ def main() -> int:
     import tier_spaces
     tier_spaces.main()
 
-    # 2. sign the audit's own receipt
-    # Key lives outside the repo so the public push can never leak it.
-    EXTKEYS = ROOT.parent / "szl-gov-keys"
-    EXTKEYS.mkdir(exist_ok=True)
-    key_path = EXTKEYS / "szl-audit-ed25519.pem"
-    pub_path = EXTKEYS / "szl-audit-ed25519.pub.pem"
-    pub_copy = KEYS / "szl-audit-ed25519.pub.pem"
-    if key_path.exists():
-        sk = R.load_private(key_path.read_text())
-        pk = R.load_public(pub_path.read_text())
-    else:
-        sk, pk = R.generate_keypair()
-        key_path.write_text(R.private_key_pem(sk))
-        pub_path.write_text(R.public_key_pem(pk))
-        key_path.chmod(0o600)
-    # publish only the public key into the repo
-    KEYS.mkdir(exist_ok=True)
-    pub_copy.write_text(R.public_key_pem(pk))
+    # 2. sign the audit's own receipt; publish only the public key into the repo,
+    # and only when it is new (first publication or deliberate rotation).
+    if args.new_key or not PUBLISHED_PUB.exists():
+        KEYS.mkdir(exist_ok=True)
+        PUBLISHED_PUB.write_text(R.public_key_pem(pk))
 
     _ = json.load(open(ROOT / "audit_data" / "hf_org_listing.json"))
     _ = json.load(open(ROOT / "audit_data" / "gh_repos.json"))
@@ -130,15 +176,15 @@ def main() -> int:
     out = RECEIPTS / "audit-receipt-2026-08-30.dsse.json"
     out.write_text(json.dumps(env, indent=2))
 
-    # self-verify before declaring victory
-    verified = R.dsse_verify(env, R.load_public(pub_path.read_text()))
+    # self-verify against the published key file a third party would use
+    verified = R.dsse_verify(env, R.load_public(PUBLISHED_PUB.read_text()))
     assert verified["predicateType"] == R.PREDICATE_TYPE
 
     print(f"\nreceipt: {out.relative_to(ROOT)}")
     print(f"  predicateType: {R.PREDICATE_TYPE}")
     print(f"  completeness:  {action.completeness}  (missing human attestations -> INCOMPLETE, never PASS)")
     print(f"  keyid:         {env['signatures'][0]['keyid']}")
-    print("  self-verify:   PASS (offline, public key only)")
+    print(f"  self-verify:   PASS (offline, against {PUBLISHED_PUB.name})")
 
     # 3. gates
     print()
