@@ -44,6 +44,15 @@ python3 tools/build_ledgers.py && python3 tools/tier_spaces.py   # rebuild the l
 Today these exit 0, 2, 0, 3, 6 and 0. Rebuilt ledgers are byte-identical to the committed ones
 (`tests/test_ledgers_reproducible.py`).
 
+Per-call (x402) prices live in one place, [`pricing/catalog.yaml`](pricing/README.md). Both of
+these exit 0 today; the first fails on any disagreement with the exported gateway rules:
+
+```bash
+python3 tools/pricing_catalog.py check --rules pricing/snapshots/monetization-rules-2026-11-06.redacted.json \
+  --changes pricing/snapshots/monetization-changes-2026-11-06.json
+python3 tools/pricing_catalog.py generate --check   # manifest, /pricing table, README snippets
+```
+
 The verifier exits 0 when the signature is valid, 1 when it is not (or the payload is not a
 `GovernedAction/v1` in-toto Statement), and, with `--evidence-root`, 2 when a recorded evidence
 digest does not match its file. It exits 2 on this checkout: the receipt records sha256 digests for
@@ -92,6 +101,8 @@ python3 tools/test_receipt.py    # 15 receipt contract tests (CI: Repository tru
 | `ledgers/` | ESTATE_INVENTORY / CLAIMS / COMMERCIAL (25 metrics, all blocking the raise; 19 UNKNOWN) / CONTRADICTION_REGISTER / MODEL_BOM / DATASET_LICENSE_REGISTER / spaces_tiering.json |
 | `patches/` | proposed `models:` front-matter READMEs for 3 backlink-gap Spaces, written against the 2026-08-30 READMEs. Stale: some Spaces they link no longer exist; regenerate before applying (needs a write-scoped HF token) |
 | `receipts/` | DSSE-signed receipt for this audit, completeness INCOMPLETE (honest) |
+| `pricing/catalog.yaml` | the canonical per-call (x402) price catalog: every price the Cloudflare Monetization Gateway charges, checked against an exported rules snapshot (`pricing/snapshots/`); see [pricing/README.md](pricing/README.md) |
+| `tools/pricing_catalog.py` | `check` the catalog against a rules export, `generate` the x402 manifest, the a-11-oy.com/pricing per-call table and README snippets (`pricing/generated/`), `redact` an export before commit |
 | `commercial/index.html` | the 2026-08-30 hypothesis pricing page; that list was withdrawn from a11oy.net on 2026-09-27 ([a11oy-net#231](https://github.com/szl-holdings/a11oy-net/pull/231)) and is kept here as history |
 | `docs/ARTICLE_12_CONFORMANCE.yaml` | machine-readable Article 12 logging conformance profile (a profile, not a compliance claim) |
 | `SZL_MASTER_PAYLOAD.md` | the Codex build directive |

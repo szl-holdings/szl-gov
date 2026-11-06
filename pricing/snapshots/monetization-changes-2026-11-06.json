@@ -1,0 +1,53 @@
+[
+ {
+  "ts": "2026-11-06T16:27:21Z",
+  "zone": "a-11-oy.com",
+  "rule": "5303c2e182cd4d8daf974838f0b14f86",
+  "description": "Verified bot traffic (x402) - non-API (competitive)",
+  "before_enabled": true,
+  "patch_status": 200,
+  "patch_errors": [],
+  "after_enabled": false,
+  "rollback": {
+   "method": "PATCH",
+   "path": "/zones/{a-11-oy.com}/monetization/rules/5303c2e182cd4d8daf974838f0b14f86",
+   "body": {
+    "enabled": true
+   }
+  }
+ },
+ {
+  "ts": "2026-11-06T16:27:24Z",
+  "zone": "a11oy.net",
+  "rule": "56a204859a924e75890dd81776554b02",
+  "description": "Verified bot traffic (x402) - non-experiment paths only",
+  "before_enabled": true,
+  "patch_status": 200,
+  "patch_errors": [],
+  "after_enabled": false,
+  "rollback": {
+   "method": "PATCH",
+   "path": "/zones/{a11oy.net}/monetization/rules/56a204859a924e75890dd81776554b02",
+   "body": {
+    "enabled": true
+   }
+  }
+ },
+ {
+  "ts": "2026-11-06T16:27:25Z",
+  "zone": "a11oy.net",
+  "rule": "a539c1edbd2f49b5bbb7d2b5bc4de466",
+  "description": "Proof experimental endpoints (bots)",
+  "before_enabled": true,
+  "patch_status": 200,
+  "patch_errors": [],
+  "after_enabled": false,
+  "rollback": {
+   "method": "PATCH",
+   "path": "/zones/{a11oy.net}/monetization/rules/a539c1edbd2f49b5bbb7d2b5bc4de466",
+   "body": {
+    "enabled": true
+   }
+  }
+ }
+]

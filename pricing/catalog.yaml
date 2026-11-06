@@ -1,0 +1,292 @@
+# SZL estate: canonical per-call (x402) price catalog.
+#
+# This is the only hand-edited list of per-call prices. The x402 manifest
+# (a-11-oy.com/.well-known/x402-pricing.json), the per-call table on
+# a-11-oy.com/pricing and README price snippets are generated from it:
+#   python tools/pricing_catalog.py generate
+# It must agree with an exported snapshot of the Cloudflare Monetization
+# Gateway rules; tests/test_pricing_catalog.py runs this against the committed
+# snapshot, and the same check runs against a fresh export:
+#   python tools/pricing_catalog.py check --rules <export.json> [--changes <log.json>]
+# Prices are atomic USDC units: 1000000 = $1.00, 10000 = $0.01.
+# Formatting is canonical yamlite: python tools/pricing_catalog.py fmt
+
+schema: szl.pricing-catalog/v1
+as_of: "2026-11-06T16:27:25Z"
+sources:
+  rules_export: pricing/snapshots/monetization-rules-2026-11-06.redacted.json
+  rules_export_note: "Monetization Gateway rules API export for the zones a-11-oy.com, a11oy.net and szlholdings.com, taken on 2026-11-06 by the estate coordinator (file written 16:26 UTC). The estate-probe user-agent list is redacted to a count and digest; nothing else is changed."
+  change_log: pricing/snapshots/monetization-changes-2026-11-06.json
+  change_log_note: "Three rules disabled between 2026-11-06T16:27:21Z and 16:27:25Z; each PATCH returned 200 and its before_enabled matched the export."
+  rules_checked_against: "the Cloudflare Monetization Gateway rules export of 2026-11-06 with the 16:27 UTC change log applied"
+  catalog_url: "https://github.com/szl-holdings/szl-gov/blob/main/pricing/catalog.yaml"
+  authority: The HTTP 402 PAYMENT-REQUIRED response from the gateway is authoritative. This file lists what the exported gateway rules charged at as_of; a rule edited in the Cloudflare dashboard after as_of is not reflected until the catalog is updated and regenerated.
+  methods_basis:
+    cloudflare-default: "The rules export records no HTTP method selection. Cloudflare documents that a rule charges GET requests by default (Monetization Gateway docs, Monetization rules, updated 2026-09-30), so GET is listed; whether POST requests are charged is unverified."
+  payment_evidence: "network, asset, asset_name and max_timeout_seconds come from the x402 v2 PAYMENT-REQUIRED headers the gateway returned to the coordinator's 2026-11-06 edge scans; pay_to equals the address on every rule in the export."
+policy:
+  decided_by: owner
+  decided_on: "2026-11-06"
+  statement: "Charge API and MCP hosts only. Websites, /pricing, the proof site a11oy.net, health checks and /.well-known paths stay free."
+  applied_by: the change log (the catch-all rules on a-11-oy.com and a11oy.net were disabled)
+payment:
+  protocol: x402
+  x402_version: 2
+  network: "eip155:8453"
+  asset: "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913"
+  asset_name: USD Coin
+  atomic_per_usd: 1000000
+  pay_to: "0x50E9B335ac233fcc5e87404367E7De253A63D460"
+  max_timeout_seconds: 3600
+contact: "hello@a-11-oy.com"
+contact_source: the sales address on a-11-oy.com/pricing (szl-holdings/a11oy pages/pricing.html)
+exemptions:
+  estate-probe-user-agents:
+    count: 6
+    sha256: "85403a2e84f12b652090d8179a750184546c0fb49ba1f30b249fa512fb988e5a"
+    note: "Every rule skips requests whose User-Agent contains one of the estate's own probe names. The names are withheld because a user-agent match can be spoofed; the count and digest let the check detect any change to the list."
+zones:
+  - zone: a-11-oy.com
+    rules_defined: 15
+    rules_enabled: 4
+    probe_hosts:
+      - a-11-oy.com
+      - api.a-11-oy.com
+      - inference.a-11-oy.com
+      - mcp.a-11-oy.com
+  - zone: a11oy.net
+    rules_defined: 2
+    rules_enabled: 0
+    probe_hosts:
+      - a11oy.net
+  - zone: szlholdings.com
+    rules_defined: 0
+    rules_enabled: 0
+    probe_hosts:
+      - szlholdings.com
+charged:
+  - id: chat
+    surface: OpenAI-compatible chat
+    rule_id: "41cee0f88822411baf864bb54e8b4727"
+    rule_description: "Doctrine chat - Nemotron Estate flagship (everyone, x402)"
+    zone: a-11-oy.com
+    host: "*"
+    path_prefixes:
+      - /v1/chat/
+    methods:
+      - GET
+    methods_basis: cloudflare-default
+    audience: everyone
+    scheme: exact
+    amount_atomic: 20000
+    exemption: estate-probe-user-agents
+    expression: "(starts_with(http.request.uri.path, \"/v1/chat/\") and not (http.user_agent contains \"szl-redacted:estate-probe-user-agents:n=6:sha256=85403a2e84f12b652090d8179a750184546c0fb49ba1f30b249fa512fb988e5a\"))"
+  - id: inference-completions-responses
+    surface: completions and responses on the inference host
+    rule_id: "6babfd10032746f7863cda066d95125d"
+    rule_description: "Completions/Responses - Nemotron Estate flagship (everyone, x402) [2026-11-06 leak fix]"
+    zone: a-11-oy.com
+    host: inference.a-11-oy.com
+    path_prefixes:
+      - /v1/completions
+      - /v1/responses
+    methods:
+      - GET
+    methods_basis: cloudflare-default
+    audience: everyone
+    scheme: exact
+    amount_atomic: 20000
+    exemption: estate-probe-user-agents
+    expression: "(http.host eq \"inference.a-11-oy.com\" and (starts_with(http.request.uri.path, \"/v1/completions\") or starts_with(http.request.uri.path, \"/v1/responses\")) and not (http.user_agent contains \"szl-redacted:estate-probe-user-agents:n=6:sha256=85403a2e84f12b652090d8179a750184546c0fb49ba1f30b249fa512fb988e5a\"))"
+  - id: a11oy-mesh-frontier
+    surface: a11oy mesh and frontier APIs
+    rule_id: "94dc6d8169a84173bf0005bea66e50eb"
+    rule_description: Premium API mesh/frontier (bots)
+    zone: a-11-oy.com
+    host: "*"
+    path_prefixes:
+      - /api/a11oy/v1/mesh/
+      - /api/a11oy/v1/frontier/
+    methods:
+      - GET
+    methods_basis: cloudflare-default
+    audience: verified_bots
+    scheme: exact
+    amount_atomic: 50000
+    exemption: estate-probe-user-agents
+    expression: "((starts_with(http.request.uri.path, \"/api/a11oy/v1/mesh/\") or starts_with(http.request.uri.path, \"/api/a11oy/v1/frontier/\")) and cf.client.bot and not (http.user_agent contains \"szl-redacted:estate-probe-user-agents:n=6:sha256=85403a2e84f12b652090d8179a750184546c0fb49ba1f30b249fa512fb988e5a\"))"
+  - id: a11oy-attest-ledger
+    surface: a11oy attest and ledger APIs
+    rule_id: b8026fdb4f0d42c6ba734ddd77e75644
+    rule_description: Premium attest/ledger APIs (bots)
+    zone: a-11-oy.com
+    host: "*"
+    path_prefixes:
+      - /api/a11oy/v1/attest/
+      - /api/a11oy/v1/ledger
+    methods:
+      - GET
+    methods_basis: cloudflare-default
+    audience: verified_bots
+    scheme: exact
+    amount_atomic: 25000
+    exemption: estate-probe-user-agents
+    expression: "((starts_with(http.request.uri.path, \"/api/a11oy/v1/attest/\") or starts_with(http.request.uri.path, \"/api/a11oy/v1/ledger\")) and cf.client.bot and not (http.user_agent contains \"szl-redacted:estate-probe-user-agents:n=6:sha256=85403a2e84f12b652090d8179a750184546c0fb49ba1f30b249fa512fb988e5a\"))"
+inactive_rules:
+  - rule_id: "5303c2e182cd4d8daf974838f0b14f86"
+    zone: a-11-oy.com
+    rule_description: Verified bot traffic (x402) - non-API (competitive)
+    state: "disabled 2026-11-06T16:27:21Z under the owner policy (change log)"
+  - rule_id: d25c5164dc994ce58bb4c9ff2e696c9f
+    zone: a-11-oy.com
+    rule_description: Experimental surfaces (bots)
+    state: disabled in the export
+  - rule_id: "85bd68e05db3411695fdd5b5f72ede29"
+    zone: a-11-oy.com
+    rule_description: "Agent access - experimental surfaces (everyone, x402)"
+    state: disabled in the export
+  - rule_id: e610a927dc324675a56448d7341d6d5d
+    zone: a-11-oy.com
+    rule_description: MCP tool calls - doctrine-governed (verified bots)
+    state: disabled in the export
+  - rule_id: "2dac25fc6eb445d080d081141c6ffda5"
+    zone: a-11-oy.com
+    rule_description: "MCP tool calls - doctrine-governed (everyone, x402)"
+    state: disabled in the export
+  - rule_id: dda0725a501e4974a411964146d3af73
+    zone: a-11-oy.com
+    rule_description: Model inference - estate-trained models (verified bots)
+    state: disabled in the export
+  - rule_id: ceb0b09132634f44a6ce4abb05855ebb
+    zone: a-11-oy.com
+    rule_description: "Model inference - estate-trained models (everyone, x402)"
+    state: disabled in the export
+  - rule_id: "49b73ff270374852bb0702d150893b2b"
+    zone: a-11-oy.com
+    rule_description: "Acoustic validation ($0.05, everyone)"
+    state: disabled in the export
+  - rule_id: a36a6d9287da4cbc977ec23381c9c3b2
+    zone: a-11-oy.com
+    rule_description: "Dataset access API ($0.10, everyone)"
+    state: disabled in the export
+  - rule_id: "846c3eed8529415699b3305131f88ad6"
+    zone: a-11-oy.com
+    rule_description: "Living Anatomy API ($0.05, everyone)"
+    state: disabled in the export
+  - rule_id: fb9e3c84e7684f3481ea4fc626ccc827
+    zone: a-11-oy.com
+    rule_description: "Second Brain retrieval API ($0.03, everyone)"
+    state: disabled in the export
+  - rule_id: "56a204859a924e75890dd81776554b02"
+    zone: a11oy.net
+    rule_description: Verified bot traffic (x402) - non-experiment paths only
+    state: "disabled 2026-11-06T16:27:24Z under the owner policy (change log)"
+  - rule_id: a539c1edbd2f49b5bbb7d2b5bc4de466
+    zone: a11oy.net
+    rule_description: Proof experimental endpoints (bots)
+    state: "disabled 2026-11-06T16:27:25Z under the owner policy (change log)"
+not_offered_yet:
+  - id: mcp-tool-calls
+    surface: MCP tool calls
+    path_prefixes:
+      - /mcp/
+    status: not offered yet
+    inactive_rule_ids:
+      - e610a927dc324675a56448d7341d6d5d
+      - "2dac25fc6eb445d080d081141c6ffda5"
+    note: Both /mcp/ rules are disabled; the gateway charges nothing there.
+  - id: model-inference
+    surface: model inference
+    path_prefixes:
+      - /v1/inference/
+    status: not offered yet
+    inactive_rule_ids:
+      - dda0725a501e4974a411964146d3af73
+      - ceb0b09132634f44a6ce4abb05855ebb
+    note: Both /v1/inference/ rules are disabled.
+  - id: a11oy-experimental
+    surface: a11oy experimental APIs
+    path_prefixes:
+      - /api/a11oy/v1/experimental/
+    status: not offered yet
+    inactive_rule_ids:
+      - d25c5164dc994ce58bb4c9ff2e696c9f
+      - "85bd68e05db3411695fdd5b5f72ede29"
+    note: Both experimental-surface rules are disabled.
+  - id: acoustic-validation
+    surface: acoustic validation
+    path_prefixes:
+      - /v1/acoustic/
+    status: not offered yet
+    inactive_rule_ids:
+      - "49b73ff270374852bb0702d150893b2b"
+    note: The rule is disabled.
+  - id: dataset-access
+    surface: dataset access
+    path_prefixes:
+      - /v1/data/
+    status: not offered yet
+    inactive_rule_ids:
+      - a36a6d9287da4cbc977ec23381c9c3b2
+    note: The rule is disabled.
+  - id: living-anatomy
+    surface: Living Anatomy API
+    path_prefixes:
+      - /v1/anatomy/
+    status: not offered yet
+    inactive_rule_ids:
+      - "846c3eed8529415699b3305131f88ad6"
+    note: The rule is disabled.
+  - id: second-brain-retrieval
+    surface: Second Brain retrieval
+    path_prefixes:
+      - /v1/brain/
+    status: not offered yet
+    inactive_rule_ids:
+      - fb9e3c84e7684f3481ea4fc626ccc827
+    note: The rule is disabled.
+  - id: evidence-snapshot
+    surface: evidence snapshot
+    path_prefixes:
+      - /api/v1/evidence-snapshot
+    status: not offered yet
+    inactive_rule_ids: []
+    note: No gateway rule exists for this path.
+free:
+  - surface: websites
+    probes:
+      - "https://a-11-oy.com/"
+      - "https://www.a-11-oy.com/"
+      - "https://holdings.a-11-oy.com/"
+      - "https://killinchu.a-11-oy.com/"
+      - "https://gdw.a-11-oy.com/"
+      - "https://a-11-oy.com/robots.txt"
+      - "https://a-11-oy.com/llms.txt"
+  - surface: pricing page
+    probes:
+      - "https://a-11-oy.com/pricing"
+  - surface: proof site
+    probes:
+      - "https://a11oy.net/"
+      - "https://a11oy.net/experiments/"
+  - surface: health checks
+    probes:
+      - "https://a-11-oy.com/healthz"
+      - "https://a-11-oy.com/api/a11oy/healthz"
+      - "https://inference.a-11-oy.com/healthz"
+      - "https://mcp.a-11-oy.com/healthz"
+      - "https://agents-store.a-11-oy.com/healthz"
+  - surface: well-known files
+    probes:
+      - "https://a-11-oy.com/.well-known/x402-pricing.json"
+      - "https://a-11-oy.com/.well-known/security.txt"
+      - "https://mcp.a-11-oy.com/.well-known/mcp.json"
+limits:
+  - "Methods: the rules export records no HTTP method selection, and Cloudflare's documented default charges GET only, so whether POST requests to these paths are charged is unverified."
+  - "Origins: paying clears the gateway only; whether each origin then serves a paid caller without its own credential has not been verified."
+  - "Eligibility: Cloudflare's Monetization Gateway requires buyers and sellers to be based in the United States."
+  - "Revenue: this catalog records prices, not settlements; it says nothing about whether any payment has settled."
+presentation:
+  manifest_url: "https://a-11-oy.com/.well-known/x402-pricing.json"
+  as_of_human: "2026-11-06 16:27 UTC"
+  page_intro: "A few machine endpoints answer an unpaid request with HTTP 402 and an x402 payment request, paid in USDC on Base. These are the paths the Cloudflare gateway charges, generated from the estate's canonical price catalog."
