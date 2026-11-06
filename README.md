@@ -19,7 +19,7 @@ szl-gov holds a dated, public-only snapshot of the `szl-holdings` GitHub organiz
 (inventory, claims, commercial, contradictions, model BOM, dataset licenses, Space tiering), a
 DSSE/Ed25519-signed `GovernedAction/v1` receipt for that audit with an offline verifier, and three
 gates whose non-zero exit codes are the open checklist. Pure Python, one runtime dependency
-(`cryptography`, pinned in `requirements.txt`).
+(`cryptography`, pinned identically in `requirements.txt` and `pyproject.toml`).
 
 ## Install
 
@@ -72,7 +72,7 @@ UNKNOWN for every Space because no mobile-UA capture was committed. 0 of 5 flags
 ## Test
 
 ```bash
-pytest -q tests                  # 90 tests (CI: base-python-ci)
+pytest -q tests                  # 91 tests (CI: base-python-ci)
 python3 tools/test_receipt.py    # 15 receipt contract tests (CI: Repository truth checks)
 ```
 

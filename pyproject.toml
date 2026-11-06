@@ -10,7 +10,7 @@ readme = "README.md"
 requires-python = ">=3.11"
 license = "Apache-2.0"
 authors = [{ name = "Stephen Lutar", email = "stephen@szlholdings.com" }]
-dependencies = ["cryptography==50.0.1"]
+dependencies = ["cryptography==50.0.2"]  # keep in step with requirements.txt (tests/test_dependency_pins.py)
 
 [project.urls]
 Homepage = "https://a-11-oy.com"
