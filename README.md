@@ -148,3 +148,5 @@ not prove the estate is secure, compliant, or correct. `--evidence-root` shows w
 files in a checkout still match the digests the receipt recorded; a match does not make
 that evidence true. Λ = Conjecture 1 (advisory).
 Absent evidence is reported as UNKNOWN, never converted into a pass.
+
+Estate on Hugging Face: models, datasets and Spaces are published under the [SZLHOLDINGS](https://huggingface.co/SZLHOLDINGS) org.
