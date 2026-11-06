@@ -172,13 +172,21 @@ def main() -> int:
         },
     ]
 
-    # ---------------- COMMERCIAL LEDGER (24 rows, all UNKNOWN, all gate the raise) ----------------
-    # Honest evidence for rows this week's work actually created. The rest stay UNKNOWN.
+    # ---------------- COMMERCIAL LEDGER (25 rows, every row gates the raise) ----------------
+    # Honest evidence for rows this week's work actually created (6). The other 19 stay UNKNOWN.
+    # The 2026-08-30 hypothesis price list was withdrawn from a11oy.net/pricing by
+    # a11oy-net#231 (2026-09-27), which now defers to a-11-oy.com/pricing. This
+    # audit has not observed that page, so no current price is asserted here.
+    PRICE_LIST_WITHDRAWN = ("https://github.com/szl-holdings/a11oy-net/commit/"
+                            "ad3e08175f577d67e6b97a7b810bf3262cbeb116")
     EVIDENCE = {
-        "published_price": ("Control $75-250K/yr; Assurance/Sovereign $250K+/yr; Verify open — LIVE at a11oy.net/pricing",
-                            "https://a11oy.net/pricing/"),
-        "pricing_model": ("Annual platform fee by tier (Control/Assurance/Sovereign); design-partner 6-month paid. Never token-priced. Public.",
-                          "https://a11oy.net/pricing/"),
+        "published_price": ("WITHDRAWN: 2026-08-30 hypothesis list (Verify open; Control $75-250K/yr; "
+                            "Assurance/Sovereign $250K+/yr) retired from a11oy.net/pricing 2026-09-27. "
+                            "Current list on a-11-oy.com/pricing not observed by this audit",
+                            PRICE_LIST_WITHDRAWN),
+        "pricing_model": ("WITHDRAWN: annual platform fee by tier (Control/Assurance/Sovereign) left "
+                          "with the 2026-08-30 list. Current model not observed by this audit",
+                          PRICE_LIST_WITHDRAWN),
         "first_wedge": ("Governed agent change management: signal->investigate->policy->approve->patch->deploy->signed receipt",
                         "SZL_MASTER_PAYLOAD.md#3"),
         "buyer_persona": ("VP Eng/Platform + CISO (dual), regulated AI product teams with EU Annex III exposure",

@@ -69,14 +69,14 @@ rows:
     evidence_class: none
   - metric: published_price
     definition: A price a stranger can read without a call
-    value: Control $75-250K/yr; Assurance/Sovereign $250K+/yr; Verify open — LIVE at a11oy.net/pricing
-    evidence_ref: "https://a11oy.net/pricing/"
+    value: "WITHDRAWN: 2026-08-30 hypothesis list (Verify open; Control $75-250K/yr; Assurance/Sovereign $250K+/yr) retired from a11oy.net/pricing 2026-09-27. Current list on a-11-oy.com/pricing not observed by this audit"
+    evidence_ref: "https://github.com/szl-holdings/a11oy-net/commit/ad3e08175f577d67e6b97a7b810bf3262cbeb116"
     blocks_raise: true
     evidence_class: hypothesis_artifact
   - metric: pricing_model
     definition: "Per-action? Per-seat? Platform fee? Undecided = UNKNOWN"
-    value: Annual platform fee by tier (Control/Assurance/Sovereign); design-partner 6-month paid. Never token-priced. Public.
-    evidence_ref: "https://a11oy.net/pricing/"
+    value: "WITHDRAWN: annual platform fee by tier (Control/Assurance/Sovereign) left with the 2026-08-30 list. Current model not observed by this audit"
+    evidence_ref: "https://github.com/szl-holdings/a11oy-net/commit/ad3e08175f577d67e6b97a7b810bf3262cbeb116"
     blocks_raise: true
     evidence_class: hypothesis_artifact
   - metric: buyer_persona
