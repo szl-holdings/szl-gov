@@ -9,7 +9,9 @@
 # (proof).
 #
 # Installed by the szl-alignment engine; keep in sync with
-# alignment/templates/workflows/forbidden-domain.yml.
+# alignment/templates/workflows/forbidden-domain.yml. This copy replaces the
+# template's ripgrep call (absent on the runner, so the scan never ran) with
+# GNU grep and fails on scanner errors; the template needs the same fix.
 name: forbidden-domain
 
 on:
@@ -36,12 +38,27 @@ jobs:
           set -euo pipefail
           test "$(git rev-parse HEAD)" = "$SOURCE_REVISION"
 
+      # GNU grep ships on every GitHub-hosted Ubuntu runner; ripgrep does not.
+      # The earlier rg-based scan logged "rg: command not found" and its
+      # `|| true` turned that into a clean result on every run. grep exits
+      # 0 (matches), 1 (no matches) or >1 (error): only 0 and 1 are results,
+      # anything else stops the gate.
       - name: Scan for forbidden domain references
         shell: bash
         run: |
           set -euo pipefail
-          hits="$(rg -n --no-heading --hidden -P '(?<!-)a11oy\.com' --glob '!.git' . || true)"
-          violations="$(printf '%s' "$hits" | rg -v -i 'never|forbidden|not in|assertNotIn|does not appear|is not a surface|blocklist' || true)"
+          status=0
+          hits="$(grep -rnIP --exclude-dir=.git '(?<!-)a11oy\.com' .)" || status=$?
+          if [ "$status" -gt 1 ]; then
+            echo "::error::Forbidden-domain scan could not run (grep exit $status); refusing to report clean."
+            exit "$status"
+          fi
+          status=0
+          violations="$(printf '%s' "$hits" | grep -viE 'never|forbidden|not in|assertNotIn|does not appear|is not a surface|blocklist')" || status=$?
+          if [ "$status" -gt 1 ]; then
+            echo "::error::Forbidden-domain guard filter could not run (grep exit $status); refusing to report clean."
+            exit "$status"
+          fi
           if [ -n "$violations" ]; then
             echo "::error::Forbidden domain references found (release-blocking CRITICAL)."
             echo "::error::Replace with a-11-oy.com or remove; guard contexts must say so on the same line."

@@ -40,7 +40,8 @@ BANNED = [
 ]
 
 SCAN_SUFFIXES = {".md", ".yaml", ".yml"}
-SKIP_DIRS = {"audit_data", ".git", "node_modules", "__pycache__"}
+# Local virtualenvs hold third-party docs (license texts), not estate claims.
+SKIP_DIRS = {"audit_data", ".git", "node_modules", "__pycache__", ".venv", "venv"}
 # Lines that quote a banned phrase in order to forbid it must carry this marker.
 # The marker is itself auditable: grep for it to see every sanctioned quotation.
 ALLOW_MARKER = "lexicon-ok"
@@ -50,7 +51,8 @@ def iter_files():
     for p in ROOT.rglob("*"):
         if p.is_dir() or p.suffix not in SCAN_SUFFIXES:
             continue
-        if any(part in SKIP_DIRS for part in p.parts):
+        # Relative parts only: a checkout that lives under e.g. ~/venv/ is still scanned.
+        if any(part in SKIP_DIRS for part in p.relative_to(ROOT).parts):
             continue
         yield p
 

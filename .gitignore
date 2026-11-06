@@ -2,6 +2,10 @@
 keys/*.pem
 !keys/*.pub.pem
 __pycache__/
+# the local virtualenv the README's install step creates
+.venv/
+# metadata `pip install -e .` writes next to pyproject.toml
+*.egg-info/
 *.pyc
 # local-only working keys (defense in depth on top of external key dir)
 szl-gov-keys/
