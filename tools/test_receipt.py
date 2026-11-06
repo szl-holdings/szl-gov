@@ -105,16 +105,33 @@ def t_service_account_structurally_forbidden():
     except ValueError:
         pass
 
-def t_service_account_spoof_human_with_api_key_rejected():
-    # the Art.12 attack: present machine action as human. Our schema pins
-    # is_service_account False; an api_key actor claiming human must be caught
-    # at the verifier boundary.
-    a = _action()
-    d = a.to_dict()
-    d["actor"] = "svc-deploy@internal"
-    d["auth_method"] = "api_key"
-    # govern: api_key auth cannot claim human principal
-    assert not (d.get("auth_method") == "api_key" and d.get("actor_type") == "human")
+def t_service_account_claim_cannot_enter_a_signed_receipt():
+    # The Art.12 attack: present a machine action as a human one. Enforced:
+    # the schema refuses is_service_account=True, and a signed receipt cannot
+    # be edited afterwards to claim it or a different actor.
+    # NOT enforced (open gap): the predicate records no auth method, so an
+    # API-key actor presenting a human-looking identity is not detected here.
+    # (This test used to assert a tautology on keys nothing sets.)
+    import dataclasses
+    names = {f.name for f in dataclasses.fields(R.GovernedAction)}
+    claimed = {k: v for k, v in _action().to_dict().items() if k in names}
+    claimed["is_service_account"] = True
+    try:
+        R.GovernedAction(**claimed)
+        raise AssertionError("predicate claiming is_service_account=True was accepted")
+    except ValueError:
+        pass
+    env, pk, _ = _signed()
+    statement = json.loads(base64.b64decode(env["payload"]))
+    for name, value in (("is_service_account", True), ("actor", "svc-deploy@internal")):
+        forged = json.loads(json.dumps(statement))
+        forged["predicate"][name] = value
+        body = json.dumps(forged, sort_keys=True, separators=(",", ":")).encode()
+        try:
+            R.dsse_verify(dict(env, payload=base64.b64encode(body).decode()), pk)
+            raise AssertionError(f"receipt edited to claim {name}={value!r} still verified")
+        except ValueError:
+            pass
 
 def t_invalid_truth_state_rejected():
     try:
