@@ -3,10 +3,9 @@ and never skips the repository because of where it was cloned."""
 import sys
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
-import lexicon_gate  # noqa: E402
+import lexicon_gate
 
 BANNED = "This build is " + "production-ready.\n"  # assembled so this file is not itself a hit
 

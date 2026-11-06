@@ -180,12 +180,12 @@ def main() -> int:
     PRICE_LIST_WITHDRAWN = ("https://github.com/szl-holdings/a11oy-net/commit/"
                             "ad3e08175f577d67e6b97a7b810bf3262cbeb116")
     EVIDENCE = {
-        "published_price": ("WITHDRAWN: 2026-08-30 hypothesis list (Verify open; Control $75-250K/yr; "
-                            "Assurance/Sovereign $250K+/yr) retired from a11oy.net/pricing 2026-09-27. "
-                            "Current list on a-11-oy.com/pricing not observed by this audit",
+        "published_price": (("WITHDRAWN: 2026-08-30 hypothesis list (Verify open; Control $75-250K/yr; "
+                             "Assurance/Sovereign $250K+/yr) retired from a11oy.net/pricing 2026-09-27. "
+                             "Current list on a-11-oy.com/pricing not observed by this audit"),
                             PRICE_LIST_WITHDRAWN),
-        "pricing_model": ("WITHDRAWN: annual platform fee by tier (Control/Assurance/Sovereign) left "
-                          "with the 2026-08-30 list. Current model not observed by this audit",
+        "pricing_model": (("WITHDRAWN: annual platform fee by tier (Control/Assurance/Sovereign) left "
+                           "with the 2026-08-30 list. Current model not observed by this audit"),
                           PRICE_LIST_WITHDRAWN),
         "first_wedge": ("Governed agent change management: signal->investigate->policy->approve->patch->deploy->signed receipt",
                         "SZL_MASTER_PAYLOAD.md#3"),

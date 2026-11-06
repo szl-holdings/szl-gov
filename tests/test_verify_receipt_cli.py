@@ -12,11 +12,10 @@ from pathlib import Path
 
 import pytest
 
-
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
-import receipt as R  # noqa: E402
-import verify_receipt  # noqa: E402
+import receipt as R
+import verify_receipt
 
 RECEIPT = ROOT / "receipts" / "audit-receipt-2026-08-30.dsse.json"
 PUBKEY = ROOT / "keys" / "szl-audit-ed25519.pub.pem"

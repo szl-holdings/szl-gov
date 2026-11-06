@@ -9,11 +9,10 @@ import json
 import sys
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
-import spaces_gate  # noqa: E402
-import tier_spaces  # noqa: E402
+import spaces_gate
+import tier_spaces
 
 DEPLOYED = "deployed revision attested (stage RUNNING is NOT evidence)"
 MOBILE = "mobile smoke test passed"

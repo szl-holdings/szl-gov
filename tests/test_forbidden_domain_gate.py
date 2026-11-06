@@ -12,7 +12,6 @@ from pathlib import Path
 
 import pytest
 
-
 ROOT = Path(__file__).resolve().parents[1]
 WORKFLOW = ROOT / ".github/workflows/forbidden-domain.yml"
 STEP = "- name: Scan for forbidden domain references"
@@ -22,7 +21,8 @@ DOMAIN = "a11oy" + ".com"  # assembled so this file is not itself a hit
 def _gnu_grep_with_pcre():
     if not shutil.which("bash") or not shutil.which("grep"):
         return False
-    probe = subprocess.run(["grep", "-P", "(?<!-)x", "-"], input="x\n", capture_output=True, text=True)
+    probe = subprocess.run(["grep", "-P", "(?<!-)x", "-"], input="x\n", capture_output=True, text=True,
+                           check=False)
     return probe.returncode == 0
 
 
@@ -48,7 +48,7 @@ def _scan_script():
 def _run(tree, path=None):
     env = None if path is None else {"PATH": str(path)}
     return subprocess.run([shutil.which("bash"), "-c", _scan_script()], cwd=tree, env=env,
-                          capture_output=True, text=True)
+                          capture_output=True, text=True, check=False)
 
 
 def test_clean_tree_and_guard_contexts_pass(tmp_path):

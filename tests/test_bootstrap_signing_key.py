@@ -10,11 +10,10 @@ from pathlib import Path
 
 import pytest
 
-
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
-import receipt as R  # noqa: E402
-import szl_master_bootstrap as boot  # noqa: E402
+import receipt as R
+import szl_master_bootstrap as boot
 
 
 @pytest.fixture
@@ -74,7 +73,7 @@ def test_new_key_never_overwrites_an_existing_key(layout):
 
 
 def test_new_key_mints_a_private_key_readable_only_by_its_owner(layout):
-    sk, pk = boot.signing_key(new_key=True)
+    _, pk = boot.signing_key(new_key=True)
     key_file = layout.ext / "szl-audit-ed25519.pem"
     assert key_file.stat().st_mode & 0o777 == 0o600
     assert R.key_id(R.load_private(key_file.read_text()).public_key()) == R.key_id(pk)

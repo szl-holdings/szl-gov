@@ -6,12 +6,11 @@ generated file would be invisible there. This catches it.
 import sys
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
-import build_bom  # noqa: E402
-import build_ledgers  # noqa: E402
-import tier_spaces  # noqa: E402
+import build_bom
+import build_ledgers
+import tier_spaces
 
 GENERATED = (
     "ESTATE_INVENTORY.yaml",
