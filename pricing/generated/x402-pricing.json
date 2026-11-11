@@ -2,12 +2,12 @@
   "schema": "szl.x402-pricing/v2",
   "protocol": "x402",
   "x402_version": 2,
-  "as_of": "2026-11-06T16:27:25Z",
+  "as_of": "2026-11-11T16:40:33Z",
   "source": {
     "catalog": "https://github.com/szl-holdings/szl-gov/blob/main/pricing/catalog.yaml",
-    "catalog_sha256": "e0f6fb4017042a7ed91b14afc795fb95316e1167611c6b441b9be235eae61cec",
+    "catalog_sha256": "a8537c21d23e7e5a396f20f6412d9c3d58358cec46a1a8d21ed6c701106bb014",
     "generator": "szl-gov tools/pricing_catalog.py",
-    "rules_checked_against": "the Cloudflare Monetization Gateway rules export of 2026-11-06 with the 16:27 UTC change log applied"
+    "rules_checked_against": "the fresh Cloudflare Monetization Gateway rules readback of 2026-11-11 at 16:40 UTC"
   },
   "authority": "The HTTP 402 PAYMENT-REQUIRED response from the gateway is authoritative. This file lists what the exported gateway rules charged at as_of; a rule edited in the Cloudflare dashboard after as_of is not reflected until the catalog is updated and regenerated.",
   "payment": {
@@ -226,7 +226,7 @@
     }
   ],
   "rule_counts": {
-    "as_of": "2026-11-06T16:27:25Z",
+    "as_of": "2026-11-11T16:40:33Z",
     "zones": [
       {
         "zone": "a-11-oy.com",

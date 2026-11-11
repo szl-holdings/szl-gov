@@ -19,6 +19,7 @@ import pricing_catalog as pc
 
 SNAPSHOTS = ROOT / "pricing" / "snapshots"
 RULES = SNAPSHOTS / "monetization-rules-2026-11-06.redacted.json"
+CURRENT_RULES = SNAPSHOTS / "monetization-rules-2026-11-11.redacted.json"
 CHANGES = SNAPSHOTS / "monetization-changes-2026-11-06.json"
 CHAT = "41cee0f88822411baf864bb54e8b4727"
 INFERENCE = "6babfd10032746f7863cda066d95125d"
@@ -34,6 +35,11 @@ def catalog():
 @pytest.fixture()
 def snapshot():
     return json.loads(RULES.read_text(encoding="utf-8"))
+
+
+@pytest.fixture()
+def current_snapshot():
+    return json.loads(CURRENT_RULES.read_text(encoding="utf-8"))
 
 
 @pytest.fixture()
@@ -60,6 +66,10 @@ def test_catalog_is_canonical_yamlite():
 
 def test_catalog_agrees_with_the_committed_rules_export(catalog, snapshot, changes):
     assert pc.check(catalog, snapshot, changes) == []
+
+
+def test_catalog_agrees_with_the_fresh_rules_readback(catalog, current_snapshot):
+    assert pc.check(catalog, current_snapshot, None) == []
 
 
 def test_catalog_counts_match_the_export(catalog, snapshot, changes):
