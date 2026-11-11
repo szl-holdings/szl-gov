@@ -12,18 +12,18 @@
 # Formatting is canonical yamlite: python tools/pricing_catalog.py fmt
 
 schema: szl.pricing-catalog/v1
-as_of: "2026-11-06T16:27:25Z"
+as_of: "2026-11-11T16:40:33Z"
 sources:
-  rules_export: pricing/snapshots/monetization-rules-2026-11-06.redacted.json
-  rules_export_note: "Monetization Gateway rules API export for the zones a-11-oy.com, a11oy.net and szlholdings.com, taken on 2026-11-06 by the estate coordinator (file written 16:26 UTC). The estate-probe user-agent list is redacted to a count and digest; nothing else is changed."
+  rules_export: pricing/snapshots/monetization-rules-2026-11-11.redacted.json
+  rules_export_note: "Fresh Monetization Gateway rules API readback for the zones a-11-oy.com, a11oy.net and szlholdings.com, taken on 2026-11-11 at 16:40 UTC after the documented four-rule policy was restored. The estate-probe user-agent list is redacted to a count and digest; nothing else is changed."
   change_log: pricing/snapshots/monetization-changes-2026-11-06.json
   change_log_note: "Three rules disabled between 2026-11-06T16:27:21Z and 16:27:25Z; each PATCH returned 200 and its before_enabled matched the export."
-  rules_checked_against: "the Cloudflare Monetization Gateway rules export of 2026-11-06 with the 16:27 UTC change log applied"
+  rules_checked_against: "the fresh Cloudflare Monetization Gateway rules readback of 2026-11-11 at 16:40 UTC"
   catalog_url: "https://github.com/szl-holdings/szl-gov/blob/main/pricing/catalog.yaml"
   authority: The HTTP 402 PAYMENT-REQUIRED response from the gateway is authoritative. This file lists what the exported gateway rules charged at as_of; a rule edited in the Cloudflare dashboard after as_of is not reflected until the catalog is updated and regenerated.
   methods_basis:
     cloudflare-default: "The rules export records no HTTP method selection. Cloudflare documents that a rule charges GET requests by default (Monetization Gateway docs, Monetization rules, updated 2026-09-30), so GET is listed; whether POST requests are charged is unverified."
-  payment_evidence: "network, asset, asset_name and max_timeout_seconds come from the x402 v2 PAYMENT-REQUIRED headers the gateway returned to the coordinator's 2026-11-06 edge scans; pay_to equals the address on every rule in the export."
+  payment_evidence: "network, asset, asset_name and max_timeout_seconds come from fresh x402 v2 PAYMENT-REQUIRED headers observed on 2026-11-11; pay_to equals the address on every rule in the fresh export."
 policy:
   decided_by: owner
   decided_on: "2026-11-06"
