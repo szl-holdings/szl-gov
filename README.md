@@ -48,8 +48,7 @@ Per-call (x402) prices live in one place, [`pricing/catalog.yaml`](pricing/READM
 these exit 0 today; the first fails on any disagreement with the exported gateway rules:
 
 ```bash
-python3 tools/pricing_catalog.py check --rules pricing/snapshots/monetization-rules-2026-11-06.redacted.json \
-  --changes pricing/snapshots/monetization-changes-2026-11-06.json
+python3 tools/pricing_catalog.py check --rules pricing/snapshots/monetization-rules-2026-11-12.redacted.json
 python3 tools/pricing_catalog.py generate --check   # manifest, /pricing table, README snippets
 ```
 

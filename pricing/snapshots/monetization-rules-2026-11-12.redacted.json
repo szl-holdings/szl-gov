@@ -1,0 +1,181 @@
+{
+ "a-11-oy.com": {
+  "status": 200,
+  "result": {
+   "rules": [
+    {
+     "id": "5303c2e182cd4d8daf974838f0b14f86",
+     "description": "Verified bot traffic (x402) - non-API (competitive)",
+     "enabled": false,
+     "expression": "((http.request.uri.path wildcard r\"/*\" and not starts_with(http.request.uri.path, \"/api/\") and cf.client.bot) and not (http.user_agent contains \"szl-redacted:estate-probe-user-agents:n=6:sha256=85403a2e84f12b652090d8179a750184546c0fb49ba1f30b249fa512fb988e5a\"))",
+     "price": "100000",
+     "address": "0x7b133ef996852c223379d6d1245430300970291A",
+     "scheme": "exact"
+    },
+    {
+     "id": "94dc6d8169a84173bf0005bea66e50eb",
+     "description": "Premium API mesh/frontier (bots)",
+     "enabled": true,
+     "expression": "((starts_with(http.request.uri.path, \"/api/a11oy/v1/mesh/\") or starts_with(http.request.uri.path, \"/api/a11oy/v1/frontier/\")) and cf.client.bot and not (http.user_agent contains \"szl-redacted:estate-probe-user-agents:n=6:sha256=85403a2e84f12b652090d8179a750184546c0fb49ba1f30b249fa512fb988e5a\"))",
+     "price": "50000",
+     "address": "0x7b133ef996852c223379d6d1245430300970291A",
+     "scheme": "exact"
+    },
+    {
+     "id": "b8026fdb4f0d42c6ba734ddd77e75644",
+     "description": "Premium attest/ledger APIs (bots)",
+     "enabled": true,
+     "expression": "((starts_with(http.request.uri.path, \"/api/a11oy/v1/attest/\") or starts_with(http.request.uri.path, \"/api/a11oy/v1/ledger\")) and cf.client.bot and not (http.user_agent contains \"szl-redacted:estate-probe-user-agents:n=6:sha256=85403a2e84f12b652090d8179a750184546c0fb49ba1f30b249fa512fb988e5a\"))",
+     "price": "25000",
+     "address": "0x7b133ef996852c223379d6d1245430300970291A",
+     "scheme": "exact"
+    },
+    {
+     "id": "d25c5164dc994ce58bb4c9ff2e696c9f",
+     "description": "Experimental surfaces (bots)",
+     "enabled": false,
+     "expression": "(starts_with(http.request.uri.path, \"/api/a11oy/v1/experimental/\") and cf.client.bot and not (http.user_agent contains \"szl-redacted:estate-probe-user-agents:n=6:sha256=85403a2e84f12b652090d8179a750184546c0fb49ba1f30b249fa512fb988e5a\"))",
+     "price": "10000",
+     "address": "0x7b133ef996852c223379d6d1245430300970291A",
+     "scheme": "exact"
+    },
+    {
+     "id": "85bd68e05db3411695fdd5b5f72ede29",
+     "description": "Agent access - experimental surfaces (everyone, x402)",
+     "enabled": false,
+     "expression": "(starts_with(http.request.uri.path, \"/api/a11oy/v1/experimental/\") and not (http.user_agent contains \"szl-redacted:estate-probe-user-agents:n=6:sha256=85403a2e84f12b652090d8179a750184546c0fb49ba1f30b249fa512fb988e5a\"))",
+     "price": "10000",
+     "address": "0x7b133ef996852c223379d6d1245430300970291A",
+     "scheme": "exact"
+    },
+    {
+     "id": "e610a927dc324675a56448d7341d6d5d",
+     "description": "MCP tool calls - doctrine-governed (verified bots)",
+     "enabled": false,
+     "expression": "(starts_with(http.request.uri.path, \"/mcp/\") and cf.client.bot and not (http.user_agent contains \"szl-redacted:estate-probe-user-agents:n=6:sha256=85403a2e84f12b652090d8179a750184546c0fb49ba1f30b249fa512fb988e5a\"))",
+     "price": "50000",
+     "address": "0x7b133ef996852c223379d6d1245430300970291A",
+     "scheme": "exact"
+    },
+    {
+     "id": "2dac25fc6eb445d080d081141c6ffda5",
+     "description": "MCP tool calls - doctrine-governed (everyone, x402)",
+     "enabled": false,
+     "expression": "(starts_with(http.request.uri.path, \"/mcp/\") and not (http.user_agent contains \"szl-redacted:estate-probe-user-agents:n=6:sha256=85403a2e84f12b652090d8179a750184546c0fb49ba1f30b249fa512fb988e5a\"))",
+     "price": "10000",
+     "address": "0x7b133ef996852c223379d6d1245430300970291A",
+     "scheme": "exact"
+    },
+    {
+     "id": "dda0725a501e4974a411964146d3af73",
+     "description": "Model inference - estate-trained models (verified bots)",
+     "enabled": false,
+     "expression": "(http.host eq \"inference.a-11-oy.com\" and (starts_with(http.request.uri.path, \"/v1/completions\") or starts_with(http.request.uri.path, \"/v1/chat/\") or starts_with(http.request.uri.path, \"/v1/responses\")) and not (http.user_agent contains \"szl-redacted:estate-probe-user-agents:n=6:sha256=85403a2e84f12b652090d8179a750184546c0fb49ba1f30b249fa512fb988e5a\"))",
+     "price": "100000",
+     "address": "0x7b133ef996852c223379d6d1245430300970291A",
+     "scheme": "exact"
+    },
+    {
+     "id": "ceb0b09132634f44a6ce4abb05855ebb",
+     "description": "Model inference - estate-trained models (everyone, x402)",
+     "enabled": false,
+     "expression": "(http.host eq \"inference.a-11-oy.com\" and (starts_with(http.request.uri.path, \"/v1/completions\") or starts_with(http.request.uri.path, \"/v1/chat/\") or starts_with(http.request.uri.path, \"/v1/responses\")) and not (http.user_agent contains \"szl-redacted:estate-probe-user-agents:n=6:sha256=85403a2e84f12b652090d8179a750184546c0fb49ba1f30b249fa512fb988e5a\"))",
+     "price": "50000",
+     "address": "0x7b133ef996852c223379d6d1245430300970291A",
+     "scheme": "exact"
+    },
+    {
+     "id": "41cee0f88822411baf864bb54e8b4727",
+     "description": "Doctrine chat - Nemotron Estate flagship (everyone, x402)",
+     "enabled": true,
+     "expression": "(starts_with(http.request.uri.path, \"/v1/chat/\") and not (http.user_agent contains \"szl-redacted:estate-probe-user-agents:n=6:sha256=85403a2e84f12b652090d8179a750184546c0fb49ba1f30b249fa512fb988e5a\"))",
+     "price": "20000",
+     "address": "0x7b133ef996852c223379d6d1245430300970291A",
+     "scheme": "exact"
+    },
+    {
+     "id": "49b73ff270374852bb0702d150893b2b",
+     "description": "Acoustic validation ($0.05, everyone)",
+     "enabled": false,
+     "expression": "(starts_with(http.request.uri.path, \"/v1/acoustic/\") and not (http.user_agent contains \"szl-redacted:estate-probe-user-agents:n=6:sha256=85403a2e84f12b652090d8179a750184546c0fb49ba1f30b249fa512fb988e5a\"))",
+     "price": "50000",
+     "address": "0x7b133ef996852c223379d6d1245430300970291A",
+     "scheme": "exact"
+    },
+    {
+     "id": "a36a6d9287da4cbc977ec23381c9c3b2",
+     "description": "Dataset access API ($0.10, everyone)",
+     "enabled": false,
+     "expression": "(starts_with(http.request.uri.path, \"/v1/data/\") and not (http.user_agent contains \"szl-redacted:estate-probe-user-agents:n=6:sha256=85403a2e84f12b652090d8179a750184546c0fb49ba1f30b249fa512fb988e5a\"))",
+     "price": "100000",
+     "address": "0x7b133ef996852c223379d6d1245430300970291A",
+     "scheme": "exact"
+    },
+    {
+     "id": "846c3eed8529415699b3305131f88ad6",
+     "description": "Living Anatomy API ($0.05, everyone)",
+     "enabled": false,
+     "expression": "(starts_with(http.request.uri.path, \"/api/a11oy/v1/anatomy\") and not (http.user_agent contains \"szl-redacted:estate-probe-user-agents:n=6:sha256=85403a2e84f12b652090d8179a750184546c0fb49ba1f30b249fa512fb988e5a\"))",
+     "price": "50000",
+     "address": "0x7b133ef996852c223379d6d1245430300970291A",
+     "scheme": "exact"
+    },
+    {
+     "id": "fb9e3c84e7684f3481ea4fc626ccc827",
+     "description": "Second Brain retrieval API ($0.03, everyone)",
+     "enabled": false,
+     "expression": "(starts_with(http.request.uri.path, \"/api/a11oy/v1/brain\") and not (http.user_agent contains \"szl-redacted:estate-probe-user-agents:n=6:sha256=85403a2e84f12b652090d8179a750184546c0fb49ba1f30b249fa512fb988e5a\"))",
+     "price": "30000",
+     "address": "0x7b133ef996852c223379d6d1245430300970291A",
+     "scheme": "exact"
+    },
+    {
+     "id": "6babfd10032746f7863cda066d95125d",
+     "description": "Completions/Responses - Nemotron Estate flagship (everyone, x402) [2026-11-06 leak fix]",
+     "enabled": true,
+     "expression": "(http.host eq \"inference.a-11-oy.com\" and (starts_with(http.request.uri.path, \"/v1/completions\") or starts_with(http.request.uri.path, \"/v1/responses\")) and not (http.user_agent contains \"szl-redacted:estate-probe-user-agents:n=6:sha256=85403a2e84f12b652090d8179a750184546c0fb49ba1f30b249fa512fb988e5a\"))",
+     "price": "20000",
+     "address": "0x7b133ef996852c223379d6d1245430300970291A",
+     "scheme": "exact"
+    }
+   ]
+  },
+  "errors": []
+ },
+ "a11oy.net": {
+  "status": 200,
+  "result": {
+   "rules": [
+    {
+     "id": "56a204859a924e75890dd81776554b02",
+     "description": "Verified bot traffic (x402) - non-experiment paths only",
+     "enabled": false,
+     "expression": "((http.request.uri.path wildcard r\"/*\" and not starts_with(http.request.uri.path, \"/experiments\") and cf.client.bot) and not (http.user_agent contains \"szl-redacted:estate-probe-user-agents:n=6:sha256=85403a2e84f12b652090d8179a750184546c0fb49ba1f30b249fa512fb988e5a\"))",
+     "price": "1000000",
+     "address": "0x50E9B335ac233fcc5e87404367E7De253A63D460",
+     "scheme": "exact"
+    },
+    {
+     "id": "a539c1edbd2f49b5bbb7d2b5bc4de466",
+     "description": "Proof experimental endpoints (bots)",
+     "enabled": false,
+     "expression": "(starts_with(http.request.uri.path, \"/experiments\") and cf.client.bot and not (http.user_agent contains \"szl-redacted:estate-probe-user-agents:n=6:sha256=85403a2e84f12b652090d8179a750184546c0fb49ba1f30b249fa512fb988e5a\"))",
+     "price": "10000",
+     "address": "0x50E9B335ac233fcc5e87404367E7De253A63D460",
+     "scheme": "exact"
+    }
+   ]
+  },
+  "errors": []
+ },
+ "szlholdings.com": {
+  "status": 404,
+  "result": null,
+  "errors": [
+   {
+    "code": 10005,
+    "message": "payment rule not found"
+   }
+  ]
+ }
+}
