@@ -4,6 +4,12 @@
 |---|---|
 | `monetization-rules-2026-11-06.redacted.json` | Cloudflare Monetization Gateway rules API export for the zones a-11-oy.com (15 rules), a11oy.net (2 rules) and szlholdings.com (no rules: the API answered 404, code 10005 "payment rule not found"), taken by the estate coordinator on 2026-11-06 (file written 16:26 UTC). |
 | `monetization-changes-2026-11-06.json` | The coordinator's change log: three rules disabled between 16:27:21 and 16:27:25 UTC, each PATCH answered 200, each with its rollback request. Byte-identical to the coordinator's record. |
+| `monetization-rules-2026-11-11.redacted.json` | Fresh rules API readback for the same three zones, taken on 2026-11-11 at 16:40 UTC after the four-rule policy was restored. Historical; not edited since. |
+| `monetization-rules-2026-11-12.redacted.json` | The 2026-11-11 readback with the 15 a-11-oy.com addresses set to the owner-confirmed wallet. Names, prices, enabled states, expressions and the other zones are unchanged. |
+
+## Wallet change (2026-11-12)
+
+On 2026-11-12 at 11:27 AM ET (16:27 UTC), owner Stephen Lutar confirmed ownership of receiving wallet `0x7b133ef996852c223379d6d1245430300970291A` (Base, `eip155:8453`, USDC). All 15 Cloudflare Monetization Gateway rules on a-11-oy.com were switched from `0x50E9B335ac233fcc5e87404367E7De253A63D460` to that address. Live 402 challenges confirm payTo `0x7b13`. The two disabled a11oy.net rules were not part of the switch and still record the previous address. The 2026-11-06 and 2026-11-11 snapshot files were not modified. The 2026-11-12 file is that prior readback with only those 15 addresses changed; it is not a new rules-API download, and the user-agent redaction is the one already in the 2026-11-11 file.
 
 ## Redaction
 

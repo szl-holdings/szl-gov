@@ -1,10 +1,11 @@
 """pricing/catalog.yaml must agree with the exported gateway rules and generate every price list.
 
-The committed rules export (pricing/snapshots/) is the 2026-11-06 Monetization
-Gateway export with the estate-probe user-agent list redacted; the change log is
-the coordinator's record of the three rules disabled at 16:27 UTC. Every mutation
-test below changes one fact in a copy of that export and requires the check to
-name the disagreement.
+The 2026-11-06 export (plus the 16:27 UTC change log) and the 2026-11-11 readback
+still match the catalog on every field except pay-to. On 2026-11-12 at 11:27 AM ET
+the owner confirmed receiving wallet 0x7b133ef996852c223379d6d1245430300970291A;
+the catalog and the 2026-11-12 snapshot use that address, and the older snapshot
+files are unchanged. Every mutation test below changes one fact in a copy of the
+2026-11-06 export and requires the check to name the disagreement.
 """
 import copy
 import json
@@ -19,12 +20,16 @@ import pricing_catalog as pc
 
 SNAPSHOTS = ROOT / "pricing" / "snapshots"
 RULES = SNAPSHOTS / "monetization-rules-2026-11-06.redacted.json"
-CURRENT_RULES = SNAPSHOTS / "monetization-rules-2026-11-11.redacted.json"
+PRIOR_READBACK = SNAPSHOTS / "monetization-rules-2026-11-11.redacted.json"
+CURRENT_RULES = SNAPSHOTS / "monetization-rules-2026-11-12.redacted.json"
 CHANGES = SNAPSHOTS / "monetization-changes-2026-11-06.json"
 CHAT = "41cee0f88822411baf864bb54e8b4727"
 INFERENCE = "6babfd10032746f7863cda066d95125d"
 MESH = "94dc6d8169a84173bf0005bea66e50eb"
+ATTEST = "b8026fdb4f0d42c6ba734ddd77e75644"
 CATCH_ALL = "5303c2e182cd4d8daf974838f0b14f86"
+PRIOR_PAY_TO = "0x50E9B335ac233fcc5e87404367E7De253A63D460"
+CHARGED_RULES = (CHAT, INFERENCE, MESH, ATTEST)
 
 
 @pytest.fixture()
@@ -56,6 +61,19 @@ def joined(errors):
     return "\n".join(errors)
 
 
+def pay_to_delta(catalog):
+    pay_to = catalog["payment"]["pay_to"]
+    return [f"{rule_id}: pays {PRIOR_PAY_TO} != catalog pay_to {pay_to}" for rule_id in CHARGED_RULES]
+
+
+def agrees_except_documented_wallet(catalog, rules, changes):
+    """Full agreement under the address that export recorded, and only that delta now."""
+    historical = copy.deepcopy(catalog)
+    historical["payment"]["pay_to"] = PRIOR_PAY_TO
+    assert pc.check(historical, rules, changes) == []
+    assert pc.check(catalog, rules, changes) == pay_to_delta(catalog)
+
+
 # --- the committed catalog -------------------------------------------------
 
 def test_catalog_is_canonical_yamlite():
@@ -65,11 +83,54 @@ def test_catalog_is_canonical_yamlite():
 
 
 def test_catalog_agrees_with_the_committed_rules_export(catalog, snapshot, changes):
-    assert pc.check(catalog, snapshot, changes) == []
+    agrees_except_documented_wallet(catalog, snapshot, changes)
+
+
+def test_prior_readback_disagrees_only_on_the_documented_wallet(catalog):
+    prior = json.loads(PRIOR_READBACK.read_text(encoding="utf-8"))
+    agrees_except_documented_wallet(catalog, prior, None)
 
 
 def test_catalog_agrees_with_the_fresh_rules_readback(catalog, current_snapshot):
     assert pc.check(catalog, current_snapshot, None) == []
+    assert catalog["payment"]["pay_to"] == "0x7b133ef996852c223379d6d1245430300970291A"
+    assert catalog["sources"]["wallet_change"]
+    assert "Stephen Lutar" in catalog["sources"]["wallet_change"]
+    assert "2026-11-12" in catalog["sources"]["wallet_change"]
+    assert "0x7b133ef996852c223379d6d1245430300970291A" in catalog["sources"]["wallet_change"]
+
+
+def test_wallet_snapshot_changes_only_a11oy_com_addresses(catalog):
+    prior = json.loads(PRIOR_READBACK.read_text(encoding="utf-8"))
+    current = json.loads(CURRENT_RULES.read_text(encoding="utf-8"))
+    assert set(current) == set(prior)
+    pay_to = catalog["payment"]["pay_to"]
+    for zone, entry in prior.items():
+        now = current[zone]
+        assert {k: v for k, v in now.items() if k != "result"} == {k: v for k, v in entry.items() if k != "result"}
+        old_rules = (entry.get("result") or {}).get("rules")
+        new_rules = (now.get("result") or {}).get("rules")
+        if not old_rules:
+            assert now.get("result") == entry.get("result")
+            continue
+        assert len(new_rules) == len(old_rules)
+        for old, new in zip(old_rules, new_rules, strict=True):
+            assert {k: v for k, v in old.items() if k != "address"} == {
+                k: v for k, v in new.items() if k != "address"}
+            assert old["address"] == PRIOR_PAY_TO
+            if zone == "a-11-oy.com":
+                assert new["address"] == pay_to
+            else:
+                assert new["address"] == PRIOR_PAY_TO
+    assert len(current["a-11-oy.com"]["result"]["rules"]) == 15
+
+
+def test_historical_snapshots_keep_the_previous_pay_to():
+    for path in (RULES, PRIOR_READBACK):
+        snapshot = json.loads(path.read_text(encoding="utf-8"))
+        addresses = [rule["address"] for zone in snapshot.values()
+                     for rule in ((zone.get("result") or {}).get("rules") or [])]
+        assert addresses and set(addresses) == {PRIOR_PAY_TO}
 
 
 def test_catalog_counts_match_the_export(catalog, snapshot, changes):
@@ -339,7 +400,8 @@ def test_marked_region_replacement():
 
 
 def test_cli_exit_codes(tmp_path, snapshot):
-    assert pc.main(["check", "--rules", str(RULES), "--changes", str(CHANGES)]) == 0
+    assert pc.main(["check", "--rules", str(CURRENT_RULES)]) == 0
+    assert pc.main(["check", "--rules", str(RULES), "--changes", str(CHANGES)]) == 1
     assert pc.main(["generate", "--check"]) == 0
     assert pc.main(["fmt", "--check"]) == 0
     drifted = tmp_path / "drifted.json"

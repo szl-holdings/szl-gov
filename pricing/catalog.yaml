@@ -12,18 +12,19 @@
 # Formatting is canonical yamlite: python tools/pricing_catalog.py fmt
 
 schema: szl.pricing-catalog/v1
-as_of: "2026-11-11T16:40:33Z"
+as_of: "2026-11-12T16:27:00Z"
 sources:
-  rules_export: pricing/snapshots/monetization-rules-2026-11-11.redacted.json
-  rules_export_note: "Fresh Monetization Gateway rules API readback for the zones a-11-oy.com, a11oy.net and szlholdings.com, taken on 2026-11-11 at 16:40 UTC after the documented four-rule policy was restored. The estate-probe user-agent list is redacted to a count and digest; nothing else is changed."
+  rules_export: pricing/snapshots/monetization-rules-2026-11-12.redacted.json
+  rules_export_note: "The 2026-11-11 redacted readback with the 15 a-11-oy.com rule addresses set to the owner-confirmed wallet. Names, prices, enabled states, expressions and the a11oy.net and szlholdings.com sections are unchanged. This is not a new rules-API download."
   change_log: pricing/snapshots/monetization-changes-2026-11-06.json
   change_log_note: "Three rules disabled between 2026-11-06T16:27:21Z and 16:27:25Z; each PATCH returned 200 and its before_enabled matched the export."
-  rules_checked_against: "the fresh Cloudflare Monetization Gateway rules readback of 2026-11-11 at 16:40 UTC"
+  rules_checked_against: "the 2026-11-12 wallet snapshot (a-11-oy.com pay-to switched at 11:27 AM ET; names, prices and enabled states unchanged from the 2026-11-11 readback)"
   catalog_url: "https://github.com/szl-holdings/szl-gov/blob/main/pricing/catalog.yaml"
   authority: The HTTP 402 PAYMENT-REQUIRED response from the gateway is authoritative. This file lists what the exported gateway rules charged at as_of; a rule edited in the Cloudflare dashboard after as_of is not reflected until the catalog is updated and regenerated.
   methods_basis:
     cloudflare-default: "The rules export records no HTTP method selection. Cloudflare documents that a rule charges GET requests by default (Monetization Gateway docs, Monetization rules, updated 2026-09-30), so GET is listed; whether POST requests are charged is unverified."
-  payment_evidence: "network, asset, asset_name and max_timeout_seconds come from fresh x402 v2 PAYMENT-REQUIRED headers observed on 2026-11-11; pay_to equals the address on every rule in the fresh export."
+  payment_evidence: "network, asset, asset_name and max_timeout_seconds come from fresh x402 v2 PAYMENT-REQUIRED headers observed on 2026-11-11; pay_to is the address on all 15 a-11-oy.com rules in the 2026-11-12 snapshot. Live 402 challenges on 2026-11-12 confirm payTo 0x7b13."
+  wallet_change: "On 2026-11-12 at 11:27 AM ET (16:27 UTC), owner Stephen Lutar confirmed ownership of receiving wallet 0x7b133ef996852c223379d6d1245430300970291A (Base, eip155:8453, USDC). All 15 a-11-oy.com Cloudflare Monetization Gateway rules were switched from 0x50E9B335ac233fcc5e87404367E7De253A63D460 to that address. The two disabled a11oy.net rules were not part of the switch and still record the previous address. Historical snapshots were not modified."
 policy:
   decided_by: owner
   decided_on: "2026-11-06"
@@ -36,7 +37,7 @@ payment:
   asset: "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913"
   asset_name: USD Coin
   atomic_per_usd: 1000000
-  pay_to: "0x50E9B335ac233fcc5e87404367E7De253A63D460"
+  pay_to: "0x7b133ef996852c223379d6d1245430300970291A"
   max_timeout_seconds: 3600
 contact: "hello@a-11-oy.com"
 contact_source: the sales address on a-11-oy.com/pricing (szl-holdings/a11oy pages/pricing.html)
