@@ -289,5 +289,5 @@ limits:
   - "Revenue: this catalog records prices, not settlements; it says nothing about whether any payment has settled."
 presentation:
   manifest_url: "https://a-11-oy.com/.well-known/x402-pricing.json"
-  as_of_human: "2026-11-06 16:27 UTC"
+  as_of_human: "2026-11-12 16:27 UTC"
   page_intro: "A few machine endpoints answer an unpaid request with HTTP 402 and an x402 payment request, paid in USDC on Base. These are the paths the Cloudflare gateway charges, generated from the estate's canonical price catalog."
