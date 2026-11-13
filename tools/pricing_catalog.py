@@ -710,7 +710,10 @@ def usd(atomic: int, per_usd: int) -> str:
 
 
 def catalog_digest(path: Path = CATALOG) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    # Git checks out this text with platform-native newlines. Hash the canonical
+    # LF representation so generated artifacts agree on Windows and Linux.
+    canonical = path.read_text(encoding="utf-8").replace("\r\n", "\n")
+    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
 
 
 def _host_label(entry: dict) -> str:
