@@ -213,9 +213,9 @@ def format_catalog(text: str) -> str:
 _TOKEN = re.compile(r'\s*(?:(?P<lp>\()|(?P<rp>\))|(?P<comma>,)|r"(?P<raw>[^"]*)"'
                     r'|"(?P<str>(?:[^"\\]|\\.)*)"|(?P<word>[A-Za-z_][A-Za-z0-9_.]*))')
 FIELDS = {"http.request.uri.path": "path", "http.host": "host", "http.user_agent": "user_agent",
-          "cf.client.bot": "bot"}
-STRING_FIELDS = frozenset({"http.request.uri.path", "http.host", "http.user_agent"})
-COMPARISONS = frozenset({"eq", "contains", "wildcard"})
+          "http.request.method": "method", "cf.client.bot": "bot"}
+STRING_FIELDS = frozenset({"http.request.uri.path", "http.host", "http.user_agent", "http.request.method"})
+COMPARISONS = frozenset({"eq", "ne", "contains", "wildcard"})
 
 
 def _tokens(expression: str):
@@ -343,6 +343,8 @@ def evaluate(node: Node, request: dict) -> bool:
         return value.startswith(node.literal)
     if node.op == "eq":
         return value == node.literal
+    if node.op == "ne":
+        return value != node.literal
     if node.op == "contains":
         return node.literal in value
     return _wildcard(node.literal, value)
@@ -386,7 +388,7 @@ def exemption_fingerprint(literals) -> dict:
 def describe(expression: str) -> dict:
     """Structural reading of one rule expression. Unknown shapes fail closed."""
     out = {"host": None, "path_prefixes": [], "path_wildcard": None, "path_excludes": [],
-           "audience": "everyone", "exemption": None}
+           "method_excludes": [], "audience": "everyone", "exemption": None}
     for part in _conjuncts(parse_expression(expression)):
         disjuncts = _disjuncts(part)
         path = "http.request.uri.path"
@@ -400,6 +402,8 @@ def describe(expression: str) -> dict:
             out["path_prefixes"].extend(d.literal for d in disjuncts)
         elif part.kind == "not" and part.parts[0].kind == "starts_with" and part.parts[0].field == path:
             out["path_excludes"].append(part.parts[0].literal)
+        elif part.kind == "cmp" and part.field == "http.request.method" and part.op == "ne":
+            out["method_excludes"].append(part.literal)
         elif _is_ua_exemption(part) and out["exemption"] is None:
             out["exemption"] = exemption_fingerprint(d.literal for d in _disjuncts(part.parts[0]))
         else:
@@ -562,7 +566,8 @@ def _request(url: str, bot: bool) -> dict:
     match = re.fullmatch(r"https://([^/]+)(/.*)", url)
     if not match:
         raise CatalogError(f"probe URL must be https://host/path: {url}")
-    return {"host": match.group(1), "path": match.group(2), "user_agent": PROBE_USER_AGENT, "bot": bot}
+    return {"host": match.group(1), "path": match.group(2), "method": "GET",
+            "user_agent": PROBE_USER_AGENT, "bot": bot}
 
 
 def _zone_of(host: str, zones) -> str | None:
@@ -705,7 +710,10 @@ def usd(atomic: int, per_usd: int) -> str:
 
 
 def catalog_digest(path: Path = CATALOG) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    # Git checks out this text with platform-native newlines. Hash the canonical
+    # LF representation so generated artifacts agree on Windows and Linux.
+    canonical = path.read_text(encoding="utf-8").replace("\r\n", "\n")
+    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
 
 
 def _host_label(entry: dict) -> str:

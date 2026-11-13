@@ -21,7 +21,7 @@ import pricing_catalog as pc
 SNAPSHOTS = ROOT / "pricing" / "snapshots"
 RULES = SNAPSHOTS / "monetization-rules-2026-11-06.redacted.json"
 PRIOR_READBACK = SNAPSHOTS / "monetization-rules-2026-11-11.redacted.json"
-CURRENT_RULES = SNAPSHOTS / "monetization-rules-2026-11-12.redacted.json"
+CURRENT_RULES = SNAPSHOTS / "monetization-rules-2026-11-13.redacted.json"
 CHANGES = SNAPSHOTS / "monetization-changes-2026-11-06.json"
 CHAT = "41cee0f88822411baf864bb54e8b4727"
 INFERENCE = "6babfd10032746f7863cda066d95125d"
@@ -67,11 +67,20 @@ def pay_to_delta(catalog):
 
 
 def agrees_except_documented_wallet(catalog, rules, changes):
-    """Full agreement under the address that export recorded, and only that delta now."""
+    """Full agreement under the historical rule shape and receiving wallet."""
     historical = copy.deepcopy(catalog)
     historical["payment"]["pay_to"] = PRIOR_PAY_TO
+    historical["zones"][0]["rules_defined"] = 15
+    historical["charged"][1]["expression"] = historical["charged"][1]["expression"].replace(
+        ' and http.request.method ne "OPTIONS"', "")
+    historical["inactive_rules"] = [entry for entry in historical["inactive_rules"]
+                                     if entry["rule_id"] != "8f6c7d526b7c4a42a1075671898474b9"]
     assert pc.check(historical, rules, changes) == []
-    assert pc.check(catalog, rules, changes) == pay_to_delta(catalog)
+    assert sorted(pc.check(catalog, rules, changes)) == sorted(pay_to_delta(catalog) + [
+        "a-11-oy.com: catalog says 16 defined / 4 enabled, snapshot has 15 / 4",
+        "6babfd10032746f7863cda066d95125d: expression differs from the catalog",
+        "a-11-oy.com/8f6c7d526b7c4a42a1075671898474b9: catalog lists a rule the snapshot does not contain",
+    ])
 
 
 # --- the committed catalog -------------------------------------------------
@@ -113,16 +122,24 @@ def test_wallet_snapshot_changes_only_a11oy_com_addresses(catalog):
         if not old_rules:
             assert now.get("result") == entry.get("result")
             continue
-        assert len(new_rules) == len(old_rules)
-        for old, new in zip(old_rules, new_rules, strict=True):
-            assert {k: v for k, v in old.items() if k != "address"} == {
-                k: v for k, v in new.items() if k != "address"}
+        expected_extra = 1 if zone == "a-11-oy.com" else 0
+        assert len(new_rules) == len(old_rules) + expected_extra
+        for old, new in zip(old_rules, new_rules[:len(old_rules)], strict=True):
+            ignored = {"address"}
+            if old["id"] == INFERENCE:
+                ignored.add("expression")
+                assert 'http.request.method ne "OPTIONS"' in new["expression"]
+            assert {k: v for k, v in old.items() if k not in ignored} == {
+                k: v for k, v in new.items() if k not in ignored}
             assert old["address"] == PRIOR_PAY_TO
-            if zone == "a-11-oy.com":
+            if zone in ("a-11-oy.com", "a11oy.net"):
                 assert new["address"] == pay_to
             else:
                 assert new["address"] == PRIOR_PAY_TO
-    assert len(current["a-11-oy.com"]["result"]["rules"]) == 15
+        if zone == "a-11-oy.com":
+            assert new_rules[-1]["id"] == "8f6c7d526b7c4a42a1075671898474b9"
+            assert new_rules[-1]["address"] == pay_to
+    assert len(current["a-11-oy.com"]["result"]["rules"]) == 16
 
 
 def test_historical_snapshots_keep_the_previous_pay_to():
@@ -164,7 +181,7 @@ def test_manifest_states_only_what_the_rules_charge(catalog):
         assert paid[entry["rule_id"]]["amount_atomic"] == str(entry["amount_atomic"])
     assert {s["price_usd"] for s in paid.values()} == {"0.02", "0.05", "0.025"}
     assert all("price_usd" not in s and "amount_atomic" not in s for s in manifest["not_offered_yet"])
-    assert manifest["rule_counts"]["rules_defined"] == 17
+    assert manifest["rule_counts"]["rules_defined"] == 18
     assert manifest["rule_counts"]["rules_enabled"] == 4
     free = [url for group in manifest["free_surfaces"] for url in group["examples"]]
     assert "https://a-11-oy.com/.well-known/x402-pricing.json" in free
@@ -202,7 +219,7 @@ def test_new_rule(catalog, snapshot, changes):
     snapshot["a-11-oy.com"]["result"]["rules"].append(extra)
     text = joined(pc.check(catalog, snapshot, changes))
     assert "enabled rule 'New paid path' is not in the catalog" in text
-    assert "15 defined / 4 enabled, snapshot has 16 / 5" in text
+    assert "16 defined / 4 enabled, snapshot has 16 / 5" in text
 
 
 def test_disabled_charged_rule(catalog, snapshot, changes):
