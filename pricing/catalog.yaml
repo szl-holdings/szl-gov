@@ -12,19 +12,19 @@
 # Formatting is canonical yamlite: python tools/pricing_catalog.py fmt
 
 schema: szl.pricing-catalog/v1
-as_of: "2026-11-12T16:27:00Z"
+as_of: "2026-11-13T22:49:00Z"
 sources:
-  rules_export: pricing/snapshots/monetization-rules-2026-11-12.redacted.json
-  rules_export_note: "The 2026-11-11 redacted readback with the 15 a-11-oy.com rule addresses set to the owner-confirmed wallet. Names, prices, enabled states, expressions and the a11oy.net and szlholdings.com sections are unchanged. This is not a new rules-API download."
+  rules_export: pricing/snapshots/monetization-rules-2026-11-13.redacted.json
+  rules_export_note: "Fresh Cloudflare Monetization Gateway readback on 2026-11-13. The a-11-oy.com export has 16 rules, including the disabled evidence-snapshot rule, and the enabled completions/responses rule explicitly excludes OPTIONS for browser preflight."
   change_log: pricing/snapshots/monetization-changes-2026-11-06.json
   change_log_note: "Three rules disabled between 2026-11-06T16:27:21Z and 16:27:25Z; each PATCH returned 200 and its before_enabled matched the export."
-  rules_checked_against: "the 2026-11-12 wallet snapshot (a-11-oy.com pay-to switched at 11:27 AM ET; names, prices and enabled states unchanged from the 2026-11-11 readback)"
+  rules_checked_against: "the fresh 2026-11-13 Cloudflare API readback, including the current payout wallet, the OPTIONS exclusion and the disabled evidence-snapshot rule"
   catalog_url: "https://github.com/szl-holdings/szl-gov/blob/main/pricing/catalog.yaml"
   authority: The HTTP 402 PAYMENT-REQUIRED response from the gateway is authoritative. This file lists what the exported gateway rules charged at as_of; a rule edited in the Cloudflare dashboard after as_of is not reflected until the catalog is updated and regenerated.
   methods_basis:
     cloudflare-default: "The rules export records no HTTP method selection. Cloudflare documents that a rule charges GET requests by default (Monetization Gateway docs, Monetization rules, updated 2026-09-30), so GET is listed; whether POST requests are charged is unverified."
-  payment_evidence: "network, asset, asset_name and max_timeout_seconds come from fresh x402 v2 PAYMENT-REQUIRED headers observed on 2026-11-11; pay_to is the address on all 15 a-11-oy.com rules in the 2026-11-12 snapshot. Live 402 challenges on 2026-11-12 confirm payTo 0x7b13."
-  wallet_change: "On 2026-11-12 at 11:27 AM ET (16:27 UTC), owner Stephen Lutar confirmed ownership of receiving wallet 0x7b133ef996852c223379d6d1245430300970291A (Base, eip155:8453, USDC). All 15 a-11-oy.com Cloudflare Monetization Gateway rules were switched from 0x50E9B335ac233fcc5e87404367E7De253A63D460 to that address. The two disabled a11oy.net rules were not part of the switch and still record the previous address. Historical snapshots were not modified."
+  payment_evidence: "network, asset, asset_name and max_timeout_seconds come from fresh x402 v2 PAYMENT-REQUIRED headers observed on 2026-11-11; the 2026-11-13 Cloudflare API readback records the current pay_to on all 16 a-11-oy.com rules. Live 402 challenges confirm payTo 0x7b13."
+  wallet_change: "On 2026-11-12 at 11:27 AM ET (16:27 UTC), owner Stephen Lutar confirmed ownership of receiving wallet 0x7b133ef996852c223379d6d1245430300970291A (Base, eip155:8453, USDC). The current Cloudflare readback records that address on all 16 a-11-oy.com rules and both disabled a11oy.net rules. Historical snapshots were not modified."
 policy:
   decided_by: owner
   decided_on: "2026-11-06"
@@ -48,7 +48,7 @@ exemptions:
     note: "Every rule skips requests whose User-Agent contains one of the estate's own probe names. The names are withheld because a user-agent match can be spoofed; the count and digest let the check detect any change to the list."
 zones:
   - zone: a-11-oy.com
-    rules_defined: 15
+    rules_defined: 16
     rules_enabled: 4
     probe_hosts:
       - a-11-oy.com
@@ -98,7 +98,7 @@ charged:
     scheme: exact
     amount_atomic: 20000
     exemption: estate-probe-user-agents
-    expression: "(http.host eq \"inference.a-11-oy.com\" and (starts_with(http.request.uri.path, \"/v1/completions\") or starts_with(http.request.uri.path, \"/v1/responses\")) and not (http.user_agent contains \"szl-redacted:estate-probe-user-agents:n=6:sha256=85403a2e84f12b652090d8179a750184546c0fb49ba1f30b249fa512fb988e5a\"))"
+    expression: "(http.host eq \"inference.a-11-oy.com\" and (starts_with(http.request.uri.path, \"/v1/completions\") or starts_with(http.request.uri.path, \"/v1/responses\")) and http.request.method ne \"OPTIONS\" and not (http.user_agent contains \"szl-redacted:estate-probe-user-agents:n=6:sha256=85403a2e84f12b652090d8179a750184546c0fb49ba1f30b249fa512fb988e5a\"))"
   - id: a11oy-mesh-frontier
     surface: a11oy mesh and frontier APIs
     rule_id: "94dc6d8169a84173bf0005bea66e50eb"
@@ -177,6 +177,10 @@ inactive_rules:
   - rule_id: fb9e3c84e7684f3481ea4fc626ccc827
     zone: a-11-oy.com
     rule_description: "Second Brain retrieval API ($0.03, everyone)"
+    state: disabled in the export
+  - rule_id: "8f6c7d526b7c4a42a1075671898474b9"
+    zone: a-11-oy.com
+    rule_description: "Evidence snapshot ($1.00, everyone, x402) [2026-11-12]"
     state: disabled in the export
   - rule_id: "56a204859a924e75890dd81776554b02"
     zone: a11oy.net
@@ -283,11 +287,11 @@ free:
       - "https://a-11-oy.com/.well-known/security.txt"
       - "https://mcp.a-11-oy.com/.well-known/mcp.json"
 limits:
-  - "Methods: the rules export records no HTTP method selection, and Cloudflare's documented default charges GET only, so whether POST requests to these paths are charged is unverified."
+  - "Methods: the completions/responses rule explicitly excludes OPTIONS for browser preflight. Other rules export no HTTP method selection, and whether POST requests to these paths are charged is unverified."
   - "Origins: paying clears the gateway only; whether each origin then serves a paid caller without its own credential has not been verified."
   - "Eligibility: Cloudflare's Monetization Gateway requires buyers and sellers to be based in the United States."
   - "Revenue: this catalog records prices, not settlements; it says nothing about whether any payment has settled."
 presentation:
   manifest_url: "https://a-11-oy.com/.well-known/x402-pricing.json"
-  as_of_human: "2026-11-12 16:27 UTC"
+  as_of_human: "2026-11-13 22:49 UTC"
   page_intro: "A few machine endpoints answer an unpaid request with HTTP 402 and an x402 payment request, paid in USDC on Base. These are the paths the Cloudflare gateway charges, generated from the estate's canonical price catalog."
