@@ -17,7 +17,10 @@ import pathlib
 import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
-from audit_data_builder import WITHHELD_FILE, is_public_hf, is_public_repo
+if __package__:  # installed wheel: sibling modules live inside the szl_gov package
+    from .audit_data_builder import WITHHELD_FILE, is_public_hf, is_public_repo
+else:
+    from audit_data_builder import WITHHELD_FILE, is_public_hf, is_public_repo
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 AUDIT = ROOT / "audit_data"

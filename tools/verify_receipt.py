@@ -26,7 +26,10 @@ import pathlib
 import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
-import receipt as R
+if __package__:  # installed wheel: sibling modules live inside the szl_gov package
+    from . import receipt as R
+else:
+    import receipt as R
 
 EVIDENCE_FAILED = 2
 USAGE = 64

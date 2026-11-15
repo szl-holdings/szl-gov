@@ -14,7 +14,10 @@ import pathlib
 import re
 import sys
 
-from build_ledgers import COMMERCIAL_ROWS
+if __package__:  # installed wheel: sibling modules live inside the szl_gov package
+    from .build_ledgers import COMMERCIAL_ROWS
+else:
+    from build_ledgers import COMMERCIAL_ROWS
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 LEDGERS = ROOT / "ledgers"

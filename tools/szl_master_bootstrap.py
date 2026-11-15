@@ -31,7 +31,10 @@ import sys
 import time
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
-import receipt as R
+if __package__:  # installed wheel: sibling modules live inside the szl_gov package
+    from . import receipt as R
+else:
+    import receipt as R
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 TOOLS = ROOT / "tools"

@@ -11,8 +11,14 @@ import pathlib
 import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
-import yamlite
-from audit_data_builder import build, load_withheld, FLAGSHIP_CAPACITY
+if __package__:  # installed wheel: sibling modules live inside the szl_gov package
+    from . import yamlite
+else:
+    import yamlite
+if __package__:  # installed wheel: sibling modules live inside the szl_gov package
+    from .audit_data_builder import build, load_withheld, FLAGSHIP_CAPACITY
+else:
+    from audit_data_builder import build, load_withheld, FLAGSHIP_CAPACITY
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 LEDGERS = ROOT / "ledgers"

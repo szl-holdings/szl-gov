@@ -14,8 +14,14 @@ import re
 import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
-from audit_data_builder import is_public_hf, load_withheld
-from spaces_gate import FLAGSHIP_TESTS
+if __package__:  # installed wheel: sibling modules live inside the szl_gov package
+    from .audit_data_builder import is_public_hf, load_withheld
+else:
+    from audit_data_builder import is_public_hf, load_withheld
+if __package__:  # installed wheel: sibling modules live inside the szl_gov package
+    from .spaces_gate import FLAGSHIP_TESTS
+else:
+    from spaces_gate import FLAGSHIP_TESTS
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 AUDIT = ROOT / "audit_data"

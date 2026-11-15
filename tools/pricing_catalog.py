@@ -39,7 +39,10 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
-import yamlite  # sibling module; the path is set above
+if __package__:  # installed wheel: sibling modules live inside the szl_gov package
+    from . import yamlite  # sibling module; the path is set above
+else:
+    import yamlite  # sibling module; the path is set above
 
 CATALOG = ROOT / "pricing" / "catalog.yaml"
 GENERATED = ROOT / "pricing" / "generated"
