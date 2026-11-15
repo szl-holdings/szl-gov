@@ -14,8 +14,14 @@ import re
 import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
-from audit_data_builder import is_public_hf, load_withheld
-from spaces_gate import FLAGSHIP_TESTS
+try:
+    from audit_data_builder import is_public_hf, load_withheld
+except ImportError:  # installed wheel: sibling modules live inside the szl_gov package
+    from .audit_data_builder import is_public_hf, load_withheld
+try:
+    from spaces_gate import FLAGSHIP_TESTS
+except ImportError:  # installed wheel: sibling modules live inside the szl_gov package
+    from .spaces_gate import FLAGSHIP_TESTS
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 AUDIT = ROOT / "audit_data"
@@ -53,7 +59,8 @@ MACHINE_TESTS = {
     "current source revision attested": lambda s, probe: bool(probe.get("sha")),
     "deployed revision attested (stage RUNNING is NOT evidence)": lambda s, probe: _deployed_revision(probe),
     # No mobile-UA capture is committed under audit_data/probes/ (the 2026-08-30
-    # curl results were not recorded), so this is UNKNOWN for every Space until
+    # curl results were not recorded)
+, so this is UNKNOWN for every Space until
     # one is. It used to pass from a hard-coded name list and for any static Space.
     "mobile smoke test passed": lambda s, probe: False,
     "conversion event present": lambda s, probe: bool(re.search(r"(pricing|buy|contact|demo|get started|sign up|deploy this|use this|try it|try the|purchase|mailto:|verify a)", _readme(s["path"].split("/")[-1]), re.I)),
@@ -89,7 +96,8 @@ def main() -> int:
         elif s.get("private"):
             tier = "LAB"
         else:
-            tier = "SUPPORTING"
+            tier = "S
+UPPORTING"
 
         passed = [k for k, f in MACHINE_TESTS.items() if f(s, probe)]
         entry = {
