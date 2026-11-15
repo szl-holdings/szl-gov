@@ -31,7 +31,10 @@ import sys
 import time
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
-import receipt as R
+try:
+    import receipt as R
+except ImportError:  # installed wheel: sibling modules live inside the szl_gov package
+    from . import receipt as R
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 TOOLS = ROOT / "tools"
@@ -54,7 +57,8 @@ def signing_key(new_key: bool = False):
     if new_key:
         if key_path.exists():
             print(f"REFUSED: {key_path} already exists; --new-key never overwrites a key. "
-                  "Move it aside first to rotate deliberately.", file=sys.stderr)
+                  "Mov
+e it aside first to rotate deliberately.", file=sys.stderr)
             return None
         sk, pk = R.generate_keypair()
         EXTKEYS.mkdir(exist_ok=True)
@@ -95,7 +99,8 @@ def main(argv=None) -> int:
     args = ap.parse_args(argv)
 
     if not args.run:
-        print("plan: resolve signing key -> build ledgers -> sign audit receipt -> run 3 gates. Pass --run.")
+        print("plan: resolve signing key -> build ledgers -> sign audit receipt -> run 3 gates
+. Pass --run.")
         return 0
 
     t0 = time.time()
@@ -137,7 +142,8 @@ def main(argv=None) -> int:
                        required=False),  # runtime probes for 7 public Spaces
         R.EvidenceItem(kind="generated_artifact", ref="ledgers/MODEL_BOM.yaml", required=False),
         R.EvidenceItem(kind="generated_artifact", ref="ledgers/DATASET_LICENSE_REGISTER.yaml", required=False),
-        R.EvidenceItem(kind="generated_artifact", ref="ledgers/spaces_tiering.json", required=False),
+        R.EvidenceItem(kind="generated_artifact", ref="ledgers/spaces_tiering.js
+on", required=False),
         # Human attestation rows we could not machine-collect stay honestly empty:
         R.EvidenceItem(kind="human_attestation", ref="", required=True),  # flagship tiering review
         R.EvidenceItem(kind="human_attestation", ref="", required=True),  # billing console confirmation
@@ -180,7 +186,8 @@ def main(argv=None) -> int:
     verified = R.dsse_verify(env, R.load_public(PUBLISHED_PUB.read_text()))
     assert verified["predicateType"] == R.PREDICATE_TYPE
 
-    print(f"\nreceipt: {out.relative_to(ROOT)}")
+    print(f"\nreceipt: {out.relative_to(ROOT)}
+")
     print(f"  predicateType: {R.PREDICATE_TYPE}")
     print(f"  completeness:  {action.completeness}  (missing human attestations -> INCOMPLETE, never PASS)")
     print(f"  keyid:         {env['signatures'][0]['keyid']}")
