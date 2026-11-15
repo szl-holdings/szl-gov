@@ -26,7 +26,10 @@ import pathlib
 import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
-import receipt as R
+try:
+    import receipt as R
+except ImportError:  # installed wheel: sibling modules live inside the szl_gov package
+    from . import receipt as R
 
 EVIDENCE_FAILED = 2
 USAGE = 64
@@ -53,7 +56,8 @@ def check_evidence(predicate: dict, root: pathlib.Path) -> list[tuple[str, str]]
         elif not path.is_file():
             results.append(("MISSING", ref))
         elif hashlib.sha256(path.read_bytes()).hexdigest() != item["sha256"]:
-            results.append(("MISMATCH", ref))
+            res
+ults.append(("MISMATCH", ref))
         else:
             results.append(("MATCH", ref))
     return results
@@ -98,7 +102,8 @@ def main(argv=None) -> int:
     if args.evidence_root is None:
         print("  evidence:      digests not compared with files (pass --evidence-root DIR)")
         return 0
-    results = check_evidence(pred, args.evidence_root)
+    results = check_evidence(pred, arg
+s.evidence_root)
     for status, ref in results:
         print(f"  evidence:      {status:<12} {ref}")
     failed = [ref for status, ref in results if status != "MATCH"]
