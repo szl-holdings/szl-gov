@@ -16,10 +16,10 @@ import pathlib
 import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
-try:
-    from audit_data_builder import is_public_hf, load_withheld
-except ImportError:  # installed wheel: sibling modules live inside the szl_gov package
+if __package__:  # installed wheel: sibling modules live inside the szl_gov package
     from .audit_data_builder import is_public_hf, load_withheld
+else:
+    from audit_data_builder import is_public_hf, load_withheld
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 AUDIT = ROOT / "audit_data"
@@ -56,8 +56,7 @@ def validate_coverage(tiering, spaces):
         if path in covered:
             failures.append(f"DUPLICATE_SPACE: row {index} repeats a tier decision")
             continue
-        if not isinstance(tier, str) or tier not in TI
-ERS:
+        if not isinstance(tier, str) or tier not in TIERS:
             failures.append(f"INVALID_TIER: row {index} has no recognized tier")
             continue
         covered.add(path)
@@ -102,8 +101,7 @@ def main() -> int:
                 failures.append(f"FLAGSHIP_UNATTESTED: {f.get('name')} missing attestation evidence")
             missing = [t for t in FLAGSHIP_TESTS if t not in f.get("tests_passed", [])]
             if missing:
-                failures.append(f"FLAGSHIP_TESTS_INCOMPLET
-E: {f.get('name')} missing {len(missing)} tests")
+                failures.append(f"FLAGSHIP_TESTS_INCOMPLETE: {f.get('name')} missing {len(missing)} tests")
 
     # Public docker = diligence-visible billing risk class
     public_docker = [s for s in spaces if s.get("sdk") == "docker"]
