@@ -14,10 +14,10 @@ import pathlib
 import re
 import sys
 
-try:
-    from build_ledgers import COMMERCIAL_ROWS
-except ImportError:  # installed wheel: sibling modules live inside the szl_gov package
+if __package__:  # installed wheel: sibling modules live inside the szl_gov package
     from .build_ledgers import COMMERCIAL_ROWS
+else:
+    from build_ledgers import COMMERCIAL_ROWS
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 LEDGERS = ROOT / "ledgers"
@@ -56,8 +56,7 @@ def ledger_rows(text, section):
         if not line.strip() or line.lstrip().startswith("#"):
             continue
         if not line.startswith(" "):
-   
-         match = re.fullmatch(r"([a-z_]+):(.*)", line)
+            match = re.fullmatch(r"([a-z_]+):(.*)", line)
             if not match or started:
                 raise ValueError("invalid ledger header")
             key, raw = match.groups()
@@ -105,8 +104,7 @@ def ledger_rows(text, section):
 def present(value):
     if value is None:
         return False
-    if isins
-tance(value, str):
+    if isinstance(value, str):
         return bool(value.strip()) and value.strip().upper() not in {"UNKNOWN", "NULL", "UNAVAILABLE", "~"}
     return True
 
@@ -153,8 +151,7 @@ def main() -> int:
     status = 0
 
     try:
-        unknown = rows_with_unknown(read_led
-ger(commercial_path))
+        unknown = rows_with_unknown(read_ledger(commercial_path))
         blockers = open_blockers(read_ledger(contradictions_path))
     except (OSError, ValueError) as error:
         print(f"FAIL: required truth ledger unavailable or invalid ({type(error).__name__})")
