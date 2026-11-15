@@ -15,7 +15,10 @@ import pathlib
 import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
-import receipt as R
+try:
+    import receipt as R
+except ImportError:  # installed wheel: sibling modules live inside the szl_gov package
+    from . import receipt as R
 
 PASS, FAIL = 0, 1
 _results = []
@@ -70,7 +73,8 @@ def t_wrong_key_rejected():
     _, pk2 = R.generate_keypair()
     try:
         R.dsse_verify(env, pk2)
-        raise AssertionError("wrong key verified")
+        raise AssertionError("wrong
+ key verified")
     except ValueError:
         pass
 
@@ -118,7 +122,8 @@ def t_service_account_claim_cannot_enter_a_signed_receipt():
     claimed["is_service_account"] = True
     try:
         R.GovernedAction(**claimed)
-        raise AssertionError("predicate claiming is_service_account=True was accepted")
+        raise AssertionError("predicate claiming is_service_account
+=True was accepted")
     except ValueError:
         pass
     env, pk, _ = _signed()
@@ -167,7 +172,8 @@ def t_receipt_file_verifies_offline():
     assert out["predicate"]["completeness"] == "INCOMPLETE"  # honest non-PASS
 
 def t_self_audit_receipt_is_DEGRADED_not_VERIFIED():
-    root = pathlib.Path(__file__).resolve().parent.parent
+    ro
+ot = pathlib.Path(__file__).resolve().parent.parent
     env = json.loads((root / "receipts" / "audit-receipt-2026-08-30.dsse.json").read_text())
     pk = R.load_public((root / "keys" / "szl-audit-ed25519.pub.pem").read_text())
     pred = R.dsse_verify(env, pk)["predicate"]
