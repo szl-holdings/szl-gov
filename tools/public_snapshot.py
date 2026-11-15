@@ -17,10 +17,10 @@ import pathlib
 import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
-try:
-    from audit_data_builder import WITHHELD_FILE, is_public_hf, is_public_repo
-except ImportError:  # installed wheel: sibling modules live inside the szl_gov package
+if __package__:  # installed wheel: sibling modules live inside the szl_gov package
     from .audit_data_builder import WITHHELD_FILE, is_public_hf, is_public_repo
+else:
+    from audit_data_builder import WITHHELD_FILE, is_public_hf, is_public_repo
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 AUDIT = ROOT / "audit_data"
@@ -50,8 +50,7 @@ def filter_snapshot(gh_repos, hf, lic):
 
 
 def main() -> int:
-    
-gh_path = AUDIT / "gh_repos.json"
+    gh_path = AUDIT / "gh_repos.json"
     hf_path = AUDIT / "hf_org_listing.json"
     lic_path = AUDIT / "hf_licenses.json"
     gh = json.loads(gh_path.read_text(encoding="utf-8"))
