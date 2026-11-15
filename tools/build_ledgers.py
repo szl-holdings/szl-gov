@@ -11,14 +11,14 @@ import pathlib
 import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
-try:
-    import yamlite
-except ImportError:  # installed wheel: sibling modules live inside the szl_gov package
+if __package__:  # installed wheel: sibling modules live inside the szl_gov package
     from . import yamlite
-try:
-    from audit_data_builder import build, load_withheld, FLAGSHIP_CAPACITY
-except ImportError:  # installed wheel: sibling modules live inside the szl_gov package
+else:
+    import yamlite
+if __package__:  # installed wheel: sibling modules live inside the szl_gov package
     from .audit_data_builder import build, load_withheld, FLAGSHIP_CAPACITY
+else:
+    from audit_data_builder import build, load_withheld, FLAGSHIP_CAPACITY
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 LEDGERS = ROOT / "ledgers"
@@ -45,8 +45,7 @@ COMMERCIAL_ROWS = [
     ("ip_assignments_complete", "Every contributor signed assignment to the company"),
     ("model_bom", "Bill of materials for all 43 models incl. base weights"),
     ("dataset_license_register", "License + provenance for all 36 datasets"),
-    ("training_data_rights", "Legal basis for eac
-h training corpus"),
+    ("training_data_rights", "Legal basis for each training corpus"),
     ("soc2_status", "Type I readiness date, or UNKNOWN"),
     ("eu_design_partner", "Named EU partner with Annex III exposure"),
     ("demo_video_90s", "Public 90-second deny/sign/tamper/verify recording"),
@@ -91,8 +90,7 @@ def main() -> int:
             "claim": "a11oy public governance Space is live",
             "truth_state": "VERIFIED",
             "evidence": ["https://huggingface.co/spaces/SZLHOLDINGS/a11oy"],
-      
-      "notes": "Public Docker Space observed. Carries slsa-l1, doctrine-v11, dsse tags.",
+            "notes": "Public Docker Space observed. Carries slsa-l1, doctrine-v11, dsse tags.",
         },
         {
             "claim_id": "C-003",
@@ -131,8 +129,7 @@ def main() -> int:
         },
         {
             "claim_id": "C-008",
-            "claim": "a11oy proves what an agent was au
-thorized to do (vs IAM access)",
+            "claim": "a11oy proves what an agent was authorized to do (vs IAM access)",
             "truth_state": "UNKNOWN",
             "evidence": [],
             "notes": "Positioning line, not a shipped integration. No customer audit has consumed a receipt.",
@@ -170,8 +167,7 @@ thorized to do (vs IAM access)",
             "claim": "RC1 hardware boundary is a novel, defensible differentiator",
             "truth_state": "UNKNOWN",
             "evidence": [],
-            "notes": "Spec section 24 correctly refuses a novelty cl
-aim pending claim-charted search by counsel. Prior art identified incl. US10872153B2, US20190110172A1, EMBRAVE. Do not claim primacy until counsel clears.",
+            "notes": "Spec section 24 correctly refuses a novelty claim pending claim-charted search by counsel. Prior art identified incl. US10872153B2, US20190110172A1, EMBRAVE. Do not claim primacy until counsel clears.",
         },
         {
             "claim_id": "C-012",
@@ -198,8 +194,7 @@ aim pending claim-charted search by counsel. Prior art identified incl. US108721
                            "with the 2026-08-30 list. Current model not observed by this audit"),
                           PRICE_LIST_WITHDRAWN),
         "first_wedge": ("Governed agent change management: signal->investigate->policy->approve->patch->deploy->signed receipt",
-                        "SZL_MAS
-TER_PAYLOAD.md#3"),
+                        "SZL_MASTER_PAYLOAD.md#3"),
         "buyer_persona": ("VP Eng/Platform + CISO (dual), regulated AI product teams with EU Annex III exposure",
                           "SZL_MASTER_PAYLOAD.md#3"),
         "demo_video_90s": ("Scripted as 7-step on-page proof; not yet recorded as video",
@@ -233,8 +228,7 @@ TER_PAYLOAD.md#3"),
          "resolution": "Org is on TEAM plan; confirm billing binding and keep 4 public Docker Spaces green"},
         {"id": "B-03", "severity": "MEDIUM",
          "statement": "HF backlink parser needs literal model IDs in Space files; 10/43 models backlinked",
-         "resolution": "Patches staged in patches/ for
- immune, governed-receipt-verifier, README. Apply with a write-scoped HF token or manually in the Hub UI. 30 of 45 Spaces still need models: lines."},
+         "resolution": "Patches staged in patches/ for immune, governed-receipt-verifier, README. Apply with a write-scoped HF token or manually in the Hub UI. 30 of 45 Spaces still need models: lines."},
         {"id": "B-04", "severity": "HIGH",
          "statement": "GM/NRR/CAC/burn multiple uncomputable (pricing hypothesis exists, no contracted revenue)",
          "resolution": "Pricing page + 3 SKUs shipped 2026-08-30 (commercial/index.html). Hypothesis only; validate with first design-partner contract to clear."},
@@ -258,8 +252,7 @@ TER_PAYLOAD.md#3"),
          "resolution": "Rotate all credentials; hardware keys on Daybreak accounts before Sept 1, 2026"},
         {"id": "B-11", "severity": "HIGH",
          "statement": "Redaction before signing could remove exculpatory evidence undetected",
-         "resolution": "Salted h
-ash redaction_commitments in receipt context"},
+         "resolution": "Salted hash redaction_commitments in receipt context"},
         {"id": "B-12", "severity": "HIGH",
          "statement": "Receipt backdating is possible without trusted timestamp",
          "resolution": "rfc3161_token + ntp_synced:true required in receipt context"},
@@ -280,8 +273,7 @@ ash redaction_commitments in receipt context"},
     # BOM + license register (diligence deliverables, C-009/C-010 evidence)
     import build_bom
     build_bom.main()
-    (LEDGERS / "CLAIMS_LEDGER.yaml").write_text(yamlite.dump({"ledger": "CLAIMS_LED
-GER", "claims": claims}))
+    (LEDGERS / "CLAIMS_LEDGER.yaml").write_text(yamlite.dump({"ledger": "CLAIMS_LEDGER", "claims": claims}))
     (LEDGERS / "COMMERCIAL_LEDGER.yaml").write_text(yamlite.dump(commercial))
     (LEDGERS / "CONTRADICTION_REGISTER.yaml").write_text(yamlite.dump({"contradictions": contradictions}))
 
