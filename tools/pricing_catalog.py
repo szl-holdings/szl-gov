@@ -39,15 +39,14 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
-try:
+if __package__:  # installed wheel: sibling modules live inside the szl_gov package
+    from . import yamlite  # sibling module; the path is set above
+else:
     import yamlite  # sibling module; the path is set above
-except ImportError:  # installed wheel: sibling modules live inside the szl_gov package
-    from . import yamlite
 
 CATALOG = ROOT / "pricing" / "catalog.yaml"
 GENERATED = ROOT / "pricing" / "generated"
-OUTPUTS = ("x402-pricing.json", "per-call-table.html", "per-call-table.md", "rule-co
-unt.md")
+OUTPUTS = ("x402-pricing.json", "per-call-table.html", "per-call-table.md", "rule-count.md")
 MARK_BEGIN = "szl:x402-per-call:begin"
 MARK_END = "szl:x402-per-call:end"
 PROBE_USER_AGENT = "szl-pricing-catalog-check/1"
@@ -96,8 +95,7 @@ def _scalar(token: str, where: str):
             out.append(char)
             i += 1
         return "".join(out)
-    if re.fullmatch(r"-?\d+", toke
-n):
+    if re.fullmatch(r"-?\d+", token):
         return int(token)
     if token.startswith(("|", ">", "&", "*", "!", "[", "{", "'")):
         raise CatalogError(f"{where}: unsupported YAML construct {token[:12]!r}")
@@ -152,8 +150,7 @@ def _sequence(rows, i, indent):
         if rows[i][1] == "-":
             i += 1
             if i >= len(rows) or rows[i][0] <= indent:
-                raise CatalogError(f"{where}: empty sequ
-ence item")
+                raise CatalogError(f"{where}: empty sequence item")
             item, i = _block(rows, i, rows[i][0])
             out.append(item)
             continue
@@ -203,7 +200,6 @@ def format_catalog(text: str) -> str:
     header, body = split_header(text)
     rows = [(len(line) - len(line.lstrip(" ")), line.lstrip(" ").rstrip(), number)
             for number, line in enumerate(body.split("\n"), start=1) if line.strip()]
-
     if not rows:
         raise CatalogError("empty document")
     data, end = _block(rows, 0, 0)
@@ -251,7 +247,6 @@ def _tokens(expression: str):
 class Node:
     """One expression node. kind: or | and | not | field | starts_with | cmp | ua-exemption."""
     kind: str
-
     parts: tuple = ()  # operands of or / and / not
     field: str = ""
     op: str = ""
@@ -316,8 +311,7 @@ class _Parser:
             literal = self.take("str")
             self.take("rp")
             if field not in STRING_FIELDS:
-             
-   raise CatalogError(f"unsupported field in starts_with: {field}")
+                raise CatalogError(f"unsupported field in starts_with: {field}")
             return Node("starts_with", field=field, literal=literal)
         if value not in FIELDS:
             raise CatalogError(f"unsupported field or function: {value}")
@@ -372,8 +366,7 @@ def _disjuncts(node: Node) -> list:
 
 
 def _is_ua_contains(node: Node) -> bool:
-    return node.kind == "cmp" and node.op == "contains" and node.field == "http
-.user_agent"
+    return node.kind == "cmp" and node.op == "contains" and node.field == "http.user_agent"
 
 
 def _is_ua_exemption(node: Node) -> bool:
@@ -411,8 +404,7 @@ def describe(expression: str) -> dict:
         elif all(d.kind == "starts_with" and d.field == path for d in disjuncts):
             out["path_prefixes"].extend(d.literal for d in disjuncts)
         elif part.kind == "not" and part.parts[0].kind == "starts_with" and part.parts[0].field == path:
-            out["pat
-h_excludes"].append(part.parts[0].literal)
+            out["path_excludes"].append(part.parts[0].literal)
         elif part.kind == "cmp" and part.field == "http.request.method" and part.op == "ne":
             out["method_excludes"].append(part.literal)
         elif _is_ua_exemption(part) and out["exemption"] is None:
@@ -449,8 +441,7 @@ def redact_expression(expression: str) -> str:
         return f'not (http.user_agent contains "{token}")'
 
     redacted = _UA_CLAUSE.sub(replace, expression)
-    for literal in re.findall(r'http\.user_agent\s+\w+\s+"((?:[^"\\]|\\.)*)"', r
-edacted):
+    for literal in re.findall(r'http\.user_agent\s+\w+\s+"((?:[^"\\]|\\.)*)"', redacted):
         if not REDACTED_UA.fullmatch(literal):
             raise CatalogError("a user-agent condition was not recognised for redaction; refusing to emit it")
     before, after = [], []
@@ -493,8 +484,7 @@ def snapshot_rules(snapshot: dict) -> dict:
     return zones
 
 
-def 
-apply_changes(zones: dict, changes: list) -> dict:
+def apply_changes(zones: dict, changes: list) -> dict:
     """Apply a change log of enable/disable PATCHes in timestamp order."""
     zones = copy.deepcopy(zones)
     for change in sorted(changes, key=lambda c: c["ts"]):
@@ -530,8 +520,7 @@ def validate_catalog(c: dict) -> None:
     for key in ("as_of", "sources", "policy", "payment", "contact", "exemptions", "zones", "charged",
                 "inactive_rules", "not_offered_yet", "free", "limits", "presentation"):
         need(key in c, f"catalog is missing {key}")
-    need(c["payment"].get("atomic_per_usd") == 1_000_000, "atomic_per_usd must be 
-1000000 (USDC, 6 decimals)")
+    need(c["payment"].get("atomic_per_usd") == 1_000_000, "atomic_per_usd must be 1000000 (USDC, 6 decimals)")
     for key in ("manifest_url", "as_of_human", "page_intro"):
         need(isinstance(c["presentation"].get(key), str), f"presentation.{key} must be text")
     for name, exemption in c["exemptions"].items():
@@ -560,8 +549,7 @@ def validate_catalog(c: dict) -> None:
         need(set(entry["methods"]) <= HTTP_METHODS and entry["methods"], f"{entry['id']}: bad methods")
         need(entry["audience"] in AUDIENCES, f"{entry['id']}: bad audience")
         need(entry["scheme"] in SCHEMES, f"{entry['id']}: bad scheme")
-        need(isinstance(entry["amount_atom
-ic"], int) and MIN_ATOMIC <= entry["amount_atomic"] <= MAX_ATOMIC,
+        need(isinstance(entry["amount_atomic"], int) and MIN_ATOMIC <= entry["amount_atomic"] <= MAX_ATOMIC,
              f"{entry['id']}: amount outside the gateway's $0.001-$100 range")
         need(entry["exemption"] in c["exemptions"], f"{entry['id']}: unknown exemption")
     for entry in c["inactive_rules"]:
@@ -600,8 +588,7 @@ def compare(catalog: dict, zones_rules: dict) -> list[str]:
     listed.update({(e["zone"], e["rule_id"]): ("inactive", e) for e in catalog["inactive_rules"]})
     pay_to = catalog["payment"]["pay_to"]
 
-    zones = {z["zone"]: z for z in catalo
-g["zones"]}
+    zones = {z["zone"]: z for z in catalog["zones"]}
     if set(zones) != set(zones_rules):
         errors.append(f"zones differ: catalog {sorted(zones)} vs snapshot {sorted(zones_rules)}")
     for zone, rules in zones_rules.items():
@@ -633,8 +620,7 @@ g["zones"]}
             errors.append(f"{key[1]}: scheme {rule['scheme']} != catalog {entry['scheme']}")
         if rule["address"] != pay_to:
             errors.append(f"{key[1]}: pays {rule['address']} != catalog pay_to {pay_to}")
-   
-     try:
+        try:
             redacted = redact_expression(rule["expression"])
             shape = describe(redacted)
         except CatalogError as exc:
@@ -672,8 +658,7 @@ def _probe(catalog: dict, zones_rules: dict) -> list[str]:
                     errors.append(f"{rule['id']}: {exc}")
 
     def charged_by(url: str, bot: bool):
-        request = _request(
-url, bot)
+        request = _request(url, bot)
         zone = _zone_of(request["host"], zones_rules)
         return [rule for z, rule, tree in enabled if z == zone and evaluate(tree, request)]
 
@@ -706,8 +691,7 @@ url, bot)
             for bot in (True, False):
                 hits = charged_by(url, bot)
                 if hits:
-                    errors.append(f"{url} (bot={bot}) must stay fr
-ee ({group['surface']}), but "
+                    errors.append(f"{url} (bot={bot}) must stay free ({group['surface']}), but "
                                   f"{[h['description'] for h in hits]} charge it")
     return errors
 
@@ -728,6 +712,289 @@ def usd(atomic: int, per_usd: int) -> str:
     return f"{whole}.{digits.ljust(2, '0')}"
 
 
-def catalog_digest(path: Path = CA
+def catalog_digest(path: Path = CATALOG) -> str:
+    # Git checks out this text with platform-native newlines. Hash the canonical
+    # LF representation so generated artifacts agree on Windows and Linux.
+    canonical = path.read_text(encoding="utf-8").replace("\r\n", "\n")
+    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
 
-... [Content truncated]
+
+def _host_label(entry: dict) -> str:
+    return f"any {entry['zone']} host" if entry["host"] == "*" else entry["host"]
+
+
+def _who_pays(entry: dict) -> str:
+    return "everyone" if entry["audience"] == "everyone" else "Cloudflare-verified bots only"
+
+
+def build_manifest(c: dict, digest: str) -> dict:
+    per_usd = c["payment"]["atomic_per_usd"]
+    zones = [{"zone": z["zone"], "rules_defined": z["rules_defined"], "rules_enabled": z["rules_enabled"]}
+             for z in c["zones"]]
+    return {
+        "schema": "szl.x402-pricing/v2",
+        "protocol": "x402",
+        "x402_version": c["payment"]["x402_version"],
+        "as_of": c["as_of"],
+        "source": {
+            "catalog": c["sources"]["catalog_url"],
+            "catalog_sha256": digest,
+            "generator": "szl-gov tools/pricing_catalog.py",
+            "rules_checked_against": c["sources"]["rules_checked_against"],
+        },
+        "authority": c["sources"]["authority"],
+        "payment": {key: c["payment"][key] for key in ("network", "asset", "asset_name", "atomic_per_usd",
+                                                      "pay_to", "max_timeout_seconds")},
+        "seller": {"contact": c["contact"]},
+        "paid_surfaces": [{
+            "id": e["id"],
+            "surface": e["surface"],
+            "zone": e["zone"],
+            "host": e["host"],
+            "host_note": ("the rule has no host condition: every proxied hostname in the zone"
+                          if e["host"] == "*" else "the rule matches this hostname only"),
+            "path_prefixes": e["path_prefixes"],
+            "methods": e["methods"],
+            "methods_basis": c["sources"]["methods_basis"][e["methods_basis"]],
+            "audience": e["audience"],
+            "scheme": e["scheme"],
+            "amount_atomic": str(e["amount_atomic"]),
+            "price_usd": usd(e["amount_atomic"], per_usd),
+            "rule_id": e["rule_id"],
+            "rule_description": e["rule_description"],
+        } for e in c["charged"]],
+        "not_offered_yet": [{
+            "id": e["id"],
+            "surface": e["surface"],
+            "path_prefixes": e["path_prefixes"],
+            "status": e["status"],
+            "note": e["note"],
+        } for e in c["not_offered_yet"]],
+        "free_surfaces": [{"surface": g["surface"], "examples": g["probes"]} for g in c["free"]],
+        "rule_counts": {
+            "as_of": c["as_of"],
+            "zones": zones,
+            "rules_defined": sum(z["rules_defined"] for z in zones),
+            "rules_enabled": sum(z["rules_enabled"] for z in zones),
+        },
+        "limits": c["limits"],
+    }
+
+
+def render_manifest(c: dict, digest: str) -> str:
+    return json.dumps(build_manifest(c, digest), indent=2, ensure_ascii=True) + "\n"
+
+
+def rule_count_sentence(c: dict) -> str:
+    total = sum(z["rules_defined"] for z in c["zones"])
+    enabled = sum(z["rules_enabled"] for z in c["zones"])
+    parts = "; ".join(f"{z['zone']}: {z['rules_enabled']} of {z['rules_defined']}"
+                      for z in c["zones"] if z["rules_defined"])
+    return f"{enabled} of {total} gateway rules enabled ({parts}), per {c['sources']['rules_checked_against']}."
+
+
+def _stamp(digest: str) -> str:
+    return (f"generated by szl-gov tools/pricing_catalog.py from pricing/catalog.yaml "
+            f"sha256={digest}; do not edit by hand")
+
+
+def render_html(c: dict, digest: str) -> str:
+    def e(text: str) -> str:  # text node: quotes need no escaping
+        return html.escape(text, quote=False)
+
+    a = html.escape  # attribute value
+    per_usd = c["payment"]["atomic_per_usd"]
+    rows = []
+    for entry in c["charged"]:
+        prefixes = "<br>".join(f"<code>{e(p)}</code>" for p in entry["path_prefixes"])
+        rows.append(
+            f'        <tr data-entry-id="{a(entry["id"])}" data-rule-id="{a(entry["rule_id"])}" '
+            f'data-amount-atomic="{entry["amount_atomic"]}">\n'
+            f'          <th scope="row">{prefixes} <span class="no">({e(entry["surface"])})</span></th>\n'
+            f'          <td data-label="Host">{e(_host_label(entry))}</td>\n'
+            f'          <td data-label="Who pays">{e(_who_pays(entry))}</td>\n'
+            f'          <td data-label="Price per request">${usd(entry["amount_atomic"], per_usd)} USDC'
+            f' ({entry["amount_atomic"]} atomic, {e(entry["scheme"])})</td>\n'
+            f'          <td data-label="Status" class="yes">Charged</td>\n'
+            "        </tr>")
+    for entry in c["not_offered_yet"]:
+        prefixes = "<br>".join(f"<code>{e(p)}</code>" for p in entry["path_prefixes"])
+        rows.append(
+            f'        <tr data-entry-id="{a(entry["id"])}" data-status="not-offered-yet">\n'
+            f'          <th scope="row">{prefixes} <span class="no">({e(entry["surface"])})</span></th>\n'
+            '          <td data-label="Host">&mdash;</td>\n'
+            '          <td data-label="Who pays">&mdash;</td>\n'
+            '          <td data-label="Price per request">&mdash;</td>\n'
+            '          <td data-label="Status" class="no">Not offered yet</td>\n'
+            "        </tr>")
+    limits = " ".join(e(text) for text in c["limits"])
+    return (
+        f"<!-- {MARK_BEGIN} {_stamp(digest)} -->\n"
+        '  <section class="compare wrap" id="per-call-prices">\n'
+        "    <h2>Per-call API prices (x402)</h2>\n"
+        f'    <p class="sub">{e(c["presentation"]["page_intro"])} Prices as of {e(c["presentation"]["as_of_human"])}. '
+        'Machine-readable copy: '
+        '<a href="/.well-known/x402-pricing.json">/.well-known/x402-pricing.json</a>.</p>\n'
+        '    <div class="tablecard">\n'
+        '      <div class="tablewrap">\n'
+        "      <table>\n"
+        "        <thead>\n"
+        '          <tr><th scope="col">Path prefix</th><th scope="col">Host</th><th scope="col">Who pays</th>'
+        '<th scope="col">Price per request</th><th scope="col">Status</th></tr>\n'
+        "        </thead>\n"
+        "        <tbody>\n" + "\n".join(rows) + "\n"
+        "        </tbody>\n"
+        "      </table>\n"
+        "      </div>\n"
+        "    </div>\n"
+        f'    <div class="note"><b>Owner policy ({e(c["policy"]["decided_on"])}).</b> {e(c["policy"]["statement"])} '
+        f"<b>Limits.</b> {limits}</div>\n"
+        "  </section>\n"
+        f"<!-- {MARK_END} -->\n"
+    )
+
+
+def _md_cell(text: str) -> str:
+    return text.replace("|", "\\|")
+
+
+def render_markdown(c: dict, digest: str) -> str:
+    per_usd = c["payment"]["atomic_per_usd"]
+    lines = [
+        f"<!-- {MARK_BEGIN} {_stamp(digest)} -->",
+        ("Per-call prices the Cloudflare Monetization Gateway charges, from the canonical catalog "
+         f"([szl-gov `pricing/catalog.yaml`]({c['sources']['catalog_url']})), checked against "
+         f"{c['sources']['rules_checked_against']}."),
+        "",
+        "| Path prefix | Host | Who pays | Price per request | Gateway rule |",
+        "|---|---|---|---|---|",
+    ]
+    for entry in c["charged"]:
+        prefixes = ", ".join(f"`{p}`" for p in entry["path_prefixes"])
+        lines.append(f"| {prefixes} ({_md_cell(entry['surface'])}) | {_md_cell(_host_label(entry))} | {_who_pays(entry)} | "
+                     f"${usd(entry['amount_atomic'], per_usd)} USDC ({entry['amount_atomic']} atomic, "
+                     f"{entry['scheme']}) | {_md_cell(entry['rule_description'])} |")
+    lines += ["", "Not offered yet (no enabled gateway rule, no price): " + "; ".join(
+        f"{', '.join(f'`{p}`' for p in e['path_prefixes'])} ({e['surface']})" for e in c["not_offered_yet"]) + ".",
+        "", f"Owner policy ({c['policy']['decided_on']}): {c['policy']['statement']}", "",
+        f"Machine-readable copy: {c['presentation']['manifest_url']}. {rule_count_sentence(c)}", "",
+        "Limits: " + " ".join(c["limits"]),
+        f"<!-- {MARK_END} -->", ""]
+    return "\n".join(lines)
+
+
+def render_rule_count(c: dict, digest: str) -> str:
+    return f"<!-- {_stamp(digest)} -->\n{rule_count_sentence(c)}\n"
+
+
+def render_all(c: dict, digest: str) -> dict:
+    return {
+        "x402-pricing.json": render_manifest(c, digest),
+        "per-call-table.html": render_html(c, digest),
+        "per-call-table.md": render_markdown(c, digest),
+        "rule-count.md": render_rule_count(c, digest),
+    }
+
+
+def replace_marked_region(text: str, fragment: str) -> str:
+    """Swap the generated region (markers included) inside a target document."""
+    start = text.find(f"<!-- {MARK_BEGIN}")
+    end = text.find(f"<!-- {MARK_END} -->")
+    if start < 0 or end < start or text.count(f"<!-- {MARK_BEGIN}") != 1:
+        raise CatalogError("target must contain exactly one generated region")
+    end += len(f"<!-- {MARK_END} -->\n")
+    return text[:start] + fragment + text[end:]
+
+
+# ---------------------------------------------------------------------------
+# CLI.
+# ---------------------------------------------------------------------------
+def _read_json(path: Path):
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def main(argv=None) -> int:
+    parser = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
+    sub = parser.add_subparsers(dest="command", required=True)
+    p_check = sub.add_parser("check", help="compare the catalog with a rules export")
+    p_check.add_argument("--rules", type=Path, required=True)
+    p_check.add_argument("--changes", type=Path)
+    p_check.add_argument("--catalog", type=Path, default=CATALOG)
+    p_gen = sub.add_parser("generate", help="write or verify pricing/generated/*")
+    p_gen.add_argument("--check", action="store_true")
+    p_gen.add_argument("--catalog", type=Path, default=CATALOG)
+    p_gen.add_argument("--out", type=Path, default=GENERATED)
+    p_red = sub.add_parser("redact", help="redact the user-agent exemption list of a raw export")
+    p_red.add_argument("source", type=Path)
+    p_red.add_argument("-o", "--output", type=Path, required=True)
+    p_fmt = sub.add_parser("fmt", help="canonicalize catalog.yaml")
+    p_fmt.add_argument("--check", action="store_true")
+    p_fmt.add_argument("--catalog", type=Path, default=CATALOG)
+    p_sync = sub.add_parser("sync", help="replace the generated region in a target document")
+    p_sync.add_argument("target", type=Path)
+    p_sync.add_argument("--format", choices=("html", "md"), required=True)
+    p_sync.add_argument("--catalog", type=Path, default=CATALOG)
+    args = parser.parse_args(argv)
+
+    try:
+        if args.command == "fmt":
+            text = args.catalog.read_text(encoding="utf-8")
+            canonical = format_catalog(text)
+            if args.check:
+                if canonical != text:
+                    print(f"FAIL: {args.catalog} is not canonical; run: python tools/pricing_catalog.py fmt")
+                    return 1
+                print(f"OK: {args.catalog} is canonical")
+                return 0
+            args.catalog.write_text(canonical, encoding="utf-8")
+            print(f"wrote {args.catalog}")
+            return 0
+        if args.command == "redact":
+            redacted = redact_snapshot(_read_json(args.source))
+            args.output.write_text(json.dumps(redacted, indent=1, ensure_ascii=True) + "\n", encoding="utf-8")
+            print(f"wrote {args.output}")
+            return 0
+        catalog = load_catalog(args.catalog)
+        digest = catalog_digest(args.catalog)
+        if args.command == "check":
+            changes = _read_json(args.changes) if args.changes else None
+            errors = check(catalog, _read_json(args.rules), changes)
+            for error in errors:
+                print(f"DISAGREE: {error}")
+            if errors:
+                print(f"FAIL: {len(errors)} disagreement(s) between {args.catalog.name} and {args.rules.name}")
+                return 1
+            charged = len(catalog["charged"])
+            print(f"OK: catalog agrees with {args.rules.name}"
+                  f"{' + ' + args.changes.name if args.changes else ''}: {charged} charged rule(s), "
+                  f"{len(catalog['inactive_rules'])} inactive, {sum(len(g['probes']) for g in catalog['free'])} "
+                  "free probe URL(s) uncharged")
+            return 0
+        if args.command == "sync":
+            fragment = render_all(catalog, digest)["per-call-table." + args.format]
+            text = args.target.read_text(encoding="utf-8")
+            args.target.write_text(replace_marked_region(text, fragment), encoding="utf-8")
+            print(f"synced {args.target}")
+            return 0
+        outputs = render_all(catalog, digest)
+        stale = []
+        for name, body in outputs.items():
+            path = args.out / name
+            if args.check:
+                if not path.is_file() or path.read_text(encoding="utf-8") != body:
+                    stale.append(name)
+            else:
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text(body, encoding="utf-8")
+        if stale:
+            print(f"FAIL: stale generated output(s): {', '.join(stale)}; run: python tools/pricing_catalog.py generate")
+            return 1
+        print("OK: generated outputs are current" if args.check else f"wrote {len(outputs)} file(s) to {args.out}")
+        return 0
+    except (CatalogError, KeyError, TypeError, json.JSONDecodeError) as exc:
+        print(f"ERROR: {type(exc).__name__}: {exc}")
+        return 2
+
+
+if __name__ == "__main__":
+    sys.exit(main())
