@@ -13,14 +13,14 @@ import pathlib
 import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
-try:
-    import yamlite
-except ImportError:  # installed wheel: sibling modules live inside the szl_gov package
+if __package__:  # installed wheel: sibling modules live inside the szl_gov package
     from . import yamlite
-try:
-    from audit_data_builder import is_public_hf, load_withheld
-except ImportError:  # installed wheel: sibling modules live inside the szl_gov package
+else:
+    import yamlite
+if __package__:  # installed wheel: sibling modules live inside the szl_gov package
     from .audit_data_builder import is_public_hf, load_withheld
+else:
+    from audit_data_builder import is_public_hf, load_withheld
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 AUDIT = ROOT / "audit_data"
@@ -56,8 +56,7 @@ def main() -> int:
             "base_model_license": "apache-2.0" if base and "Qwen" in str(base) else None,
             "third_party_base": third_party,
             "library": m.get("library"),
-    
-        "pipeline_tag": m.get("pipeline_tag"),
+            "pipeline_tag": m.get("pipeline_tag"),
             "sha12": m.get("sha"),
             "downloads": dl_counts.get(rid, 0),
             "provenance_status": "DECLARED" if m.get("license") and base else
@@ -99,8 +98,7 @@ def main() -> int:
         "summary": {
             "total": len(datasets) + datasets_withheld,
             "declared": sum(1 for d in datasets if d["license"]),
-            
-"unknown": sum(1 for d in datasets if not d["license"]) + datasets_withheld,
+            "unknown": sum(1 for d in datasets if not d["license"]) + datasets_withheld,
             "withheld_non_public": datasets_withheld,
         },
         "datasets": datasets,
