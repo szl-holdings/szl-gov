@@ -3,12 +3,16 @@ from __future__ import annotations
 
 import base64
 import json
+import sys
 from datetime import timedelta
 from pathlib import Path
 from urllib.parse import urlsplit
 
-from tools import x402_challenge_receipt as witness
-from tools import x402_public_policy_watch as watch
+# Match the repository's standalone pytest invocation on Linux runners.
+TOOLS = Path(__file__).resolve().parents[1] / "tools"
+sys.path.insert(0, str(TOOLS))
+import x402_challenge_receipt as witness  # noqa: E402
+import x402_public_policy_watch as watch  # noqa: E402
 
 CATALOG = json.loads((Path(__file__).resolve().parents[1] /
     "pricing/generated/x402-pricing.json").read_text(encoding="utf-8"))
