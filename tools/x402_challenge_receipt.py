@@ -122,12 +122,18 @@ def _match_catalog_rule(catalog: dict, target, method: str):
     if not isinstance(rules, list):
         raise InvalidEvidence("CATALOG_INVALID")
     for entry in rules:
-        if not isinstance(entry, dict) or method not in entry.get("methods", []):
+        if not isinstance(entry, dict):
+            raise InvalidEvidence("CATALOG_INVALID")
+        methods = entry.get("methods")
+        if not isinstance(methods, list) or any(not isinstance(m, str) for m in methods):
+            raise InvalidEvidence("CATALOG_INVALID")
+        if method not in methods:
             continue
         host = entry.get("host")
         zone = entry.get("zone")
-        if not isinstance(zone, str) or not zone or not (
-                target.hostname == zone or target.hostname.endswith("." + zone)):
+        if not isinstance(host, str) or not isinstance(zone, str) or not zone:
+            raise InvalidEvidence("CATALOG_INVALID")
+        if not (target.hostname == zone or target.hostname.endswith("." + zone)):
             continue
         if host != "*" and host != target.hostname:
             continue
@@ -158,6 +164,8 @@ def inspect(capture: dict, catalog: dict):
     if observed < source_at or observed - source_at > timedelta(days=7):
         raise InvalidEvidence("CATALOG_STALE_OR_FUTURE")
     rule = _match_catalog_rule(catalog, target, capture["method"])
+    if not isinstance(rule.get("id"), str) or not rule["id"]:
+        raise InvalidEvidence("CATALOG_INVALID")
     if rule.get("audience") != "everyone":
         raise InvalidEvidence("AUDIENCE_NEEDS_PROVIDER_PROOF")
     challenge = _decode_header(capture["payment_required"])
