@@ -59,6 +59,11 @@ The POST tool is opt-in (`--execute`) and issues only two deliberately invalid
 requests. A correct HTTP 402 is **not** an authorized payment, fulfillment,
 settlement or revenue. Neither witness uses a wallet or calls a facilitator.
 
+**Python package publication:** [PyPI trusted-publisher release admission](docs/PYPI_RELEASE_ADMISSION.md)
+provides an OIDC-only, pinned, tag-and-version-bound release gate for
+`szl-gov`. The distribution is **not public on PyPI yet** (HTTP 404 observed
+November 17, 2026); building a wheel or passing CI is not publication.
+
 ```bash
 python3 -m pytest -q tests/test_x402_post_method_watch.py
 python3 tools/x402_post_method_watch.py --execute \
