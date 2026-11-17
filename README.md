@@ -52,6 +52,19 @@ python3 tools/pricing_catalog.py check --rules pricing/snapshots/monetization-ru
 python3 tools/pricing_catalog.py generate --check   # manifest, /pricing table, README snippets
 ```
 
+**Developer / investor payment evidence:** the [public GET route-policy witness](docs/X402_CHALLENGE_READBACK.md)
+and [unsigned POST method witness](docs/X402_POST_METHOD_WITNESS.md) separately
+test Cloudflare challenge delivery; both are Python, bounded and fail-closed.
+The POST tool is opt-in (`--execute`) and issues only two deliberately invalid
+requests. A correct HTTP 402 is **not** an authorized payment, fulfillment,
+settlement or revenue. Neither witness uses a wallet or calls a facilitator.
+
+```bash
+python3 -m pytest -q tests/test_x402_post_method_watch.py
+python3 tools/x402_post_method_watch.py --execute \
+  --output /secure/local/x402-post-method.json
+```
+
 The verifier exits 0 when the signature is valid, 1 when it is not (or the payload is not a
 `GovernedAction/v1` in-toto Statement), and, with `--evidence-root`, 2 when a recorded evidence
 digest does not match its file. It exits 2 on this checkout: the receipt records sha256 digests for
