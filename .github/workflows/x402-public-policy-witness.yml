@@ -1,0 +1,62 @@
+# Bounded source-owned observation of public policy scope, not a payment run.
+# No tokens, no wallets, no payment signatures, no POSTs and no proxy redirects.
+name: x402 public route policy witness
+
+on:
+  schedule:
+    - cron: '23 11 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: szl-x402-public-policy-witness
+  cancel-in-progress: false
+
+jobs:
+  public-observation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Checkout protected main
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+
+      - name: Enforce protected source and SHA
+        shell: bash
+        env:
+          SOURCE_SHA: ${{ github.sha }}
+          SOURCE_REF: ${{ github.ref }}
+          SOURCE_EVENT: ${{ github.event_name }}
+        run: |
+          set -euo pipefail
+          test "$SOURCE_REF" = refs/heads/main
+          test "$SOURCE_EVENT" = schedule -o "$SOURCE_EVENT" = workflow_dispatch
+          test "$(git rev-parse HEAD)" = "$SOURCE_SHA"
+
+      - name: Set up stdlib Python
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.12'
+
+      - name: Read only four public routes and compare with dated price source
+        shell: bash
+        env:
+          GITHUB_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          python -I -B tools/x402_public_policy_watch.py \
+            --catalog pricing/generated/x402-pricing.json \
+            --output "$RUNNER_TEMP/x402-public-policy-witness.json"
+
+      - name: Preserve the sanitized observation even if it refuses
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: x402-public-policy-witness-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/x402-public-policy-witness.json
+          if-no-files-found: error
+          retention-days: 90
