@@ -46,6 +46,16 @@ PUBLISHED_PUB = KEYS / "szl-audit-ed25519.pub.pem"
 KEY_REFUSED = 7
 
 
+def _owner_only_file_mode_supported() -> bool:
+    """Key generation requires an OS that enforces atomic 0600 creation.
+
+    Windows os.open(mode=0o600) does not establish a restrictive NTFS ACL.
+    Refuse new signing identities there until an independently verified
+    owner-only ACL implementation is available. No key material is touched.
+    """
+    return os.name == "posix"
+
+
 def signing_key(new_key: bool = False):
     """Return (sk, pk) for the published audit identity, or None to refuse.
 
@@ -58,6 +68,9 @@ def signing_key(new_key: bool = False):
         if key_path.exists():
             print(f"REFUSED: {key_path} already exists; --new-key never overwrites a key. "
                   "Move it aside first to rotate deliberately.", file=sys.stderr)
+            return None
+        if not _owner_only_file_mode_supported():
+            print("REFUSED: --new-key requires atomic POSIX 0600 creation; Windows ACL control is unverified; no private key written.", file=sys.stderr)
             return None
         sk, pk = R.generate_keypair()
         EXTKEYS.mkdir(exist_ok=True)
