@@ -185,3 +185,15 @@ def test_zone_wildcard_does_not_match_foreign_host():
     row = capture()
     row["url"] = "https://evil.example.invalid/v1/completions"
     assert check(row, rules)["records"][0]["reason"] == "RULE_UNMATCHED"
+
+def test_malformed_catalog_entries_are_fixed_code_refusals():
+    for value in (None, 42, "GET", {"GET": True}):
+        rules = catalog()
+        rules["paid_surfaces"][0]["methods"] = value
+        assert check(capture(), rules)["records"][0]["reason"] == "CATALOG_INVALID"
+    rules = catalog()
+    rules["paid_surfaces"][0].pop("id")
+    assert check(capture(), rules)["records"][0]["reason"] == "CATALOG_INVALID"
+    rules = catalog()
+    rules["paid_surfaces"][0]["host"] = None
+    assert check(capture(), rules)["records"][0]["reason"] == "CATALOG_INVALID"
