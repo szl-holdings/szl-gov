@@ -3,14 +3,15 @@
 CI rebuilds the ledgers before running the gates, so a hand edit to a
 generated file would be invisible there. This catches it.
 """
+import subprocess
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
-import build_bom
-import build_ledgers
-import tier_spaces
+import build_bom  # noqa: E402 - test pins the repository's tools
+import build_ledgers  # noqa: E402
+import tier_spaces  # noqa: E402
 
 GENERATED = (
     "ESTATE_INVENTORY.yaml",
@@ -35,5 +36,10 @@ def test_committed_ledgers_match_a_fresh_build(tmp_path, monkeypatch, capsys):
 
     for name in GENERATED:
         fresh = (out / name).read_bytes()
-        committed = (ROOT / "ledgers" / name).read_bytes()
+        # Git blob bytes, not checkout bytes: Windows autocrlf can rewrite a
+        # working-tree ledger to CRLF without changing the committed source.
+        committed = subprocess.run(
+            ["git", "-C", str(ROOT), "show", f"HEAD:ledgers/{name}"],
+            check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+        ).stdout
         assert fresh == committed, f"ledgers/{name} differs from tools output; regenerate, do not hand-edit"

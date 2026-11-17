@@ -4,6 +4,7 @@ Without the key holder's private key it used to mint a new key pair,
 overwrite keys/szl-audit-ed25519.pub.pem and re-sign the dated receipt; the
 result no longer verified against the key third parties already hold.
 """
+import os
 import sys
 import types
 from pathlib import Path
@@ -12,8 +13,8 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
-import receipt as R
-import szl_master_bootstrap as boot
+import receipt as R  # noqa: E402 - tests explicitly pin the local tools root
+import szl_master_bootstrap as boot  # noqa: E402
 
 
 @pytest.fixture
@@ -73,7 +74,21 @@ def test_new_key_never_overwrites_an_existing_key(layout):
 
 
 def test_new_key_mints_a_private_key_readable_only_by_its_owner(layout):
+    if os.name != "posix":
+        assert boot.signing_key(new_key=True) is None
+        assert not layout.ext.exists()
+        assert layout.published.read_text() == layout.published_text
+        return
     _, pk = boot.signing_key(new_key=True)
     key_file = layout.ext / "szl-audit-ed25519.pem"
     assert key_file.stat().st_mode & 0o777 == 0o600
     assert R.key_id(R.load_private(key_file.read_text()).public_key()) == R.key_id(pk)
+
+
+def test_new_key_refuses_when_owner_only_creation_cannot_be_verified(layout, monkeypatch, capsys):
+    monkeypatch.setattr(boot, "_owner_only_file_mode_supported", lambda: False)
+    assert boot.signing_key(new_key=True) is None
+    assert "no private key written" in capsys.readouterr().err
+    assert not layout.ext.exists()
+    assert list(layout.receipts.iterdir()) == []
+    assert layout.published.read_text() == layout.published_text

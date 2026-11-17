@@ -54,8 +54,8 @@ COMMERCIAL_ROWS = [
 
 
 def main() -> int:
-    gh = json.load(open(AUDIT / "gh_repos.json"))
-    hf = json.load(open(AUDIT / "hf_org_listing.json"))
+    gh = json.loads((AUDIT / "gh_repos.json").read_text(encoding="utf-8"))
+    hf = json.loads((AUDIT / "hf_org_listing.json").read_text(encoding="utf-8"))
     # Listings are public rows only; withheld rows survive as aggregate counts.
     estate = build(gh, hf, load_withheld(AUDIT))
     c = estate["counts"]
@@ -268,14 +268,14 @@ def main() -> int:
     ]
 
     LEDGERS.mkdir(exist_ok=True)
-    (LEDGERS / "ESTATE_INVENTORY.yaml").write_text(yamlite.dump(inventory))
+    (LEDGERS / "ESTATE_INVENTORY.yaml").write_text(yamlite.dump(inventory), encoding="utf-8", newline="\n")
 
     # BOM + license register (diligence deliverables, C-009/C-010 evidence)
     import build_bom
     build_bom.main()
-    (LEDGERS / "CLAIMS_LEDGER.yaml").write_text(yamlite.dump({"ledger": "CLAIMS_LEDGER", "claims": claims}))
-    (LEDGERS / "COMMERCIAL_LEDGER.yaml").write_text(yamlite.dump(commercial))
-    (LEDGERS / "CONTRADICTION_REGISTER.yaml").write_text(yamlite.dump({"contradictions": contradictions}))
+    (LEDGERS / "CLAIMS_LEDGER.yaml").write_text(yamlite.dump({"ledger": "CLAIMS_LEDGER", "claims": claims}), encoding="utf-8", newline="\n")
+    (LEDGERS / "COMMERCIAL_LEDGER.yaml").write_text(yamlite.dump(commercial), encoding="utf-8", newline="\n")
+    (LEDGERS / "CONTRADICTION_REGISTER.yaml").write_text(yamlite.dump({"contradictions": contradictions}), encoding="utf-8", newline="\n")
 
     print(f"ledgers written: {c['github_repos']} repos, {c['hf_spaces']} spaces "
           f"({c['hf_spaces_docker']} docker, {c['hf_spaces_public']} public), "

@@ -42,7 +42,7 @@ ORG_CARD = "README"
 # Hub probes (audit_data/probes/). Keys are the gate's FLAGSHIP_TESTS names.
 def _readme(name):
     p = AUDIT / "readmes" / f"{name}.md"
-    return p.read_text(errors="replace") if p.exists() else ""
+    return p.read_text(encoding="utf-8", errors="replace") if p.exists() else ""
 
 
 def _deployed_revision(probe):
@@ -75,7 +75,7 @@ HUMAN_TESTS = []  # all machine-checked; human-only = billing + final attestatio
 
 
 def main() -> int:
-    hf = json.load(open(AUDIT / "hf_org_listing.json"))
+    hf = json.loads((AUDIT / "hf_org_listing.json").read_text(encoding="utf-8"))
     # Only Spaces the snapshot marks public are tiered and listed; the rest are counted.
     spaces = [s for s in hf["spaces"] if is_public_hf(s)]
     withheld = len(hf["spaces"]) - len(spaces) + load_withheld(AUDIT).get("hf_spaces", 0)
@@ -86,7 +86,7 @@ def main() -> int:
         probe_path = AUDIT / "probes" / f"space_{name}.json"
         probe = {}
         if probe_path.exists():
-            probe = json.load(open(probe_path))
+            probe = json.loads(probe_path.read_text(encoding="utf-8"))
 
         if name == ORG_CARD:
             tier = "ORG_CARD"
@@ -131,7 +131,7 @@ def main() -> int:
         "tiers": tiers,
     }
     dest = ROOT / "ledgers" / "spaces_tiering.json"
-    dest.write_text(json.dumps(out, indent=1))
+    dest.write_text(json.dumps(out, indent=1), encoding="utf-8", newline="\n")
 
     from collections import Counter
     c = Counter(t["tier"] for t in tiers)

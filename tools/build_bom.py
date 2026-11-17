@@ -28,8 +28,8 @@ LEDGERS = ROOT / "ledgers"
 
 
 def main() -> int:
-    lic = json.load(open(AUDIT / "hf_licenses.json"))
-    hf = json.load(open(AUDIT / "hf_org_listing.json"))
+    lic = json.loads((AUDIT / "hf_licenses.json").read_text(encoding="utf-8"))
+    hf = json.loads((AUDIT / "hf_org_listing.json").read_text(encoding="utf-8"))
     withheld = load_withheld(AUDIT)
     dl_counts = {e["path"]: int(e.get("downloads", 0)) for e in hf["models"]}
 
@@ -104,8 +104,8 @@ def main() -> int:
         "datasets": datasets,
     }
 
-    (LEDGERS / "MODEL_BOM.yaml").write_text(yamlite.dump(bom))
-    (LEDGERS / "DATASET_LICENSE_REGISTER.yaml").write_text(yamlite.dump(register))
+    (LEDGERS / "MODEL_BOM.yaml").write_text(yamlite.dump(bom), encoding="utf-8", newline="\n")
+    (LEDGERS / "DATASET_LICENSE_REGISTER.yaml").write_text(yamlite.dump(register), encoding="utf-8", newline="\n")
     print(f"MODEL_BOM: {bom['summary']}")
     print(f"DATASET_LICENSE_REGISTER: {register['summary']}")
     return 0

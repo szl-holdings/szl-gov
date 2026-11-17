@@ -77,7 +77,7 @@ def main() -> int:
         print("clean")
         return 0
     for path, line, phrase, reason in hits:
-        print(f"FAIL: {path}:{line}  '{phrase}'  -> {reason}")
+        print(f"FAIL: {path.as_posix()}:{line}  '{phrase}'  -> {reason}")
     print(f"{len(hits)} banned phrase(s). Every one must be replaced with a claim that carries evidence.")
     return 5
 

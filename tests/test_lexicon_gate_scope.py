@@ -5,7 +5,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
-import lexicon_gate
+import lexicon_gate  # noqa: E402 - test pins the repository's tools
 
 BANNED = "This build is " + "production-ready.\n"  # assembled so this file is not itself a hit
 
