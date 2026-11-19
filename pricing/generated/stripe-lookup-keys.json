@@ -1,0 +1,422 @@
+{
+  "schema": "szl.stripe-lookup-keys/v1",
+  "status": "DRAFT",
+  "approval": "not-approved",
+  "values_approved": false,
+  "write_to_stripe": false,
+  "read_first": "DRAFT lookup keys only. No Stripe price id, product id, secret key or webhook secret. create is false on every row. Do not create these prices until the card is approved. Stripe transform_quantity.divide_by rounds to an integer before pricing, so dividing raw tokens by 1000000 against the per-1M unit amount would bill a short call as a full million tokens. Use per_token_unit_amount_decimal, or debit atomic units in the ledger.",
+  "source": {
+    "price_table": "pricing/price-table.yaml",
+    "price_table_sha256": "7630d3bc89d4ef2cce55505e0fc36b19e7a278e89efe81c2468f844cb504a97d",
+    "generator": "szl-gov tools/price_table.py"
+  },
+  "prices": [
+    {
+      "lookup_key": "draft_szl_inference_lite_input_uncached_per_1m",
+      "create": false,
+      "type": "recurring",
+      "currency": "usd",
+      "product_name": "SZL inference DRAFT",
+      "nickname": "DRAFT Lite uncached input per 1M tokens",
+      "tier": "lite",
+      "component": "input_uncached",
+      "off_peak": false,
+      "offer": "not-published",
+      "provisional": false,
+      "unit": "1000000_tokens",
+      "unit_amount_decimal": "30",
+      "per_token_unit_amount_decimal": "0.00003",
+      "recurring": {
+        "interval": "month",
+        "usage_type": "metered",
+        "interval_count": 1
+      },
+      "metadata": {
+        "status": "DRAFT",
+        "approval": "not-approved",
+        "price_table_schema": "szl.price-table/v1",
+        "price_table_sha256": "7630d3bc89d4ef2cce55505e0fc36b19e7a278e89efe81c2468f844cb504a97d",
+        "do_not_create": "true"
+      }
+    },
+    {
+      "lookup_key": "draft_szl_inference_lite_input_cached_per_1m",
+      "create": false,
+      "type": "recurring",
+      "currency": "usd",
+      "product_name": "SZL inference DRAFT",
+      "nickname": "DRAFT Lite cached input per 1M tokens",
+      "tier": "lite",
+      "component": "input_cached",
+      "off_peak": false,
+      "offer": "not-published",
+      "provisional": false,
+      "unit": "1000000_tokens",
+      "unit_amount_decimal": "3",
+      "per_token_unit_amount_decimal": "0.000003",
+      "recurring": {
+        "interval": "month",
+        "usage_type": "metered",
+        "interval_count": 1
+      },
+      "metadata": {
+        "status": "DRAFT",
+        "approval": "not-approved",
+        "price_table_schema": "szl.price-table/v1",
+        "price_table_sha256": "7630d3bc89d4ef2cce55505e0fc36b19e7a278e89efe81c2468f844cb504a97d",
+        "do_not_create": "true"
+      }
+    },
+    {
+      "lookup_key": "draft_szl_inference_lite_output_per_1m",
+      "create": false,
+      "type": "recurring",
+      "currency": "usd",
+      "product_name": "SZL inference DRAFT",
+      "nickname": "DRAFT Lite output per 1M tokens",
+      "tier": "lite",
+      "component": "output",
+      "off_peak": false,
+      "offer": "not-published",
+      "provisional": false,
+      "unit": "1000000_tokens",
+      "unit_amount_decimal": "300",
+      "per_token_unit_amount_decimal": "0.0003",
+      "recurring": {
+        "interval": "month",
+        "usage_type": "metered",
+        "interval_count": 1
+      },
+      "metadata": {
+        "status": "DRAFT",
+        "approval": "not-approved",
+        "price_table_schema": "szl.price-table/v1",
+        "price_table_sha256": "7630d3bc89d4ef2cce55505e0fc36b19e7a278e89efe81c2468f844cb504a97d",
+        "do_not_create": "true"
+      }
+    },
+    {
+      "lookup_key": "draft_szl_inference_standard_input_uncached_per_1m",
+      "create": false,
+      "type": "recurring",
+      "currency": "usd",
+      "product_name": "SZL inference DRAFT",
+      "nickname": "DRAFT Standard uncached input per 1M tokens",
+      "tier": "standard",
+      "component": "input_uncached",
+      "off_peak": false,
+      "offer": "not-published",
+      "provisional": true,
+      "unit": "1000000_tokens",
+      "unit_amount_decimal": "60",
+      "per_token_unit_amount_decimal": "0.00006",
+      "recurring": {
+        "interval": "month",
+        "usage_type": "metered",
+        "interval_count": 1
+      },
+      "metadata": {
+        "status": "DRAFT",
+        "approval": "not-approved",
+        "price_table_schema": "szl.price-table/v1",
+        "price_table_sha256": "7630d3bc89d4ef2cce55505e0fc36b19e7a278e89efe81c2468f844cb504a97d",
+        "do_not_create": "true"
+      }
+    },
+    {
+      "lookup_key": "draft_szl_inference_standard_input_cached_per_1m",
+      "create": false,
+      "type": "recurring",
+      "currency": "usd",
+      "product_name": "SZL inference DRAFT",
+      "nickname": "DRAFT Standard cached input per 1M tokens",
+      "tier": "standard",
+      "component": "input_cached",
+      "off_peak": false,
+      "offer": "not-published",
+      "provisional": true,
+      "unit": "1000000_tokens",
+      "unit_amount_decimal": "6",
+      "per_token_unit_amount_decimal": "0.000006",
+      "recurring": {
+        "interval": "month",
+        "usage_type": "metered",
+        "interval_count": 1
+      },
+      "metadata": {
+        "status": "DRAFT",
+        "approval": "not-approved",
+        "price_table_schema": "szl.price-table/v1",
+        "price_table_sha256": "7630d3bc89d4ef2cce55505e0fc36b19e7a278e89efe81c2468f844cb504a97d",
+        "do_not_create": "true"
+      }
+    },
+    {
+      "lookup_key": "draft_szl_inference_standard_output_per_1m",
+      "create": false,
+      "type": "recurring",
+      "currency": "usd",
+      "product_name": "SZL inference DRAFT",
+      "nickname": "DRAFT Standard output per 1M tokens",
+      "tier": "standard",
+      "component": "output",
+      "off_peak": false,
+      "offer": "not-published",
+      "provisional": true,
+      "unit": "1000000_tokens",
+      "unit_amount_decimal": "600",
+      "per_token_unit_amount_decimal": "0.0006",
+      "recurring": {
+        "interval": "month",
+        "usage_type": "metered",
+        "interval_count": 1
+      },
+      "metadata": {
+        "status": "DRAFT",
+        "approval": "not-approved",
+        "price_table_schema": "szl.price-table/v1",
+        "price_table_sha256": "7630d3bc89d4ef2cce55505e0fc36b19e7a278e89efe81c2468f844cb504a97d",
+        "do_not_create": "true"
+      }
+    },
+    {
+      "lookup_key": "draft_szl_inference_lite_offpeak_input_uncached_per_1m",
+      "create": false,
+      "type": "recurring",
+      "currency": "usd",
+      "product_name": "SZL inference DRAFT",
+      "nickname": "DRAFT Lite off-peak uncached input per 1M tokens",
+      "tier": "lite",
+      "component": "input_uncached",
+      "off_peak": true,
+      "offer": "not-justified",
+      "provisional": false,
+      "unit": "1000000_tokens",
+      "unit_amount_decimal": "18",
+      "per_token_unit_amount_decimal": "0.000018",
+      "recurring": {
+        "interval": "month",
+        "usage_type": "metered",
+        "interval_count": 1
+      },
+      "metadata": {
+        "status": "DRAFT",
+        "approval": "not-approved",
+        "price_table_schema": "szl.price-table/v1",
+        "price_table_sha256": "7630d3bc89d4ef2cce55505e0fc36b19e7a278e89efe81c2468f844cb504a97d",
+        "do_not_create": "true"
+      }
+    },
+    {
+      "lookup_key": "draft_szl_inference_lite_offpeak_input_cached_per_1m",
+      "create": false,
+      "type": "recurring",
+      "currency": "usd",
+      "product_name": "SZL inference DRAFT",
+      "nickname": "DRAFT Lite off-peak cached input per 1M tokens",
+      "tier": "lite",
+      "component": "input_cached",
+      "off_peak": true,
+      "offer": "not-justified",
+      "provisional": false,
+      "unit": "1000000_tokens",
+      "unit_amount_decimal": "1.8",
+      "per_token_unit_amount_decimal": "0.0000018",
+      "recurring": {
+        "interval": "month",
+        "usage_type": "metered",
+        "interval_count": 1
+      },
+      "metadata": {
+        "status": "DRAFT",
+        "approval": "not-approved",
+        "price_table_schema": "szl.price-table/v1",
+        "price_table_sha256": "7630d3bc89d4ef2cce55505e0fc36b19e7a278e89efe81c2468f844cb504a97d",
+        "do_not_create": "true"
+      }
+    },
+    {
+      "lookup_key": "draft_szl_inference_lite_offpeak_output_per_1m",
+      "create": false,
+      "type": "recurring",
+      "currency": "usd",
+      "product_name": "SZL inference DRAFT",
+      "nickname": "DRAFT Lite off-peak output per 1M tokens",
+      "tier": "lite",
+      "component": "output",
+      "off_peak": true,
+      "offer": "not-justified",
+      "provisional": false,
+      "unit": "1000000_tokens",
+      "unit_amount_decimal": "180",
+      "per_token_unit_amount_decimal": "0.00018",
+      "recurring": {
+        "interval": "month",
+        "usage_type": "metered",
+        "interval_count": 1
+      },
+      "metadata": {
+        "status": "DRAFT",
+        "approval": "not-approved",
+        "price_table_schema": "szl.price-table/v1",
+        "price_table_sha256": "7630d3bc89d4ef2cce55505e0fc36b19e7a278e89efe81c2468f844cb504a97d",
+        "do_not_create": "true"
+      }
+    },
+    {
+      "lookup_key": "draft_szl_inference_standard_offpeak_input_uncached_per_1m",
+      "create": false,
+      "type": "recurring",
+      "currency": "usd",
+      "product_name": "SZL inference DRAFT",
+      "nickname": "DRAFT Standard off-peak uncached input per 1M tokens",
+      "tier": "standard",
+      "component": "input_uncached",
+      "off_peak": true,
+      "offer": "not-justified",
+      "provisional": true,
+      "unit": "1000000_tokens",
+      "unit_amount_decimal": "36",
+      "per_token_unit_amount_decimal": "0.000036",
+      "recurring": {
+        "interval": "month",
+        "usage_type": "metered",
+        "interval_count": 1
+      },
+      "metadata": {
+        "status": "DRAFT",
+        "approval": "not-approved",
+        "price_table_schema": "szl.price-table/v1",
+        "price_table_sha256": "7630d3bc89d4ef2cce55505e0fc36b19e7a278e89efe81c2468f844cb504a97d",
+        "do_not_create": "true"
+      }
+    },
+    {
+      "lookup_key": "draft_szl_inference_standard_offpeak_input_cached_per_1m",
+      "create": false,
+      "type": "recurring",
+      "currency": "usd",
+      "product_name": "SZL inference DRAFT",
+      "nickname": "DRAFT Standard off-peak cached input per 1M tokens",
+      "tier": "standard",
+      "component": "input_cached",
+      "off_peak": true,
+      "offer": "not-justified",
+      "provisional": true,
+      "unit": "1000000_tokens",
+      "unit_amount_decimal": "3.6",
+      "per_token_unit_amount_decimal": "0.0000036",
+      "recurring": {
+        "interval": "month",
+        "usage_type": "metered",
+        "interval_count": 1
+      },
+      "metadata": {
+        "status": "DRAFT",
+        "approval": "not-approved",
+        "price_table_schema": "szl.price-table/v1",
+        "price_table_sha256": "7630d3bc89d4ef2cce55505e0fc36b19e7a278e89efe81c2468f844cb504a97d",
+        "do_not_create": "true"
+      }
+    },
+    {
+      "lookup_key": "draft_szl_inference_standard_offpeak_output_per_1m",
+      "create": false,
+      "type": "recurring",
+      "currency": "usd",
+      "product_name": "SZL inference DRAFT",
+      "nickname": "DRAFT Standard off-peak output per 1M tokens",
+      "tier": "standard",
+      "component": "output",
+      "off_peak": true,
+      "offer": "not-justified",
+      "provisional": true,
+      "unit": "1000000_tokens",
+      "unit_amount_decimal": "360",
+      "per_token_unit_amount_decimal": "0.00036",
+      "recurring": {
+        "interval": "month",
+        "usage_type": "metered",
+        "interval_count": 1
+      },
+      "metadata": {
+        "status": "DRAFT",
+        "approval": "not-approved",
+        "price_table_schema": "szl.price-table/v1",
+        "price_table_sha256": "7630d3bc89d4ef2cce55505e0fc36b19e7a278e89efe81c2468f844cb504a97d",
+        "do_not_create": "true"
+      }
+    },
+    {
+      "lookup_key": "draft_szl_inference_credit_pack_usd_10",
+      "create": false,
+      "type": "one_time",
+      "currency": "usd",
+      "product_name": "SZL inference DRAFT",
+      "nickname": "DRAFT credit pack $10",
+      "pack_id": "usd-10",
+      "amount_atomic": 10000000,
+      "amount_usd": "10.00",
+      "unit_amount": 1000,
+      "metadata": {
+        "status": "DRAFT",
+        "approval": "not-approved",
+        "price_table_schema": "szl.price-table/v1",
+        "price_table_sha256": "7630d3bc89d4ef2cce55505e0fc36b19e7a278e89efe81c2468f844cb504a97d",
+        "do_not_create": "true"
+      }
+    },
+    {
+      "lookup_key": "draft_szl_inference_credit_pack_usd_50",
+      "create": false,
+      "type": "one_time",
+      "currency": "usd",
+      "product_name": "SZL inference DRAFT",
+      "nickname": "DRAFT credit pack $50",
+      "pack_id": "usd-50",
+      "amount_atomic": 50000000,
+      "amount_usd": "50.00",
+      "unit_amount": 5000,
+      "metadata": {
+        "status": "DRAFT",
+        "approval": "not-approved",
+        "price_table_schema": "szl.price-table/v1",
+        "price_table_sha256": "7630d3bc89d4ef2cce55505e0fc36b19e7a278e89efe81c2468f844cb504a97d",
+        "do_not_create": "true"
+      }
+    },
+    {
+      "lookup_key": "draft_szl_inference_credit_pack_usd_200",
+      "create": false,
+      "type": "one_time",
+      "currency": "usd",
+      "product_name": "SZL inference DRAFT",
+      "nickname": "DRAFT credit pack $200",
+      "pack_id": "usd-200",
+      "amount_atomic": 200000000,
+      "amount_usd": "200.00",
+      "unit_amount": 20000,
+      "metadata": {
+        "status": "DRAFT",
+        "approval": "not-approved",
+        "price_table_schema": "szl.price-table/v1",
+        "price_table_sha256": "7630d3bc89d4ef2cce55505e0fc36b19e7a278e89efe81c2468f844cb504a97d",
+        "do_not_create": "true"
+      }
+    }
+  ],
+  "not_stripe_prices": [
+    {
+      "id": "minimum_per_call",
+      "amount_atomic": 2000,
+      "amount_usd": "0.002",
+      "reason": "A card charge at the per-call minimum is not a Stripe price. Packs or a metered invoice carry it."
+    },
+    {
+      "id": "live_floor_exact",
+      "amount_atomic": 20000,
+      "amount_usd": "0.02",
+      "reason": "The live x402 floor is a Cloudflare exact rule, not a Stripe price."
+    }
+  ]
+}

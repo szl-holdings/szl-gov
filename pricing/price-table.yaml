@@ -1,0 +1,114 @@
+# DRAFT per-1M-token price table. Values are not approved.
+# Not published. Not deployed. Not a Cloudflare write. Not a Stripe write.
+# Card (section 2): Lite 0.30 / 0.03 / 3.00 USD per 1M uncached, cached and output
+# tokens. Standard 0.60 / 0.06 / 6.00 USD, provisional, do not offer. Minimum per
+# call 0.002 USD. Credit packs 10, 50 and 200 USD. Off-peak keeps 60 percent
+# (40 percent off) and is not justified. Live floor stays exact 0.02 USD per call.
+# Plan: qori_billing_plan_2026-11-19 sections 2, 3.3 item 7, 4 step 6 and 6C.
+# This file is the source for those numbers, the pay-to address, and the charged
+# amounts in pricing/catalog.yaml. Rule expressions stay in the catalog.
+# tools/price_table.py reads both and fails if the shared values drift.
+# Amounts are atomic USDC (1000000 = 1.00 USD). The header states the card in USD.
+
+schema: szl.price-table/v1
+status: DRAFT
+approval: not-approved
+published: false
+deployed: false
+values_approved: false
+as_of: "2026-11-19"
+card: qori_price_card_draft_2026-11-19
+plan: qori_billing_plan_2026-11-19
+currency: USD
+atomic_per_usd: 1000000
+tokens_per_unit: 1000000
+payment:
+  protocol: x402
+  network: "eip155:8453"
+  asset: "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913"
+  asset_name: USD Coin
+  pay_to: "0x7b133ef996852c223379d6d1245430300970291A"
+gateway_bounds:
+  min_atomic: 1000
+  max_atomic: 100000000
+floor:
+  applied: true
+  write: false
+  disposition: keep-live
+  scheme: exact
+  amount_atomic: 20000
+  catalog_entry_ids:
+    - chat
+    - inference-completions-responses
+  note: Live exact per-call price. Keep it until a named approval switches the route. This generator does not write to Cloudflare.
+minimum_per_call:
+  applied: false
+  amount_atomic: 2000
+  note: "Card minimum per call, 0.002 USD. Not what the gateway charges today."
+upto:
+  applied: false
+  write: false
+  disposition: not-yet-applied
+  scheme: upto
+  cap_policy: dearest-fill-of-context
+  gateway_support: "UNKNOWN"
+  note: Generated for review only. Not applied. Support for this scheme on the production route is UNKNOWN.
+off_peak_policy:
+  applied: false
+  status: not-justified
+  numerator: 60
+  denominator: 100
+  note: "Keeps 60 percent of each peak rate, which is 40 percent off. Not justified and not applied."
+cached_input_ratio:
+  numerator: 1
+  denominator: 10
+  note: Cached input is 10 percent of uncached input.
+reference_call:
+  input_uncached_tokens: 2000
+  input_cached_tokens: 2000
+  output_tokens: 500
+  note: Blended call used in the draft card margin tables. Not a price.
+tiers:
+  - id: lite
+    name: Lite
+    model: ternary-bonsai-2-27b-pq2_0
+    offer: not-published
+    provisional: false
+    context_tokens: 8192
+    input_uncached_atomic_per_million: 300000
+    input_cached_atomic_per_million: 30000
+    output_atomic_per_million: 3000000
+  - id: standard
+    name: Standard
+    model: Qwen/Qwen3.8-27B-FP8
+    offer: not-published
+    provisional: true
+    provisional_reason: Do not offer until a measured trial sets the context length.
+    context_tokens: UNKNOWN
+    input_uncached_atomic_per_million: 600000
+    input_cached_atomic_per_million: 60000
+    output_atomic_per_million: 6000000
+credit_packs:
+  - id: usd-10
+    amount_atomic: 10000000
+  - id: usd-50
+    amount_atomic: 50000000
+  - id: usd-200
+    amount_atomic: 200000000
+catalog_prices:
+  - id: chat
+    amount_atomic: 20000
+    scheme: exact
+    role: floor
+  - id: inference-completions-responses
+    amount_atomic: 20000
+    scheme: exact
+    role: floor
+  - id: a11oy-mesh-frontier
+    amount_atomic: 50000
+    scheme: exact
+    role: other-per-call
+  - id: a11oy-attest-ledger
+    amount_atomic: 25000
+    scheme: exact
+    role: other-per-call
