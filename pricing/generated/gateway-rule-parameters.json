@@ -1,0 +1,391 @@
+{
+  "schema": "szl.gateway-rule-parameters/v1",
+  "status": "DRAFT",
+  "approval": "not-approved",
+  "values_approved": false,
+  "write_to_cloudflare": false,
+  "read_first": "DRAFT. Do not PATCH Cloudflare. The floor block is today's exact per-call price and stays in force. The upto block is generated and not-yet-applied. Gateway support for scheme upto on this route is UNKNOWN.",
+  "source": {
+    "price_table": "pricing/price-table.yaml",
+    "price_table_sha256": "7630d3bc89d4ef2cce55505e0fc36b19e7a278e89efe81c2468f844cb504a97d",
+    "catalog": "pricing/catalog.yaml",
+    "catalog_sha256": "76249533976104d09df741c7581c1421d33296f3b02f649cd966b32fd158da23",
+    "generator": "szl-gov tools/price_table.py",
+    "fields_from_price_table": [
+      "price",
+      "address",
+      "scheme"
+    ],
+    "fields_read_from_catalog": [
+      "rule_id",
+      "rule_description",
+      "zone",
+      "host",
+      "path_prefixes",
+      "methods",
+      "audience",
+      "expression"
+    ]
+  },
+  "payment": {
+    "protocol": "x402",
+    "network": "eip155:8453",
+    "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+    "asset_name": "USD Coin",
+    "atomic_per_usd": 1000000,
+    "pay_to": "0x7b133ef996852c223379d6d1245430300970291A"
+  },
+  "floor": {
+    "disposition": "keep-live",
+    "applied": true,
+    "write": false,
+    "scheme": "exact",
+    "price": "20000",
+    "price_usd": "0.02",
+    "note": "Live exact per-call price. Keep it until a named approval switches the route. This generator does not write to Cloudflare.",
+    "rules": [
+      {
+        "catalog_id": "chat",
+        "role": "floor",
+        "surface": "OpenAI-compatible chat",
+        "rule_id": "41cee0f88822411baf864bb54e8b4727",
+        "rule_description": "Doctrine chat - Nemotron Estate flagship (everyone, x402)",
+        "zone": "a-11-oy.com",
+        "host": "*",
+        "path_prefixes": [
+          "/v1/chat/"
+        ],
+        "methods": [
+          "GET"
+        ],
+        "audience": "everyone",
+        "expression": "(starts_with(http.request.uri.path, \"/v1/chat/\") and not (http.user_agent contains \"szl-redacted:estate-probe-user-agents:n=6:sha256=85403a2e84f12b652090d8179a750184546c0fb49ba1f30b249fa512fb988e5a\"))",
+        "scheme": "exact",
+        "price": "20000",
+        "price_usd": "0.02",
+        "address": "0x7b133ef996852c223379d6d1245430300970291A",
+        "disposition": "keep-live",
+        "write": false
+      },
+      {
+        "catalog_id": "inference-completions-responses",
+        "role": "floor",
+        "surface": "completions and responses on the inference host",
+        "rule_id": "6babfd10032746f7863cda066d95125d",
+        "rule_description": "Completions/Responses - Nemotron Estate flagship (everyone, x402) [2026-11-06 leak fix]",
+        "zone": "a-11-oy.com",
+        "host": "inference.a-11-oy.com",
+        "path_prefixes": [
+          "/v1/completions",
+          "/v1/responses"
+        ],
+        "methods": [
+          "GET"
+        ],
+        "audience": "everyone",
+        "expression": "(http.host eq \"inference.a-11-oy.com\" and (starts_with(http.request.uri.path, \"/v1/completions\") or starts_with(http.request.uri.path, \"/v1/responses\")) and http.request.method ne \"OPTIONS\" and not (http.user_agent contains \"szl-redacted:estate-probe-user-agents:n=6:sha256=85403a2e84f12b652090d8179a750184546c0fb49ba1f30b249fa512fb988e5a\"))",
+        "scheme": "exact",
+        "price": "20000",
+        "price_usd": "0.02",
+        "address": "0x7b133ef996852c223379d6d1245430300970291A",
+        "disposition": "keep-live",
+        "write": false
+      }
+    ]
+  },
+  "other_exact_rules": {
+    "disposition": "keep-live",
+    "applied": true,
+    "write": false,
+    "note": "Charged per-call prices that are not the inference floor. Amounts and pay-to come from the price table. Rule shape is read from the catalog.",
+    "rules": [
+      {
+        "catalog_id": "a11oy-mesh-frontier",
+        "role": "other-per-call",
+        "surface": "a11oy mesh and frontier APIs",
+        "rule_id": "94dc6d8169a84173bf0005bea66e50eb",
+        "rule_description": "Premium API mesh/frontier (bots)",
+        "zone": "a-11-oy.com",
+        "host": "*",
+        "path_prefixes": [
+          "/api/a11oy/v1/mesh/",
+          "/api/a11oy/v1/frontier/"
+        ],
+        "methods": [
+          "GET"
+        ],
+        "audience": "verified_bots",
+        "expression": "((starts_with(http.request.uri.path, \"/api/a11oy/v1/mesh/\") or starts_with(http.request.uri.path, \"/api/a11oy/v1/frontier/\")) and cf.client.bot and not (http.user_agent contains \"szl-redacted:estate-probe-user-agents:n=6:sha256=85403a2e84f12b652090d8179a750184546c0fb49ba1f30b249fa512fb988e5a\"))",
+        "scheme": "exact",
+        "price": "50000",
+        "price_usd": "0.05",
+        "address": "0x7b133ef996852c223379d6d1245430300970291A",
+        "disposition": "keep-live",
+        "write": false
+      },
+      {
+        "catalog_id": "a11oy-attest-ledger",
+        "role": "other-per-call",
+        "surface": "a11oy attest and ledger APIs",
+        "rule_id": "b8026fdb4f0d42c6ba734ddd77e75644",
+        "rule_description": "Premium attest/ledger APIs (bots)",
+        "zone": "a-11-oy.com",
+        "host": "*",
+        "path_prefixes": [
+          "/api/a11oy/v1/attest/",
+          "/api/a11oy/v1/ledger"
+        ],
+        "methods": [
+          "GET"
+        ],
+        "audience": "verified_bots",
+        "expression": "((starts_with(http.request.uri.path, \"/api/a11oy/v1/attest/\") or starts_with(http.request.uri.path, \"/api/a11oy/v1/ledger\")) and cf.client.bot and not (http.user_agent contains \"szl-redacted:estate-probe-user-agents:n=6:sha256=85403a2e84f12b652090d8179a750184546c0fb49ba1f30b249fa512fb988e5a\"))",
+        "scheme": "exact",
+        "price": "25000",
+        "price_usd": "0.025",
+        "address": "0x7b133ef996852c223379d6d1245430300970291A",
+        "disposition": "keep-live",
+        "write": false
+      }
+    ]
+  },
+  "upto": {
+    "disposition": "not-yet-applied",
+    "applied": false,
+    "write": false,
+    "scheme": "upto",
+    "gateway_support": "UNKNOWN",
+    "replaces_floor_rules": false,
+    "floor_catalog_ids": [
+      "chat",
+      "inference-completions-responses"
+    ],
+    "minimum_atomic": 2000,
+    "minimum_usd": "0.002",
+    "settlement": {
+      "report_via": "PAYMENT-SETTLEMENT",
+      "gateway_constraint": "0 <= actual_atomic <= authorized price",
+      "card_constraint": "actual_atomic >= per-call minimum and actual_atomic <= authorized price",
+      "note": "The gateway documents a settled actual between 0 and the authorized price inclusive. The card also applies a per-call minimum, which the origin would have to enforce. Scheme support on this route is UNKNOWN. Not applied."
+    },
+    "tiers": [
+      {
+        "id": "lite",
+        "name": "Lite",
+        "model": "ternary-bonsai-2-27b-pq2_0",
+        "offer": "not-published",
+        "provisional": false,
+        "scheme": "upto",
+        "applied": false,
+        "disposition": "not-yet-applied",
+        "write": false,
+        "minimum_atomic": 2000,
+        "minimum_usd": "0.002",
+        "rates": {
+          "atomic_per_million": {
+            "input_uncached": 300000,
+            "input_cached": 30000,
+            "output": 3000000
+          },
+          "usd_per_million": {
+            "input_uncached": "0.30",
+            "input_cached": "0.03",
+            "output": "3.00"
+          }
+        },
+        "authorization": {
+          "cap_policy": "dearest-fill-of-context",
+          "context_tokens": 8192,
+          "output_rate_atomic_per_million": 3000000,
+          "live_floor_atomic": 20000,
+          "applied": false,
+          "price": "24576",
+          "price_atomic": 24576,
+          "price_usd": "0.024576",
+          "generated": true,
+          "reason": "every context token billed at the output rate, the dearest fill of the window"
+        },
+        "off_peak": {
+          "status": "not-justified",
+          "applied": false,
+          "rates": {
+            "atomic_per_million": {
+              "input_uncached": 180000,
+              "input_cached": 18000,
+              "output": 1800000
+            },
+            "usd_per_million": {
+              "input_uncached": "0.18",
+              "input_cached": "0.018",
+              "output": "1.80"
+            }
+          },
+          "authorization": {
+            "cap_policy": "dearest-fill-of-context",
+            "context_tokens": 8192,
+            "output_rate_atomic_per_million": 1800000,
+            "live_floor_atomic": 20000,
+            "applied": false,
+            "price": "14746",
+            "price_atomic": 14746,
+            "price_usd": "0.014746",
+            "generated": true,
+            "reason": "every context token billed at the output rate, the dearest fill of the window. This cap is below the live exact floor, so it cannot replace that floor"
+          }
+        }
+      },
+      {
+        "id": "standard",
+        "name": "Standard",
+        "model": "Qwen/Qwen3.8-27B-FP8",
+        "offer": "not-published",
+        "provisional": true,
+        "scheme": "upto",
+        "applied": false,
+        "disposition": "not-yet-applied",
+        "write": false,
+        "minimum_atomic": 2000,
+        "minimum_usd": "0.002",
+        "rates": {
+          "atomic_per_million": {
+            "input_uncached": 600000,
+            "input_cached": 60000,
+            "output": 6000000
+          },
+          "usd_per_million": {
+            "input_uncached": "0.60",
+            "input_cached": "0.06",
+            "output": "6.00"
+          }
+        },
+        "authorization": {
+          "cap_policy": "dearest-fill-of-context",
+          "context_tokens": null,
+          "output_rate_atomic_per_million": 6000000,
+          "live_floor_atomic": 20000,
+          "applied": false,
+          "price": null,
+          "price_atomic": null,
+          "price_usd": null,
+          "generated": false,
+          "reason": "context_tokens is UNKNOWN, so no authorization cap is generated"
+        },
+        "off_peak": {
+          "status": "not-justified",
+          "applied": false,
+          "rates": {
+            "atomic_per_million": {
+              "input_uncached": 360000,
+              "input_cached": 36000,
+              "output": 3600000
+            },
+            "usd_per_million": {
+              "input_uncached": "0.36",
+              "input_cached": "0.036",
+              "output": "3.60"
+            }
+          },
+          "authorization": {
+            "cap_policy": "dearest-fill-of-context",
+            "context_tokens": null,
+            "output_rate_atomic_per_million": 3600000,
+            "live_floor_atomic": 20000,
+            "applied": false,
+            "price": null,
+            "price_atomic": null,
+            "price_usd": null,
+            "generated": false,
+            "reason": "context_tokens is UNKNOWN, so no authorization cap is generated"
+          }
+        },
+        "provisional_reason": "Do not offer until a measured trial sets the context length."
+      }
+    ]
+  },
+  "examples": [
+    {
+      "name": "reference-call",
+      "label": "DERIVED",
+      "off_peak": false,
+      "applied": false,
+      "input_uncached_tokens": 2000,
+      "input_cached_tokens": 2000,
+      "output_tokens": 500,
+      "live_floor_exact_atomic": 20000,
+      "live_floor_applied": true,
+      "upto_applied": false,
+      "tiers": [
+        {
+          "tier": "lite",
+          "metered_atomic": 2160,
+          "metered_usd": "0.00216",
+          "card_settlement_atomic": 2160,
+          "card_settlement_usd": "0.00216"
+        },
+        {
+          "tier": "standard",
+          "metered_atomic": 4320,
+          "metered_usd": "0.00432",
+          "card_settlement_atomic": 4320,
+          "card_settlement_usd": "0.00432"
+        }
+      ]
+    },
+    {
+      "name": "one-output-token",
+      "label": "DERIVED",
+      "off_peak": false,
+      "applied": false,
+      "input_uncached_tokens": 0,
+      "input_cached_tokens": 0,
+      "output_tokens": 1,
+      "live_floor_exact_atomic": 20000,
+      "live_floor_applied": true,
+      "upto_applied": false,
+      "tiers": [
+        {
+          "tier": "lite",
+          "metered_atomic": 3,
+          "metered_usd": "0.000003",
+          "card_settlement_atomic": 2000,
+          "card_settlement_usd": "0.002"
+        },
+        {
+          "tier": "standard",
+          "metered_atomic": 6,
+          "metered_usd": "0.000006",
+          "card_settlement_atomic": 2000,
+          "card_settlement_usd": "0.002"
+        }
+      ]
+    },
+    {
+      "name": "reference-call-off-peak",
+      "label": "DERIVED",
+      "off_peak": true,
+      "applied": false,
+      "input_uncached_tokens": 2000,
+      "input_cached_tokens": 2000,
+      "output_tokens": 500,
+      "live_floor_exact_atomic": 20000,
+      "live_floor_applied": true,
+      "upto_applied": false,
+      "tiers": [
+        {
+          "tier": "lite",
+          "metered_atomic": 1296,
+          "metered_usd": "0.001296",
+          "card_settlement_atomic": 2000,
+          "card_settlement_usd": "0.002"
+        },
+        {
+          "tier": "standard",
+          "metered_atomic": 2592,
+          "metered_usd": "0.002592",
+          "card_settlement_atomic": 2592,
+          "card_settlement_usd": "0.002592"
+        }
+      ]
+    }
+  ]
+}

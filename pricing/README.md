@@ -1,10 +1,14 @@
 # Per-call price catalog
 
-[`catalog.yaml`](catalog.yaml) is the canonical list of per-call (x402) prices for
-the SZL estate: every path the Cloudflare Monetization Gateway charges, with its
-host, path prefixes, HTTP methods, audience, scheme, atomic USDC price and the
-gateway rule's own description. It is the only hand-edited per-call price list.
-Everything else is generated from it by [`tools/pricing_catalog.py`](../tools/pricing_catalog.py):
+[`catalog.yaml`](catalog.yaml) is the per-call (x402) rule list for the SZL
+estate: every path the Cloudflare Monetization Gateway charges, with its host,
+path prefixes, HTTP methods, audience, scheme, atomic USDC price and the
+gateway rule's own description. Those atomic prices and the pay-to address are
+checked against [`price-table.yaml`](price-table.yaml), which is the source for
+them. Rule expressions stay in the catalog.
+
+The per-call pages are generated from the catalog by
+[`tools/pricing_catalog.py`](../tools/pricing_catalog.py):
 
 | Output (`pricing/generated/`) | Where it is published |
 |---|---|
@@ -38,6 +42,32 @@ Machine-readable copy: https://a-11-oy.com/.well-known/x402-pricing.json. 4 of 1
 Limits: Methods: the completions/responses rule explicitly excludes OPTIONS for browser preflight. Other rules export no HTTP method selection, and whether POST requests to these paths are charged is unverified. Origins: paying clears the gateway only; whether each origin then serves a paid caller without its own credential has not been verified. Eligibility: Cloudflare's Monetization Gateway requires buyers and sellers to be based in the United States. Revenue: this catalog records prices, not settlements; it says nothing about whether any payment has settled.
 <!-- szl:x402-per-call:end -->
 
+## Draft per-1M-token card
+
+[`price-table.yaml`](price-table.yaml) is a **DRAFT**. The numbers are not
+approved, nothing in it is deployed, and [`tools/price_table.py`](../tools/price_table.py)
+does not call Cloudflare or Stripe. Charging these rates still needs Stephen's
+named yes.
+
+The table is the source for the inference card and for the charged amounts and
+pay-to address in the catalog. `check` fails if those shared values drift.
+
+| What | Value | State |
+|---|---|---|
+| Lite, per 1M uncached / cached / output | $0.30 / $0.03 / $3.00 | draft, not published |
+| Standard (Qwen3.8-27B FP8) | $0.60 / $0.06 / $6.00 | provisional, do not offer |
+| Minimum per call | $0.002 | not charged today |
+| Live floor | $0.02 exact per call | keep; this is what the gateway charges now |
+| Credit packs | $10, $50, $200 | draft lookup keys only |
+| Off-peak | 40% off each rate | not justified, not applied |
+| Scheme `upto` | derived rule parameters | not-yet-applied; support on this route is UNKNOWN |
+
+`generate` writes `pricing/generated/gateway-rule-parameters.json` and
+`pricing/generated/stripe-lookup-keys.json`. The gateway file keeps the exact
+$0.02 floor and marks `upto` not-yet-applied. The Stripe file is lookup keys
+only: no price id and no secret. Amounts in the table are atomic USDC
+(1000000 = $1.00).
+
 ## Commands
 
 ```bash
@@ -56,6 +86,11 @@ python3 tools/pricing_catalog.py redact raw-export.json -o pricing/snapshots/<na
 
 # Canonical formatting of catalog.yaml (or --check)
 python3 tools/pricing_catalog.py fmt
+
+# Draft per-1M card: schema, catalog drift, derived parameters (no network)
+python3 tools/price_table.py validate
+python3 tools/price_table.py check
+python3 tools/price_table.py generate --check
 ```
 
 `tests/test_pricing_catalog.py` runs the check against the committed export,
@@ -72,7 +107,10 @@ prove each kind of drift is reported.
    `snapshots/monetization-changes-2026-11-06.json`.
 2. Redact the export with `redact`, commit it under `snapshots/`, and run
    `check` against it. Every disagreement is a line to fix in `catalog.yaml`.
-3. Edit `catalog.yaml` until `check` passes, then run `generate`.
+3. Edit `catalog.yaml` until `check` passes, then run `generate`. If the edit
+   changes a charged amount or the pay-to address, set the same number in
+   `price-table.yaml` and run `python3 tools/price_table.py check`. That check
+   does not publish the draft card.
 4. Publish the outputs: copy `generated/x402-pricing.json` to
    `a11oy/.well-known/x402-pricing.json`, `sync` the table into
    `a11oy/pages/pricing.html`, and update the README snippets that embed
