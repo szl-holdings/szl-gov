@@ -182,8 +182,13 @@ def inspect(capture: dict, catalog: dict):
     if not isinstance(payment, dict):
         raise InvalidEvidence("CATALOG_INVALID")
     timeout = offer.get("maxTimeoutSeconds")
+    expected_timeout = payment.get("max_timeout_seconds")
+    if type(expected_timeout) is not int or not 1 <= expected_timeout <= 86400:
+        raise InvalidEvidence("CATALOG_INVALID")
     if type(timeout) is not int or not 1 <= timeout <= 86400:
         raise InvalidEvidence("TIMEOUT_INVALID")
+    if timeout != expected_timeout:
+        raise InvalidEvidence("TIMEOUT_DRIFT")
     if not isinstance(offer.get("extra"), dict):
         raise InvalidEvidence("EXTRA_INVALID")
     if (offer.get("scheme") != rule.get("scheme") or
